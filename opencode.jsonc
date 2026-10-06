@@ -1,0 +1,60 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ---------------------------------------------------------------------------
+  // Ciberpensum · configuracion de OpenCode v2 (verificado contra v2.0.16)
+  //
+  // SINTAXIS: esta es la forma V2. La V1 usaba `permission` (objeto), accion
+  // `bash`, clave `agent` y `maxSteps`. Esos NO se usan aqui. En V2:
+  //   permisos  -> `permissions` (array ordenado de reglas)
+  //   accion    -> `shell` (no `bash`), `subagent` (no `task`)
+  //   agentes   -> `agents` (plural)
+  //   pasos     -> `steps` (no `maxSteps`)
+  //
+  // ORDEN: gana la ULTIMA regla que coincide. Por eso la regla amplia va
+  // primero y las excepciones al final. Moverlas cambia el comportamiento.
+  //
+  // AVISO已知: el schema publicado en opencode.ai/config.json sigue siendo V1
+  // y declara `additionalProperties: false`, asi que un editor pode subrayar
+  // `permissions` y `agents` en rojo. Es FALSO POSITIVO: OpenCode no valida
+  // contra ese schema y acepta ambas claves (comprobado con `opencode run
+  // --agent`). Si el rojo molesta, borra la linea `$schema`.
+  // ---------------------------------------------------------------------------
+
+  // Permite que un subagente lance a otro subagente (nesting de nivel 2).
+  // El valor por defecto es 1, que lo prohibe.
+  "subagent_depth": 2,
+
+  "permissions": [
+    // --- base: por defecto pedir confirmacion antes de ejecutar shell -------
+    { "action": "shell", "resource": "*", "effect": "ask" },
+
+    // --- secretos ----------------------------------------------------------
+    { "action": "read", "resource": "*.env", "effect": "ask" },
+    { "action": "read", "resource": "*.env.*", "effect": "ask" },
+
+    // --- inspeccion de git: solo lectura, sin red --------------------------
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+
+    // --- gate: los comandos que SI pueden correr solos ---------------------
+    { "action": "shell", "resource": "npm test *", "effect": "allow" },
+    { "action": "shell", "resource": "npm run *", "effect": "allow" },
+    { "action": "shell", "resource": "npx vitest *", "effect": "allow" },
+    { "action": "shell", "resource": "npx tsc *", "effect": "allow" },
+    { "action": "shell", "resource": "node tools-cli/*", "effect": "allow" },
+
+    // --- excepciones al final (ganan sobre lo anterior) --------------------
+    { "action": "shell", "resource": "git commit *", "effect": "ask" },
+    { "action": "shell", "resource": "git push *", "effect": "deny" },
+    { "action": "shell", "resource": "gh repo delete*", "effect": "deny" },
+
+    // --- los datos de pensum son la unica fuente de verdad -----------------
+    // data/raw/ es solo lectura: los PDF oficiales son la evidencia.
+    { "action": "edit", "resource": "data/raw/*", "effect": "deny" },
+    // El build es derivado: se regenera, no se edita a mano.
+    { "action": "edit", "resource": "dist/*", "effect": "deny" }
+  ]
+}

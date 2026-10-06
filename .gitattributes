@@ -1,0 +1,10 @@
+# Fin de linea unico en el repositorio: LF en el tree, en Windows y en Linux.
+# Sin esto, core.autocrlf de Windows mete CRLF y el build en Linux ve otro archivo.
+* text=auto eol=lf
+
+# Binarios: los PDF de data/raw/ son evidencia, byte a byte. Un CRLF de mas
+# cambia el sha256 y rompe la trazabilidad del gate.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.woff2 binary

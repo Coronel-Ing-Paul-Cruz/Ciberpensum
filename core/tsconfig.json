@@ -1,0 +1,8 @@
+{
+  // core/ se compila SIN DOM. Regla dura 3 de AGENTS.md, aplicada por el
+  // compilador y no solo por el grep de tools-cli/verify.mjs: si un modulo de
+  // core/ toca window, document, localStorage, fetch o crypto.subtle, aqui no
+  // compila. Lo que necesite esas APIs va en tools/<herramienta>/.
+  "extends": "../tsconfig.base.json",
+  "include": ["**/*.ts"]
+}

@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessibility/SKILL.md",
+      "computedHash": "88c64dead9bb55925c7b983f5fd95cfecf30bd8c076fd384cdb17019d1becd87"
+    },
+    "best-practices": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/best-practices/SKILL.md",
+      "computedHash": "fc34a8d4aea22d0158e0560457c82432e9d2d0ac74cf3e9aaccb599905f3f711"
+    },
+    "codebase-design": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/codebase-design/SKILL.md",
+      "computedHash": "fb1d8ab98ad151551eeade003e3ae55a46578a380fd9fc3ed4dbf9c2fbce0a9f"
+    },
+    "contract-first": {
+      "source": "affaan-m/ecc",
+      "sourceType": "github",
+      "skillPath": "skills/contract-first/SKILL.md",
+      "computedHash": "623f9f532257b79f6500915b54abc332b2fd19f5ae3a0da843ce39006acb6602"
+    },
+    "core-web-vitals": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/core-web-vitals/SKILL.md",
+      "computedHash": "ceaa3e9c9dfa6209ffe923714c0a093b950d0922213d0cf375c27f3d602cc857"
+    },
+    "dispatching-parallel-agents": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
+      "computedHash": "b011107f17188e0b2898bb1856b5bac8b49537cc86e737c82126558a235bd62a"
+    },
+    "domain-modeling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/domain-modeling/SKILL.md",
+      "computedHash": "f377a1341e1b368833cfe5889ace3e61d7df48d7a9e5da9253dba75d062bbfbc"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+    },
+    "pdf-extraction": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "skillPath": "pdf-extraction/SKILL.md",
+      "computedHash": "44ec33ec9d178e3c04c3dd210a98cb6ad0c3a45f9383019071bc9556cfc323e6"
+    },
+    "performance": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/performance/SKILL.md",
+      "computedHash": "25074989a0bbf636fd92e9079270b262a1c63422ed72a854494a8241dea0fcc5"
+    },
+    "playwright-best-practices": {
+      "source": "currents-dev/playwright-best-practices-skill",
+      "sourceType": "github",
+      "skillPath": "playwright-best-practices/SKILL.md",
+      "computedHash": "88623575c97314e115f0e361a7d942e31d3b7a4e8925832257e1ad33f52096e4"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "aa081d7ee9f44d1b09ac521051630adac2fca0e595e3d0d0ec881d0b2644676f"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "7e3c9cd74e9e2b4828527a857170e86310f2dab5ea8030a9043df2c7e6c88857"
+    },
+    "subagent-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/subagent-driven-development/SKILL.md",
+      "computedHash": "aacfc60b54e36c583bcc0746ba0d92cb8eb648728e4882e1d67b913ba7218536"
+    },
+    "table-extractor": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "skillPath": "table-extractor/SKILL.md",
+      "computedHash": "2dfad5d5e0d25dd7a53eea125e73447caa18b2784d00f4b23a3f0918581c0751"
+    },
+    "test-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/test-driven-development/SKILL.md",
+      "computedHash": "3cfe4ebb6fa7288f668d87880d279c8e48f7a92b63415e296857060f5ce22e05"
+    },
+    "typescript-strict-mode": {
+      "source": "op0ai/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/typescript-strict-mode/SKILL.md",
+      "computedHash": "de0587bce81b289fcd72d4ae5acef6f64f5507c86687f3b094c2f6c3611f84dc"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "computedHash": "b529822bdac4b197b180fe12225cff86b930b65910435103c10622df7f041651"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "d8e7d3afe37dcc8a97b99ffb5afdb4d0919ae0092ea8b68f44eb201f035e33ac"
+    },
+    "web-quality-audit": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-quality-audit/SKILL.md",
+      "computedHash": "10c0b018ce77d2c6dd17aecf1ab58a64abb2beee945354d83c4ba8883527120a"
+    }
+  }
+}

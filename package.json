@@ -1,0 +1,23 @@
+{
+  "name": "ciberpensum",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Planificador académico estático para universidades dominicanas. Sin cuentas, sin backend.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "verify": "node tools-cli/verify.mjs",
+    "verify:data": "node tools-cli/verify-data.mjs",
+    "typecheck": "tsc -p core/tsconfig.json && tsc -p tsconfig.json",
+    "typecheck:core": "tsc -p core/tsconfig.json",
+    "build": "node tools-cli/build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}

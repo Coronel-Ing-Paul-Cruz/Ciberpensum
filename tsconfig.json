@@ -1,0 +1,9 @@
+{
+  // tools/, ui/, site/, pwa/ y tools-cli/ sí tienen DOM (y lo usan).
+  // core/ NO entra aquí: se compila aparte con core/tsconfig.json, sin DOM.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "include": ["tools", "ui", "site", "pwa", "tools-cli"]
+}
