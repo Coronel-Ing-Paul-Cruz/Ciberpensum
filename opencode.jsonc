@@ -4,57 +4,100 @@
   // ---------------------------------------------------------------------------
   // Ciberpensum · configuracion de OpenCode v2 (verificado contra v2.0.16)
   //
-  // SINTAXIS: esta es la forma V2. La V1 usaba `permission` (objeto), accion
-  // `bash`, clave `agent` y `maxSteps`. Esos NO se usan aqui. En V2:
+  // SINTAXIS: forma V2. La V1 usaba `permission` (objeto), accion `bash`, clave
+  // `agent` y `maxSteps`. Esos NO se usan aqui. En V2:
   //   permisos  -> `permissions` (array ordenado de reglas)
   //   accion    -> `shell` (no `bash`), `subagent` (no `task`)
   //   agentes   -> `agents` (plural)
   //   pasos     -> `steps` (no `maxSteps`)
   //
-  // ORDEN: gana la ULTIMA regla que coincide. Por eso la regla amplia va
+  // ORDEN: gana la ULTIMA regla que coincide. Por eso la politica amplia va
   // primero y las excepciones al final. Moverlas cambia el comportamiento.
   //
-  // AVISO已知: el schema publicado en opencode.ai/config.json sigue siendo V1
-  // y declara `additionalProperties: false`, asi que un editor pode subrayar
+  // FILOSOFIA (decidida 2026-10-05): lista de NEGATIVAS, no de preguntas.
+  // Antes cada comando shell pedia confirmacion y el proyecto avanza a ritmo de
+  // "once/always": en una tarde se acumulaban 30-50 cortes, y el dato publicado
+  // es que el usuario aprueba el 93% de los prompts (informe citado en
+  // Kilo-Org/kilocode#9138), o sea que la mayoria son ruido. Ahora manda la
+  // regla `allow` y la seguridad vive en la lista de `deny` de mas abajo, que
+  // son las unicas operaciones que de verdad no se pueden deshacer.
+  //
+  // Ademas de seguridad: `opencode --auto` (o paleta de comandos > Enable
+  // auto-approve permissions) auto-aprueba lo que no este explicitamente
+  // denegado, y los `deny` siguen mandando. Es la red que cubre lo que aqui no
+  // prever, pero el denegado Jamas se salta.
+  //
+  // AVISO conocido: el schema publicado en opencode.ai/config.json sigue siendo
+  // V1 y declara `additionalProperties: false`, asi que un editor puede subrayar
   // `permissions` y `agents` en rojo. Es FALSO POSITIVO: OpenCode no valida
-  // contra ese schema y acepta ambas claves (comprobado con `opencode run
-  // --agent`). Si el rojo molesta, borra la linea `$schema`.
+  // contra ese schema y acepta ambas claves. Si el rojo molesta, borra la linea.
   // ---------------------------------------------------------------------------
 
-  // Permite que un subagente lance a otro subagente (nesting de nivel 2).
-  // El valor por defecto es 1, que lo prohibe.
+  // Un subagente puede lanzar a otro subagente (constructor -> verificador).
   "subagent_depth": 2,
 
   "permissions": [
-    // --- base: por defecto pedir confirmacion antes de ejecutar shell -------
-    { "action": "shell", "resource": "*", "effect": "ask" },
+    // --- politica base: permitido. Sin excepciones ocultas --------------------
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "edit", "resource": "*", "effect": "allow" },
+    { "action": "glob", "resource": "*", "effect": "allow" },
+    { "action": "grep", "resource": "*", "effect": "allow" },
+    { "action": "shell", "resource": "*", "effect": "allow" },
+    { "action": "webfetch", "resource": "*", "effect": "allow" },
+    { "action": "websearch", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "*", "effect": "allow" },
+    { "action": "subagent", "resource": "*", "effect": "allow" },
+    { "action": "external_directory", "resource": "*", "effect": "allow" },
 
-    // --- secretos ----------------------------------------------------------
-    { "action": "read", "resource": "*.env", "effect": "ask" },
-    { "action": "read", "resource": "*.env.*", "effect": "ask" },
+    // --- denegados: IRREVERSIBLES. `deny` gana siempre, ni con --auto -------
+    // Historial reescrito o trabajo perdido:
+    // `git push` normal SI esta permitido (la politica base de arriba). Solo se
+    // nega el que reescribe historia, que es el unico que pierde trabajo.
+    { "action": "shell", "resource": "git push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git push -f *", "effect": "deny" },
+    { "action": "shell", "resource": "git push *--force*", "effect": "deny" },
+    { "action": "shell", "resource": "git push origin *:*", "effect": "deny" },
+    { "action": "shell", "resource": "git reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "git clean -fdx*", "effect": "deny" },
+    { "action": "shell", "resource": "git checkout -- .", "effect": "deny" },
+    { "action": "shell", "resource": "git rebase *", "effect": "deny" },
 
-    // --- inspeccion de git: solo lectura, sin red --------------------------
-    { "action": "shell", "resource": "git status *", "effect": "allow" },
-    { "action": "shell", "resource": "git diff *", "effect": "allow" },
-    { "action": "shell", "resource": "git log *", "effect": "allow" },
-    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    // Borrado masivo (bash y PowerShell, que es lo que corre en esta maquina):
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" },
+    { "action": "shell", "resource": "rm -fr *", "effect": "deny" },
+    { "action": "shell", "resource": "Remove-Item * -Recurse*", "effect": "deny" },
+    { "action": "shell", "resource": "Remove-Item * -Recurse -Force*", "effect": "deny" },
+    { "action": "shell", "resource": "del /s *", "effect": "deny" },
+    { "action": "shell", "resource": "Format-Volume*", "effect": "deny" },
 
-    // --- gate: los comandos que SI pueden correr solos ---------------------
-    { "action": "shell", "resource": "npm test *", "effect": "allow" },
-    { "action": "shell", "resource": "npm run *", "effect": "allow" },
-    { "action": "shell", "resource": "npx vitest *", "effect": "allow" },
-    { "action": "shell", "resource": "npx tsc *", "effect": "allow" },
-    { "action": "shell", "resource": "node tools-cli/*", "effect": "allow" },
-
-    // --- excepciones al final (ganan sobre lo anterior) --------------------
-    { "action": "shell", "resource": "git commit *", "effect": "ask" },
-    { "action": "shell", "resource": "git push *", "effect": "deny" },
+    // Github y credenciales: nada de borrar repos ni secretos:
     { "action": "shell", "resource": "gh repo delete*", "effect": "deny" },
+    { "action": "shell", "resource": "gh secret delete*", "effect": "deny" },
+    { "action": "shell", "resource": "gh auth logout*", "effect": "deny" },
+    { "action": "shell", "resource": "sudo *", "effect": "deny" },
 
-    // --- los datos de pensum son la unica fuente de verdad -----------------
-    // data/raw/ es solo lectura: los PDF oficiales son la evidencia.
+    // Secretos: no se leen ni se imprimen, ni siquiera por accidente:
+    { "action": "read", "resource": "*.env", "effect": "deny" },
+    { "action": "read", "resource": "*.env.*", "effect": "deny" },
+    { "action": "read", "resource": "*.pem", "effect": "deny" },
+    { "action": "read", "resource": "*.key", "effect": "deny" },
+    { "action": "read", "resource": "id_rsa*", "effect": "deny" },
+    { "action": "read", "resource": ".ssh/*", "effect": "deny" },
+    { "action": "read", "resource": ".aws/*", "effect": "deny" },
+
+    // --- invariantes del proyecto: el gate de verdad, no un prompt ---------
+    // data/raw/ es la evidencia: su sha256 tiene que seguir siendo el del PDF
+    // oficial. Se descarga con curl, no se edita a mano.
     { "action": "edit", "resource": "data/raw/*", "effect": "deny" },
-    // El build es derivado: se regenera, no se edita a mano.
+    // dist/ es derivado: se regenera, no se parchea.
     { "action": "edit", "resource": "dist/*", "effect": "deny" }
+
+    // --- ritmo: NO se anaden reglas `allow` aqui ----------------------------
+    // Este es el error clasico de esta configuracion: como "gana la ultima que
+    // coincide", un { shell, "git *", allow } al final REABRE lo que los `deny`
+    // de arriba prohiben, y un `git push --force` pasaria sin preguntar nada.
+    // La politica amplia va ARRIBA y los `deny` al final, nunca al reves.
+    // Lo que se repite mucho (npm run, git *, curl.exe) ya esta permitido por la
+    // politica base de las lineas de arriba; no hace falta repetirlo aqui.
   ]
 }

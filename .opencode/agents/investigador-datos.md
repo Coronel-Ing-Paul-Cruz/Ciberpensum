@@ -6,9 +6,30 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
+  # Volcados de texto de los PDF (lo que leeria pdfplumber): data/interim/ es
+  # area de trabajo, no evidencia. Antes esto caia en %TEMP% porque el agente
+  # no podia escribir nada y percia el trabajo al terminar la sesion.
+  - action: edit
+    resource: "data/interim/*"
+    effect: allow
+  # Descargar el PDF oficial a data/raw/ con curl es parte del encargo. Los
+  # `deny` de edit sobre data/raw/ de la config global siguen mandando: el
+  # archivo se descarga, nunca se reescribe a mano (su sha256 es la evidencia).
   - action: shell
     resource: "*"
-    effect: "ask"
+    effect: allow
+  - action: shell
+    resource: "rm -rf *"
+    effect: deny
+  - action: shell
+    resource: "Remove-Item * -Recurse*"
+    effect: deny
+  - action: shell
+    resource: "git push*"
+    effect: deny
+  - action: shell
+    resource: "git commit*"
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny

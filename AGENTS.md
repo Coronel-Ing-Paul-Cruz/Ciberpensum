@@ -17,12 +17,16 @@ Sin cuentas, sin backend, sin scraping. Lee esto antes de tocar nada.
    `data/curated/` sale de un PDF oficial en `data/raw/` y trae
    `fuente.url`, `sha256` y `verificadoEn`. mipensum y otros sitios son pistas,
    nunca fuente: sin PDF oficial contraste, el dato queda `NO VERIFICADO`.
-5. **El gate corre antes de cada commit**: `npm run verify` (estructura y reglas de
-   código) y `npm run verify:data` (integridad de pensums). Ambos en verde.
+5. **El gate corre antes de cada commit**: `npm run gate` encadena los cuatro
+   chequeos: `verify` (estructura y reglas de código), `verify:data` (integridad
+   de pensums), `verify:config` (orden y efecto de los permisos) y `test`. Los
+   cuatro en verde. Un solo comando, para que "se me olvidó uno" no sea posible.
 6. **HTML válido, accesible y funcional sin JS.** Los componentes del sitio deben
    ser útiles con el JavaScript bloqueado; JS solo mejora. Sin `target="_blank"`.
 7. **Commits convencionales en español** (`feat:`, `fix:`, `test:`, `docs:`,
-   `chore:`). No hay push automático: `git push` está denegado en `opencode.jsonc`.
+   `chore:`). `git push` normal está permitido; lo que reescribe historial
+   (`--force`, `reset --hard`, `clean -fdx`, `rebase`) está denegado en
+   `opencode.jsonc` y así se queda.
 8. **NO VERIFICADO aparece en pantalla.** Si una regla académica (ej. escala de
    honores) no está confirmada contra el reglamento oficial, la página la muestra
    marcada, no la finge.
@@ -33,6 +37,16 @@ Sin cuentas, sin backend, sin scraping. Lee esto antes de tocar nada.
    o si hay un JSON en `data/curated/` sin su fila en la tabla. No se anota en él
    qué agente está activo: eso se desincroniza; el historial es el `git log`.
    Solo `curador-pensum` lo edita entre los subagentes.
+10. **No preguntes por lo reversible.** La config opera con lista de negativas:
+    todo permitido salvo lo irreversible. Antes de parar a preguntar, hazlo: el
+    gate, los tests y `git` son reversibles. Si falta un dato, va `NO VERIFICADO`
+    en el informe y se sigue trabajando. La única pregunta que justifica parar es
+    una decisión de producto, no un detalle de implementación.
+11. **Un subagente por módulo, y en paralelo cuando no se pisen.** Cada módulo de
+    `core/` es independiente: se lanzan varios `constructor-herramienta` a la vez
+    y el gate los juzga a todos juntos. La excepción es `data/`, que es secuencial:
+    un solo `curador-pensum` a la vez, porque dos curadores escribiendo el mismo
+    JSON es como se pierde trazabilidad.
 
 ## Estructura
 
@@ -60,3 +74,31 @@ dist/      Salida estática (generada; no se edita, no se commitea).
 
 Cada módulo nuevo lo construye `constructor-herramienta` con un test primero,
 y lo valida `verificador` después. Sin excepciones.
+
+## Ritmo: por qué casi no se pide permiso
+
+La config usa lista de negativas (`allow` por defecto + `deny` de lo
+irreversible), no lista de preguntas. Los motivos, con la evidencia:
+
+- El usuario aprobaba el **93%** de los prompts de permisos: casi todos eran
+  ruido (cifra citada en `Kilo-Org/kilocode#9138`). Preguntar por algo que se
+  va a aprobar solo cuesta tiempo.
+- Una tarde de refactor con preguntas constantes daba 30-50 cortes; el análisis
+  de Cursor 3.6 ("Why Did The Old Approval Model Break Flow So Badly") describe
+  ese mismo patrón.
+- La comunidad ya lo normalizó. En r/vibecoding el hilo se titula literalmente
+  "every agent run with auto-approve on"; Warp tiene perfiles con "always
+  allow" y un modo "Run until completion"; Cursor 3.6 añadió auto-review
+  precisamente porque faltaba el punto medio entre preguntar y no preguntar.
+- `opencode --auto` (o la paleta de comandos → *Enable auto-approve
+  permissions*) auto-aprueba lo que no esté explícitamente denegado, y los
+  `deny` siguen respetándose. Es la red para lo que la config no anticipó.
+
+**Lo que se mantiene denegado** (y debe seguir así): reescritura de historial
+(`--force`, `reset --hard`, `clean -fdx`, `rebase`), borrado masivo
+(`rm -rf`, `Remove-Item -Recurse`), `gh repo delete`, secretos, sudo, y la
+edición manual de `data/raw/` (la evidencia) o `dist/` (lo derivado).
+
+`npm run verify:config` vigila esto automáticamente: detecta reglas en orden
+invertido (donde un `allow` posterior reabre un `deny`), `effect: "ask"`
+colados, y agentes con `shell` bloqueado.

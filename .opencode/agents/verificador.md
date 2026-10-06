@@ -6,24 +6,23 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
+  # Verificar es correr comandos de solo lectura y el gate. Preguntar antes de
+  # cada uno no anade seguridad: no puede editar nada (edit deny de arriba).
   - action: shell
     resource: "*"
-    effect: "ask"
-  - action: shell
-    resource: "npm run verify*"
     effect: allow
   - action: shell
-    resource: "npm test *"
-    effect: allow
+    resource: "git push*"
+    effect: deny
   - action: shell
-    resource: "npx vitest *"
-    effect: allow
+    resource: "git commit*"
+    effect: deny
   - action: shell
-    resource: "npx tsc *"
-    effect: allow
+    resource: "rm -rf *"
+    effect: deny
   - action: shell
-    resource: "node tools-cli/*"
-    effect: allow
+    resource: "Remove-Item * -Recurse*"
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny

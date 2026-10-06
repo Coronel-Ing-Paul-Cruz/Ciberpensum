@@ -20,15 +20,23 @@ permissions:
   - action: edit
     resource: "ESTADO.md"
     effect: allow
+  # Curar es correr el extractor y escribir JSON. Los `deny` de edit ya acotan
+  # donde puede escribir; el shell no necesita preguntar.
   - action: shell
     resource: "*"
-    effect: "ask"
-  - action: shell
-    resource: "node tools-cli/extract-pensum.mjs *"
     effect: allow
   - action: shell
-    resource: "node tools-cli/check-pensum.mjs *"
-    effect: allow
+    resource: "rm -rf *"
+    effect: deny
+  - action: shell
+    resource: "Remove-Item * -Recurse*"
+    effect: deny
+  - action: shell
+    resource: "git push*"
+    effect: deny
+  - action: shell
+    resource: "git commit*"
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny

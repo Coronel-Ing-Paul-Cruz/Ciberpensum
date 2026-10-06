@@ -6,9 +6,23 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
+  # Auditar es leer dist/ y correr las herramientas de medicion. No puede
+  # editar nada, asi que el shell no necesita pedir confirmacion.
   - action: shell
     resource: "*"
-    effect: "ask"
+    effect: allow
+  - action: shell
+    resource: "git push*"
+    effect: deny
+  - action: shell
+    resource: "git commit*"
+    effect: deny
+  - action: shell
+    resource: "rm -rf *"
+    effect: deny
+  - action: shell
+    resource: "Remove-Item * -Recurse*"
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny

@@ -34,17 +34,35 @@ const camina = (dir) => {
   }
   return out
 }
-const PROHIBIDOS = [/\bwindow\./, /\bdocument\./, /\blocalStorage\b/, /\bfetch\(/]
+// Regla 3: core/ es puro. OJO con los falsos positivos: un comentario que
+// PROHIBE esas APIs es justamente lo que quiero, no una violacion. Solo se
+// mira el codigo, con comentarios y cadenas de texto fuera.
+const PROHIBIDOS = [
+  { rx: /\bwindow\s*\./, que: "window." },
+  { rx: /\bdocument\s*\./, que: "document." },
+  { rx: /\blocalStorage\b/, que: "localStorage" },
+  { rx: /\bfetch\s*\(/, que: "fetch(" },
+  { rx: /\bsessionStorage\b/, que: "sessionStorage" },
+  { rx: /\bnavigator\s*\./, que: "navigator." },
+]
+const sinComentariosNiCadenas = (src) =>
+  src
+    .replace(/\/\*[\s\S]*?\*\//g, " ") // comentarios de bloque
+    .replace(/^\s*\/\/.*$/gm, " ") // comentarios de linea
+    .replace(/`(?:\\.|[^`\\])*`/g, '""') // plantillas
+    .replace(/"(?:\\.|[^"\\])*"/g, '""') // cadenas dobles
+    .replace(/'(?:\\.|[^'\\])*'/g, '""') // cadenas simples
+
 const coreDir = join(ROOT, "core")
 let coreFiles = 0
 try {
   coreFiles = camina(coreDir).filter((f) => f.endsWith(".ts"))
   for (const f of coreFiles) {
-    const src = readFileSync(f, "utf8")
-    for (const rx of PROHIBIDOS)
-      if (rx.test(src)) mal(`core puro violado: ${f.replace(ROOT, "")} contiene ${rx.source}`)
+    const codigo = sinComentariosNiCadenas(readFileSync(f, "utf8"))
+    for (const { rx, que } of PROHIBIDOS)
+      if (rx.test(codigo)) mal(`core puro violado: ${f.replace(ROOT, "")} usa ${que} en codigo (no en un comentario)`)
   }
-  ok(`core/ revisado (${coreFiles.length} archivos .ts, sin DOM ni fetch)`)
+  ok(`core/ revisado (${coreFiles.length} archivos .ts, sin DOM ni fetch ni almacenamiento)`)
 } catch { ok("core/ aun sin .ts (fase 0)") }
 
 // 4. Agentes: 6 y con description + mode

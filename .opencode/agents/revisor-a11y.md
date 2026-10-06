@@ -6,9 +6,23 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
+  # Revisar es leer, medir y correr auditos. No puede editar (arriba), asi que
+  # el shell no necesita preguntar: solo puede ejecutar.
   - action: shell
     resource: "*"
-    effect: "ask"
+    effect: allow
+  - action: shell
+    resource: "git push*"
+    effect: deny
+  - action: shell
+    resource: "git commit*"
+    effect: deny
+  - action: shell
+    resource: "rm -rf *"
+    effect: deny
+  - action: shell
+    resource: "Remove-Item * -Recurse*"
+    effect: deny
   - action: skill
     resource: "*"
     effect: deny
