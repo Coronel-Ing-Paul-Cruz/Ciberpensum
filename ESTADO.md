@@ -238,7 +238,25 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   **índice estático de carreras** (el selector). Encaja con la arquitectura sin
   JS/offline: el selector es navegación, no estado. Implementación con TDD
   (`constructor-herramienta` lanzado el 2026-10-07).
-- **2026-10-07** — Re-medición del verificador SEO final: portabilidad seguía con
+- **2026-10-07** — **Curaduría UTESA — Ing. en Sistemas Computacionales entra al
+  gate.** La segunda carrera destapó un bug real: el cuaderno contaba como
+  aprobada toda materia con `(nota ?? 0) >= escala.minimo`, y con la escala
+  0–100 de UTESA (`minimo: 0`) todas sintieron aprobadas ("98 de 98"). Se usa
+  `escala.aprobacion` en `core/indice.escalaCumple` y en el cuaderno/widget.
+- **2026-10-07** — **Auditoría de configs entre proyectos (pregunta del
+  usuario: "qué de los otros proyectos aprovechamos").** Hallazgo real en los
+  logs: el runtime v2.0.16 descarta `subagent_depth` en raíz de `opencode.jsonc`
+  ("omitted unsupported legacy setting" — 80+ warnings en
+  `~/.local/share/opencode/log/opencode.log`); el sitio correcto es
+  `experimental.subagent_depth` (como ya lo tiene html5web). Se corrigió la
+  config, se migró el check de `verify:config` al mismo sitio, y de paso se
+  eliminó `compaction.prune` (también legacy) y se prestó de html5web la
+  holgura de contexto `compaction.keep.tokens: 24000` para que las sesiones
+  largas no se comapcten de golpe. De los agentes de los otros proyectos (`qa`,
+  `verificador`, `peer-reviewer`, `code-reviewer`, `test-generator`) **no se
+  importa nada**: ya están cubiertos por `verificador` (gate), `auditor-seo`
+  (hechos/SEO) y `revisor-a11y`, y AGENTS.md fija que "no se edita por quien
+  escribe" con esos tres; duplicarlos añade ruido sin cubrir nada nuevo.
   **CLS 0.176** (era el único «gordo»): su contenido estático es corto y el
   reemplazo del `#app` desplazaba el panel de fuente, hermano *debajo*. Se
   aplicó la opción (a) del auditor: el **panel de fuente va ahora ANTES de
@@ -248,6 +266,27 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   carga fría, PerformanceObserver): 3/3 corridas en **0.001**. INP real medido
   con clic de confianza: **32 ms** (first-input pointerdown). `og:description`
   y `og:type` presentes en las 18 páginas indexables (el 404 no lleva OG).
+- **2026-10-07** — **Cumplimiento legal: páginas estáticas de Privacidad y
+  Términos, sin banner de cookies.** Análisis contra las normas aplicables: RD
+  Ley 172-13 (datos personales: el sitio NO recopila datos en servidor; el
+  progreso vive en localStorage del navegador, nunca se sube), RD Ley 65-00
+  (derecho de autor: los pensums pertenecen a cada universidad y se citan con
+  URL + sha256, no se redistribuyen), GDPR (UE) y CCPA/CPRA (California): sin
+  cookies ni recolección no se cruzan umbrales de obligación, pero el sitio es
+  público global y GitHub Pages registra IPs como procesador (GitHub Privacy
+  Statement). ePrivacy: el sitio NO usa cookies (verificado con grep: solo
+  localStorage), así que NO se añade banner de consentimiento. Se crearon
+  `/privacidad/` y `/terminos/` (estáticas, sin JS, en sitemap + footer +
+  precache del SW).
+- **2026-10-07** — **Repo público + GitHub Pages + open source.** El usuario
+  eligió hacer público `Coronel-Ing-Paul-Cruz/Ciberpensum` (GitHub Pages gratis
+  exige repo público; la API rechazó el repo privado con 422 real). Páginas
+  habilitadas por API (`html_url` devuelto por GitHub:
+  `https://coronel-ing-paul-cruz.github.io/Ciberpensum/`), build_type=workflow,
+  workflow `.github/workflows/pages.yml` (node 20, `npm ci` + `npm run build`,
+  artifact `dist/`). Se añadieron `LICENSE` (MIT) y `README.md` de portafolio,
+  y 7 topics (education, static-site, typescript, pwa, accesibilidad,
+  dominican-republic, portfolio).
 
 ## Próximos pasos
 
