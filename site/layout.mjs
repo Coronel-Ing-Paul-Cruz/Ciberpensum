@@ -110,6 +110,8 @@ ${contenido}
         <li><a href="${baseNav}universidades/index.html">Universidades</a></li>
         <li><a href="${baseNav}herramientas/index.html">Herramientas</a></li>
         <li><a href="${baseNav}guias/index.html">Guías</a></li>
+        <li><a href="${baseNav}privacidad/index.html">Privacidad</a></li>
+        <li><a href="${baseNav}terminos/index.html">Términos</a></li>
       </ul>
       <p>${TITULO_SITIO} — planificador académico para universidades dominicanas. Sin cuentas, sin servidor. Los datos llevan su fuente oficial y su sha256; lo que no está confirmado se marca en pantalla, no se finge.</p>
     </div>

@@ -605,6 +605,140 @@ ${cuerpo}
   })
 }
 
+/* -------------------------------------------- legales: Terminos y Privacidad
+ * Páginas estáticas de cumplimiento. Análisis jurídico (2026-10-07):
+ *  - RD Ley 172-13 (protección de datos): el sitio no recopila datos en
+ *    servidor; el progreso vive en localStorage del navegador del usuario.
+ *    La ley exige transparencia -> esta página + la de términos.
+ *  - RD Ley 65-00 (derecho de autor): los PDF/pensums pertenecen a cada
+ *    universidad; el sitio cita fuente con sha256 y no redistribuye el PDF.
+ *  - GDPR (UE) y CCPA/CPRA (California): sin cookies ni recolección no se
+ *    cruzan umbrales de obligación, pero el sitio es público global y
+ *    GitHub Pages registra IPs como procesador (GitHub Privacy Statement).
+ *  - ePrivacy: el sitio NO usa cookies (verificado con grep sobre el codigo:
+ *    solo localStorage), asi que no hace falta banner de consentimiento.
+ */
+export function renderPrivacidad() {
+  const contenido = `
+  <h1>Política de privacidad</h1>
+  <p class="meta-fuente">Última actualización: 7 de octubre de 2026. Lenguaje claro, sin jerga legal innecesaria.</p>
+
+  <h2>Lo esencial en una frase</h2>
+  <p>Ciberpensum <strong>no recopila tus datos personales en ningún servidor</strong>. Tu progreso
+  (materias aprobadas, notas) vive en el almacenamiento local de tu propio navegador
+  (<code>localStorage</code>) y solo lo usas tú: puedes exportarlo, importarlo o borrarlo cuando quieras.</p>
+
+  <h2>Cookies</h2>
+  <p>Este sitio <strong>no usa cookies</strong>, no instala rastreadores y no carga analítica de terceros.
+  No hay banner de consentimiento porque no hay nada que consentir.</p>
+
+  <h2>Datos que se guardan y dónde</h2>
+  <ul>
+    <li><strong>Progreso del usuario</strong> (materias aprobadas y notas): <code>localStorage</code>
+    del navegador, clave por universidad y carrera. Nunca se envía a ningún servidor.</li>
+    <li><strong>Nada más.</strong> No hay cuentas, formularios ni login.</li>
+  </ul>
+  <p>Puedes borrar estos datos en cualquier momento desde la sección
+  <a href="../herramientas/portabilidad/index.html">Guardar y compartir</a> o, directamente, en el gestor
+  de datos del navegador.</p>
+
+  <h2>Datos que registra la infraestructura</h2>
+  <p>El sitio se sirve desde GitHub Pages. GitHub, como proveedor de hosting, puede registrar información
+  técnica de acceso (por ejemplo la dirección IP de quien visita) conforme a su
+  <a href="https://docs.github.com/articles/github-privacy-statement">GitHub Privacy Statement</a>.
+  Ciberpensum no recibe ni accede a esos registros.</p>
+
+  <h2>Datos académicos</h2>
+  <p>Las materias, créditos y reglas académicas mostradas provienen de documentos oficiales de cada
+  universidad, citados con su URL y <code>sha256</code> (ver <a href="../carreras/index.html">carreras</a>).
+  Todo dato no confirmado contra su fuente oficial aparece marcado como <strong>NO VERIFICADO</strong> en
+  pantalla. La información pertenece a cada universidad; este sitio solo la cita y la organiza.</p>
+
+  <h2>Tus derechos</h2>
+  <p>Al no almacenar ni tratar datos personales en servidor, no hay base de datos que consultar, corregir
+  o eliminar: tus datos están y se quedan en tu navegador. Si tienes dudas sobre esta política, escríbenos
+  desde <a href="../guias/index.html">las guías</a> o el perfil del repositorio
+  <a href="https://github.com/Coronel-Ing-Paul-Cruz/Ciberpensum">GitHub</a>.</p>`
+  return pagina({
+    titulo: "Política de privacidad",
+    descripcion: "Ciberpensum no usa cookies ni recopila datos personales: tu progreso vive en el navegador.",
+    contenido,
+    rutaAssets: rutaAssets(0),
+    migas: [
+      ["Inicio", "../index.html"],
+      ["Privacidad", "./index.html"],
+    ],
+    canonical: SITIO_URL + "/privacidad/",
+    robots: "index, follow",
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", name: "Política de privacidad", inLanguage: "es-DO" },
+  })
+}
+
+export function renderTerminos() {
+  const contenido = `
+  <h1>Términos y condiciones</h1>
+  <p class="meta-fuente">Última actualización: 7 de octubre de 2026. Al usar el sitio aceptas estos términos.</p>
+
+  <h2>1. Qué es Ciberpensum</h2>
+  <p>Es un planificador académico <strong>estático</strong> para universidades dominicanas: sin cuentas,
+  sin servidor propio, sin envío de datos. Su finalidad es informativa y de organización personal del
+  estudio.</p>
+
+  <h2>2. No somos la universidad</h2>
+  <p>Este sitio <strong>no es un sitio oficial</strong> de ninguna universidad ni del Ministerio de Educación
+  Superior (MESCYT). Los pensums y reglamentos pertenecen a cada institución y se citan de sus documentos
+  públicos con URL y <code>sha256</code>. Ante cualquier discrepancia, <strong>manda el documento oficial</strong>.</p>
+
+  <h2>3. Información académica</h2>
+  <ul>
+    <li>Las materias, créditos, prerrequisitos y escalas provienen de fuentes oficiales verificadas.</li>
+    <li>Cuando un dato no está confirmado contra el PDF oficial, se muestra marcado como
+    <strong>NO VERIFICADO</strong>: no se inventa ni se sugiere como cierto.</li>
+    <li>El cálculo de índice, progresión o nota mínima es una <strong>ayuda de estimación</strong>, no una
+    certificación académica. Las decisiones formales (inscripción, convalidación, honores) las toma cada
+    universidad conforme a su reglamento vigente.</li>
+  </ul>
+
+  <h2>4. Uso permitido y propiedad</h2>
+  <p>Puedes usar el sitio para planificar tu estudio y compartir tu propio progreso. El código de este
+  proyecto es de código abierto (licencia MIT) y vive en
+  <a href="https://github.com/Coronel-Ing-Paul-Cruz/Ciberpensum">GitHub</a>. Los documentos académicos
+  citados (pensums, reglamentos, catálogos) son propiedad de cada universidad; aquí solo se citan con su
+  fuente, no se redistribuyen como propios.</p>
+
+  <h2>5. Ausencia de garantías</h2>
+  <p>El sitio se ofrece «como está», sin garantía de exactitud, disponibilidad o idoneidad para un fin
+  concreto. Aunque la curaduría es cuidadosa y trazable, los planes de estudio cambian: verifica siempre
+  contra tu universidad.</p>
+
+  <h2>6. Responsabilidad</h2>
+  <p>En la medida permitida por la ley (RD Ley 172-13 y demás normas aplicables), el proyecto no responde
+  por decisiones académicas tomadas con base en cálculos aquí mostrados, ni por daños derivados del uso
+  de la información contenida. Los datos académicos se actualizan cuando se publican versiones nuevas de
+  los documentos oficiales.</p>
+
+  <h2>7. Ley aplicable</h2>
+  <p>Estos términos se rigen por las leyes de la República Dominicana. Cualquier controversia se somete a
+  los tribunales competentes de Santiago de los Caballeros, República Dominicana.</p>
+
+  <h2>8. Contacto</h2>
+  <p>Para preguntas sobre estos términos o la <a href="../privacidad/index.html">política de privacidad</a>,
+  usa el perfil del repositorio en GitHub.</p>`
+  return pagina({
+    titulo: "Términos y condiciones",
+    descripcion: "Términos de uso de Ciberpensum: sitio informativo sin cuentas, datos con fuente oficial y sin garantías académicas.",
+    contenido,
+    rutaAssets: rutaAssets(0),
+    migas: [
+      ["Inicio", "../index.html"],
+      ["Términos", "./index.html"],
+    ],
+    canonical: SITIO_URL + "/terminos/",
+    robots: "index, follow",
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", name: "Términos y condiciones", inLanguage: "es-DO" },
+  })
+}
+
 /* ------------------------------------------------------------------ 404 */
 export function render404() {
   const contenido = `
@@ -622,7 +756,7 @@ export function render404() {
 
 /** Rutas reales del sitio (para sitemap). */
 export function rutasDelSitio(carreras) {
-  const out = ["/", "/universidades/", "/herramientas/", "/guias/", "/404.html"]
+  const out = ["/", "/universidades/", "/herramientas/", "/guias/", "/404.html", "/privacidad/", "/terminos/"]
   for (const c of carreras) {
     out.push(`/universidades/${c.universidad.id}/`)
     out.push(`/carreras/${c.universidad.id}/${c.slug}/`)

@@ -12,7 +12,8 @@ import { build } from "esbuild"
 import {
   GUIAS, HERRAMIENTAS, SITIO_URL,
   render404, renderCarrera, renderGuia, renderGuias, renderHerramienta,
-  renderIndiceHerramienta, renderHerramientas, renderHome, renderUniversidad, renderUniversidades,
+  renderIndiceHerramienta, renderHerramientas, renderHome, renderPrivacidad,
+  renderTerminos, renderUniversidad, renderUniversidades,
   rutasDelSitio,
 } from "../site/paginas.mjs"
 
@@ -125,6 +126,8 @@ const precache = [
   "/herramientas/",
   "/universidades/",
   "/guias/",
+  "/privacidad/",
+  "/terminos/",
   ...archivosDe(dirAssets, DIST),
   ...archivosDe(dirDatos, DIST),
 ]
@@ -167,6 +170,10 @@ mkdirSync(join(DIST, "guias"), { recursive: true })
 writeFileSync(join(DIST, "guias", "index.html"), renderGuias())
 for (const g of GUIAS) writeFileSync(join(DIST, "guias", `${g.slug}.html`), renderGuia(g))
 writeFileSync(join(DIST, "404.html"), render404())
+mkdirSync(join(DIST, "privacidad"), { recursive: true })
+writeFileSync(join(DIST, "privacidad", "index.html"), renderPrivacidad())
+mkdirSync(join(DIST, "terminos"), { recursive: true })
+writeFileSync(join(DIST, "terminos", "index.html"), renderTerminos())
 
 // 7. robots.txt + sitemap.xml
 writeFileSync(
