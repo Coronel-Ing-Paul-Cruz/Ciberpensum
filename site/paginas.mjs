@@ -250,9 +250,9 @@ ${c.notas.map((n) => `<p class="aviso-no-verificado">${esc(n)}</p>`).join("\n")}
   <section>
     <h2>Prueba las herramientas con esta carrera</h2>
     <div class="rejilla">
-      <a class="tarjeta" href="${base}herramientas/progreso/index.html"><h3>Cuaderno de progreso</h3><p>Empieza marcando tus materias aprobadas.</p></a>
-      <a class="tarjeta" href="${base}herramientas/indice/index.html"><h3>Índice académico</h3><p>Calcula tu índice y compáralo con las distinciones.</p></a>
-      <a class="tarjeta" href="${base}herramientas/progresion/index.html"><h3>Progresión</h3><p>Qué puedes inscribir hoy.</p></a>
+      <a class="tarjeta" href="${base}herramientas/progreso/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Cuaderno de progreso</h3><p>Empieza marcando tus materias aprobadas.</p></a>
+      <a class="tarjeta" href="${base}herramientas/indice/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Índice académico</h3><p>Calcula tu índice y compáralo con las distinciones.</p></a>
+      <a class="tarjeta" href="${base}herramientas/progresion/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Progresión</h3><p>Qué puedes inscribir hoy.</p></a>
     </div>
   </section>
 ${noVerificado}`
@@ -376,16 +376,69 @@ var FUNCION_POR_SLUG = {
   portabilidad: (h, c, base) => CONTENIDO_SIN_JS.portabilidad(c),
 }
 
-export function renderHerramienta(h, carrera) {
+/** Direccion de una herramienta para una carrera concreta. */
+export function rutaHerramientaCarrera(h, c) {
+  return `${h.slug}/${c.universidad.id}-${c.slug}/index.html`
+}
+
+/**
+ * Indice de una herramienta: el SELECTOR DE CARRERA (decision 2026-10-07).
+ * Sin JS funciona igual: es la lista de carreras curadas disponibles para
+ * esa herramienta. /herramientas/<slug>/index.html
+ */
+export function renderIndiceHerramienta(h, carreras) {
+  const tarjetas = carreras.map((c) => `<a class="tarjeta" href="${esc(rutaHerramientaCarrera(h, c))}">
+    <h3>${esc(c.carrera)}</h3>
+    <p>${esc(c.universidad.nombre)} · ${c.totales.asignaturas} materias · ${c.totales.creditos} créditos</p>
+  </a>`).join("\n")
+  const contenido = `
+  <h1>${esc(h.titulo)}</h1>
+  <p>${esc(h.descripcion)}</p>
+  <h2>Elige tu carrera</h2>
+  <p>Cada herramienta trabaja sobre el pensum de la carrera que elijas aquí. Tu progreso se guarda por carrera en este navegador.</p>
+  <div class="rejilla">
+${tarjetas}
+  </div>`
+  return pagina({
+    titulo: `${h.titulo} — Herramientas`,
+    descripcion: h.descripcion,
+    contenido,
+    rutaAssets: rutaAssets(2),
+    seccion: "herramientas",
+    canonical: SITIO_URL + `/herramientas/${h.slug}/`,
+    migas: [
+      ["Inicio", "../../index.html"],
+      ["Herramientas", "../index.html"],
+      [h.titulo, "./index.html"],
+    ],
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: h.titulo,
+      description: h.descripcion,
+      url: SITIO_URL + `/herramientas/${h.slug}/`,
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Cualquiera (navegador)",
+    },
+  })
+}
+
+/**
+ * Pagina de una herramienta para UNA carrera.
+ * /herramientas/<slug>/<uniId>-<carreraSlug>/index.html (profundidad 3).
+ */
+export function renderHerramienta(h, carrera, profundidad = 3) {
   const sinJs = FUNCION_POR_SLUG[h.slug](h, carrera)
   const jsonPensum = JSON.stringify(carrera).replaceAll("</", "<\\/")
+  const assets = rutaAssets(profundidad)
+  const base = "../".repeat(profundidad)
   // CLS + una sola copia del contenido (regla 6 y hallazgos CWV/a11y): el panel
   // #app nace con el contenido estatico (altura real de la pagina) y el modulo
   // lo REPLACE en su sitio; sin JS, la pagina es el contenido estatico entero.
   const contenido = `
   <h1>${esc(h.titulo)}</h1>
   <p>${esc(h.descripcion)}</p>
-  <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos).</p>
+  <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos). <a href="../index.html">Cambiar de carrera</a></p>
 
   ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
 
@@ -397,25 +450,26 @@ ${sinJs}
   </div>
 
   <script type="application/json" id="datos-pensum">${jsonPensum}</script>
-  <script type="module" src="${rutaAssets(2)}/js/${esc(h.slug)}.js"></script>`
+  <script type="module" src="${assets}/js/${esc(h.slug)}.js"></script>`
   return pagina({
-    titulo: `${h.titulo} — Herramientas`,
-    descripcion: h.descripcion,
+    titulo: `${h.titulo} — ${carrera.carrera}`,
+    descripcion: `${h.descripcion} Carrera: ${carrera.carrera} (${carrera.universidad.nombre}).`,
     contenido,
-    rutaAssets: rutaAssets(2),
+    rutaAssets: assets,
     seccion: "herramientas",
-    canonical: SITIO_URL + `/herramientas/${h.slug}/`,
+    canonical: SITIO_URL + `/herramientas/${rutaHerramientaCarrera(h, carrera).replace(/\/index\.html$/, "/")}`,
     migas: [
-      ["Inicio", "../../index.html"],
-      ["Herramientas", "../index.html"],
-      [h.titulo, `./index.html`],
+      ["Inicio", base + "index.html"],
+      ["Herramientas", base + "herramientas/index.html"],
+      [h.titulo, "../index.html"],
+      [carrera.carrera, "./index.html"],
     ],
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      name: h.titulo,
+      name: `${h.titulo} — ${carrera.carrera}`,
       description: h.descripcion,
-      url: SITIO_URL + `/herramientas/${h.slug}/`,
+      url: SITIO_URL + `/herramientas/${rutaHerramientaCarrera(h, carrera).replace(/\/index\.html$/, "/")}`,
       applicationCategory: "EducationalApplication",
       operatingSystem: "Cualquiera (navegador)",
     },
@@ -573,7 +627,11 @@ export function rutasDelSitio(carreras) {
     out.push(`/universidades/${c.universidad.id}/`)
     out.push(`/carreras/${c.universidad.id}/${c.slug}/`)
   }
-  for (const h of HERRAMIENTAS) out.push(`/herramientas/${h.slug}/`)
+  for (const h of HERRAMIENTAS) {
+    // indice (selector de carrera) + una URL por carrera curada
+    out.push(`/herramientas/${h.slug}/`)
+    for (const c of carreras) out.push(`/herramientas/${rutaHerramientaCarrera(h, c).replace(/\/index\.html$/, "/")}`)
+  }
   for (const g of GUIAS) out.push(`/guias/${g.slug}.html`)
   return out
 }

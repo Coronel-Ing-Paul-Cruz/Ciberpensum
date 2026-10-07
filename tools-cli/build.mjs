@@ -12,7 +12,7 @@ import { build } from "esbuild"
 import {
   GUIAS, HERRAMIENTAS, SITIO_URL,
   render404, renderCarrera, renderGuia, renderGuias, renderHerramienta,
-  renderHerramientas, renderHome, renderUniversidad, renderUniversidades,
+  renderIndiceHerramienta, renderHerramientas, renderHome, renderUniversidad, renderUniversidades,
   rutasDelSitio,
 } from "../site/paginas.mjs"
 
@@ -154,7 +154,14 @@ writeFileSync(join(DIST, "herramientas", "index.html"), renderHerramientas())
 for (const h of HERRAMIENTAS) {
   const d = join(DIST, "herramientas", h.slug)
   mkdirSync(d, { recursive: true })
-  writeFileSync(join(d, "index.html"), renderHerramienta(h, carreras[0]))
+  // /herramientas/<slug>/ es el selector de carrera (indice); la herramienta
+  // real vive un nivel mas abajo, por carrera.
+  writeFileSync(join(d, "index.html"), renderIndiceHerramienta(h, carreras))
+  for (const c of carreras) {
+    const d2 = join(d, `${c.universidad.id}-${c.slug}`)
+    mkdirSync(d2, { recursive: true })
+    writeFileSync(join(d2, "index.html"), renderHerramienta(h, c, 3))
+  }
 }
 mkdirSync(join(DIST, "guias"), { recursive: true })
 writeFileSync(join(DIST, "guias", "index.html"), renderGuias())
