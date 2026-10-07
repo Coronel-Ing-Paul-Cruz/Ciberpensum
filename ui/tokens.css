@@ -7,6 +7,7 @@
   --papel-alto: #ffffff;     /* tarjetas y superficies */
   --tinta: #1d2733;          /* texto principal */
   --tinta-suave: #4a5563;    /* texto secundario */
+  --tinta-bloqueada: #5b6b7a; /* filas bloqueadas del cuaderno: >= 4.5:1 sobre blanco */
   --accent: #0e6f6a;         /* teal profundo: única nota de color funcional */
   --accent-osc: #0a4f4b;
   --accent-claro: #e0f0ee;
@@ -46,6 +47,10 @@
 
   /* ---------- layout ---------- */
   --ancho-max: 72rem;
+
+  /* barra global de progreso (fija abajo): lo que mide de alto la pagina
+     reserva con padding-bottom para que no tape contenido. */
+  --alto-global: 3.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

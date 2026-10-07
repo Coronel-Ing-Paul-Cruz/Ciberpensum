@@ -50,6 +50,8 @@ const dirsJs = join(DIST, "assets", "js")
 mkdirSync(dirsJs, { recursive: true })
 const entradas = {}
 for (const h of HERRAMIENTAS) entradas[h.slug] = join(ROOT, "tools", h.slug, "entrada.ts")
+// el widget global de progreso va en TODAS las paginas (lo inyecta layout.mjs)
+entradas.global = join(ROOT, "tools", "_comun", "global.ts")
 await build({
   entryPoints: entradas,
   bundle: true,
@@ -60,6 +62,24 @@ await build({
   target: ["es2020"],
   logLevel: "warning",
 })
+
+// 4.5. Datos para el widget global: indice + una copia por carrera.
+// Son los mismos JSON curados (sin reordenar) y van precacheados en el SW
+// para que la barra de progreso funcione sin conexion.
+const dirDatos = join(DIST, "datos")
+mkdirSync(dirDatos, { recursive: true })
+const indiceDatos = carreras.map((c) => ({
+  universidadId: c.universidad.id,
+  slug: c.slug,
+  carrera: c.carrera,
+  universidad: c.universidad.nombre,
+}))
+writeFileSync(join(dirDatos, "index.json"), JSON.stringify(indiceDatos))
+for (const c of carreras) {
+  const d = join(dirDatos, c.universidad.id)
+  mkdirSync(d, { recursive: true })
+  writeFileSync(join(d, `${c.slug}.json`), JSON.stringify(c))
+}
 
 // 5. PWA: manifest, icono y service worker con precache real
 const dirAssets = join(DIST, "assets")
@@ -76,20 +96,38 @@ for (const h of HERRAMIENTAS) {
   bundles.push(p)
   hash.update(readFileSync(p, "utf8"))
 }
+const pGlobal = join(dirsJs, "global.js")
+bundles.push(pGlobal)
+hash.update(readFileSync(pGlobal, "utf8"))
 const VERSION = hash.digest("hex").slice(0, 10)
 
+// Precache por filesystem: assets completos (bundles + chunks + css + icono +
+// manifest) y datos (indice + pensums). Asi el SW nunca queda corto cuando
+// esbuild code-splitting genera un chunk nuevo o llega una carrera nueva.
+const archivosDe = (dir, raiz) => {
+  const out = []
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name)
+    if (e.isDirectory()) out.push(...archivosDe(p, raiz))
+    // slice() deja el separador inicial (en Windows "\\"); se recorta y se
+    // normaliza a "/" para que la ruta quede "/assets/..." y no "//assets/..."
+    else out.push("/" + p.slice(raiz.length).replace(/^[\\/]+/, "").replace(/\\/g, "/"))
+  }
+  return out
+}
 const precache = [
   "/",
   "/index.html",
-  "/assets/css/site.css",
-  "/assets/manifest.webmanifest",
-  "/assets/icono.svg",
-  ...bundles.map((p) => "/assets/js/" + p.split(/[\\/]/).pop()),
+  ...archivosDe(dirAssets, DIST),
+  ...archivosDe(dirDatos, DIST),
 ]
 const plantillaSw = readFileSync(join(ROOT, "pwa", "sw.js"), "utf8")
 writeFileSync(
   join(DIST, "sw.js"),
-  plantillaSw.replace("__VERSION__", VERSION).replace("__PRECACHE__", JSON.stringify(precache)),
+  // replaceAll y no replace: si no, el placeholder del COMENTARIO se come la
+  // primera sustitucion y al codigo le queda `const PRECACHE = __PRECACHE__`
+  // (identificador indefinido -> el SW no evalua y el registro muere).
+  plantillaSw.replaceAll("__VERSION__", VERSION).replaceAll("__PRECACHE__", JSON.stringify(precache)),
 )
 
 // 6. Paginas

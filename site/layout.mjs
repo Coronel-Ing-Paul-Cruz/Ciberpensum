@@ -96,6 +96,15 @@ ${contenido}
       <p>${TITULO_SITIO} — planificador académico para universidades dominicanas. Sin cuentas, sin servidor. Los datos llevan su fuente oficial y su sha256; lo que no está confirmado se marca en pantalla, no se finge.</p>
     </div>
   </footer>
+  <div class="barra-global" role="region" aria-label="Progreso y guardado">
+    <div class="contenedor">
+      <p id="progreso-global" aria-live="polite">Tu progreso vive en este navegador (sin cuentas) y puedes <a href="${baseNav}herramientas/progreso/index.html">guardarlo o restaurarlo desde aquí</a>.</p>
+      <div class="botones">
+        <a class="boton" href="${baseNav}herramientas/progreso/index.html">Cuaderno</a>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="${rutaAssets}/js/global.js"></script>
 </body>
 </html>
 `

@@ -11,6 +11,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* el desplazamiento por foco/lista no queda oculto bajo la barra sticky
+     de estadisticas del cuaderno (WCAG 2.4.11 no es AA pero evitarlo es gratis) */
+  scroll-padding-top: 3.5rem;
 }
 
 body {
@@ -281,13 +284,10 @@ tbody tr:hover {
 }
 
 /* bloqueo por prerrequisitos (cuaderno de progreso): la fila en gris no se
-   puede marcar aprobada/en curso ni recibir nota hasta aprobar sus prereq. */
-.fila-bloqueada {
-  opacity: 0.55;
-}
-
+   puede marcar aprobada/en curso ni recibir nota hasta aprobar sus prereq.
+   Sin opacity (rompe el contraste 4.5:1): el gris sale del token dedicado. */
 .fila-bloqueada td {
-  color: var(--tinta-suave);
+  color: var(--tinta-bloqueada);
 }
 
 input:disabled,
@@ -403,6 +403,56 @@ button:disabled {
   color: var(--tinta-suave);
 }
 
+/* ---------- barra global de progreso ---------- */
+/* Fija abajo y siempre visible en TODA la web (layout.mjs la pinta en cada
+   pagina). Sin JS solo muestra el aviso + enlace al cuaderno; con JS agrega
+   estadisticas en vivo y los botones Guardar/Importar. Vive abajo a proposito:
+   asi no choca con la barra sticky superior de las tablas largas. */
+.barra-global {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  background: var(--papel-alto);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 -2px 10px rgb(29 39 51 / 0.12);
+  font-size: var(--t-chico);
+}
+
+body {
+  /* la pagina reserva lo que mide la barra para que no tape el pie */
+  padding-bottom: calc(var(--alto-global) + var(--g-4));
+}
+
+.barra-global .contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--g-2) var(--g-4);
+  padding-block: var(--g-2);
+}
+
+.barra-global p {
+  margin: 0;
+}
+
+.barra-global .botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--g-2);
+  margin-left: auto;
+}
+
+.barra-global .boton,
+.barra-global button {
+  font-size: var(--t-chico);
+  padding: var(--g-1) var(--g-3);
+}
+
+.barra-global button:disabled {
+  opacity: 0.6;
+}
+
 /* ---------- pie ---------- */
 .pie {
   border-top: 1px solid var(--borde);
@@ -448,7 +498,8 @@ button:disabled {
 
 @media print {
   .cabecera,
-  .pie {
+  .pie,
+  .barra-global {
     display: none;
   }
   body {

@@ -150,16 +150,58 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   el bloqueo de prerrequisitos usan `nota ≥ mínimo`. Conviene revisar si
   `core/progresion` debe unificar criterio (una reprobada no destraba
   disponibles).
+- **2026-10-07** — **Widget global de progreso** (pedido: guardar/importar en
+  cualquier parte de la web, siempre visible): barra fija abajo en TODA página
+  (`layout.mjs` la pinta; `tools/_comun/global.ts` la mejora). Estadísticas en
+  vivo (aprobadas/créditos/índice/en curso), **Guardar** descarga el JSON
+  canónico del progreso y **Importar** lo restaura validado por
+  `core/portabilidad`. Los datos del widget viven en `dist/datos/index.json` +
+  una copia por carrera, precacheados en el SW. Vive abajo a propósito: no
+  choca con la barra sticky superior de las tablas.
+- **2026-10-07** — **Cuaderno con PRE-REQ** (pedido: "los PRE-REQ después de lo
+  cr, como la malla"): columna PRE-REQ tras Cr con solo códigos, y fin de la
+  **malla estática duplicada** (pedido: "elimina la herramienta malla, me
+  parece redundante"): la sección sin-JS del cuaderno quedó envuelta en
+  `<noscript>` — sin JS el contenido esencial existe (regla 6); con JS no se
+  duplican 55 filas.
+- **2026-10-07** — Correcciones de accesibilidad (revisor-a11y): contraste de
+  filas bloqueadas con token `--tinta-bloqueada` (~5.5:1, se eliminó la
+  `opacity`), motivo del bloqueo en `aria-describedby` + span `sr-only` (no
+  solo `title`), `aria-live` únicamente en el resumen (antes todo `#app`),
+  jerarquía h1→h2→h3 en las 4 páginas de rejilla, `scroll-padding-top` para el
+  foco bajo barras sticky.
+- **2026-10-07** — **PWA roto y corregido** (dos bugs, detectados en navegador
+  real, no en código): (1) `registrarServiceWorker` apuntaba a `../sw.js` que
+  desde `/herramientas/*` resuelve a `/herramientas/sw.js` (404); ahora
+  registra `/sw.js` (relativo al origen). (2) `build.mjs` usaba `replace` y el
+  placeholder del comentario se comía la primera sustitución, dejando
+  `const PRECACHE = __PRECACHE__` → el SW no evaluaba → registro muerto. Se
+  pasó a `replaceAll` y el precache se deriva por filesystem (todos los assets
+  + datos): cubre chunks de esbuild y futuras carreras sin tocar la plantilla.
+  Corregida también la ruta con doble slash (`//assets`). Verificado: registro
+  activo con scope `/` y precache de 16 rutas en el navegador.
+- **2026-10-07** — Verificación Playwright del cierre: export descarga
+  `ciberpensum-<uni>-<slug>-<fecha>.json` canónico; import de un archivo
+  restaura el progreso y la barra global se actualiza sola; FGC-104 aparece
+  bloqueada con `aria-describedby` y se desbloquea en vivo al aprobar FGC-102;
+  la malla duplicada desaparece con JS (noscript). Gate 4/4 PASS.
 
 ## Próximos pasos
 
-1. Correr los gates finales antes de publicar: `revisor-a11y` (WCAG 2.2) y
-   `auditor-seo` (SEO + Core Web Vitals + JSON-LD) sobre el `dist/` construido.
+1. Re-auditoría final en curso (`revisor-a11y` + `auditor-seo` sobre el dist
+   actual, lanzadas por quien cierra esta fase en background).
 2. Publicar en Cloudflare Pages (decisión del 2026-10-05: hosting elegido).
-3. Confirmar las **horas semanales** con la Vicerrectoría Académica o marcarlas
+3. **Mejoras de frontend y CSS con skills** (pedido del usuario): investigar e
+   implementar `frontend-design` y `web-design-guidelines` (y lo que aporten
+   `accessibility`/`best-practices`) sobre el dist actual.
+4. **Habilitar toda la oferta curricular** (pedido del usuario): UNICARIBE,
+   OYM, UPID, UASD y UTESA — `investigador-datos` en paralelo (confirmar
+   identidad oficial vía MESCYT), curaduría secuencial con `curador-pensum`,
+   selector de carrera activa en herramientas (hoy hardcodeado a `carreras[0]`).
+5. Confirmar las **horas semanales** con la Vicerrectoría Académica o marcarlas
    NO VERIFICADO en la herramienta de horario (no están en el PDF de grado).
-4. Revisar la diferencia conocida del 2026-10-07: unificar en
+6. Revisar la diferencia conocida del 2026-10-07: unificar en
    `core/progresion` el criterio de "aprobada" (el cuaderno usa nota ≥ mínimo;
    la herramienta progresión usa presencia de la clave en `progreso.aprobadas`).
-5. Segunda universidad para el comparador (exigía modelo normalizado entre
+7. Segunda universidad para el comparador (exigía modelo normalizado entre
    universidades, que se descartó en v1; queda como evolución posterior).

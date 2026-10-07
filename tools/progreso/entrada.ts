@@ -99,6 +99,10 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
   const resumen = document.createElement("p")
   resumen.className = "meta-fuente barra-estadisticas"
+  // unica region viva del cuaderno: los cambios de estado se anuncian en la
+  // barra de estadisticas, no en toda la app (revision a11y: aria-live amplio
+  // convertia cada casilla en una narracion).
+  resumen.setAttribute("aria-live", "polite")
 
   const reset = document.createElement("button")
   reset.type = "button"
@@ -116,6 +120,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     '<th scope="col">Código</th>' +
     '<th scope="col">Asignatura</th>' +
     '<th scope="col" class="numerico">Cr</th>' +
+    '<th scope="col">PRE-REQ</th>' +
     '<th scope="col">Aprobada</th>' +
     '<th scope="col" class="numerico">Nota</th>' +
     '<th scope="col">En curso</th>' +
@@ -125,7 +130,13 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   // Por codigo de materia: controles de su fila (para el bloqueo por prerequisitos).
   const controles = new Map<
     string,
-    { fila: HTMLTableRowElement; chkAprobada: HTMLInputElement; nota: HTMLInputElement; chkCurso: HTMLInputElement }
+    {
+      fila: HTMLTableRowElement
+      chkAprobada: HTMLInputElement
+      nota: HTMLInputElement
+      chkCurso: HTMLInputElement
+      motivo: HTMLSpanElement
+    }
   >()
 
   const pintarResumen = (): void => {
@@ -175,6 +186,20 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       c.chkCurso.title = titulo
       c.nota.title = titulo
 
+      // El motivo tambien viaja en aria-describedby (el tooltip title solo no
+      // llega a lectores de pantalla, revision a11y): texto sr-only + referencia
+      // en los controles; sin bloqueo, sin descripcion.
+      c.motivo.textContent = bloqueada ? `Bloqueada: ${titulo}` : ""
+      if (bloqueada) {
+        c.chkAprobada.setAttribute("aria-describedby", c.motivo.id)
+        c.chkCurso.setAttribute("aria-describedby", c.motivo.id)
+        c.nota.setAttribute("aria-describedby", c.motivo.id)
+      } else {
+        c.chkAprobada.removeAttribute("aria-describedby")
+        c.chkCurso.removeAttribute("aria-describedby")
+        c.nota.removeAttribute("aria-describedby")
+      }
+
       c.fila.style.backgroundColor = aprobada
         ? "var(--ok-fondo)"
         : enCurso
@@ -212,7 +237,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         cabecera.className = "fila-cuat"
         const th = document.createElement("th")
         th.scope = "rowgroup"
-        th.colSpan = 7
+        th.colSpan = 8
         th.textContent = `Cuatrimestre ${cuatActual} — ${creditos} créditos`
         cabecera.appendChild(th)
         tbody.appendChild(cabecera)
@@ -284,16 +309,37 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         })
       })
 
+      // PRE-REQ: igual que la malla, SOLO los codigos (asi los referencia el
+      // pensum oficial), con el matiz "desde cuat." / "exige TODAS" aparte.
+      const pre = (m.prerequisitos ?? []).join(", ") || "—"
+      const extras: string[] = []
+      if (m.desdeCuatrimestre) extras.push(`desde cuat. ${m.desdeCuatrimestre}`)
+      if (m.requiereTodas) extras.push("exige TODAS las anteriores")
+      const tdPre = celda(pre)
+      if (extras.length) {
+        const chico = document.createElement("span")
+        chico.className = "meta-fuente"
+        chico.textContent = extras.join(" · ")
+        tdPre.append(document.createElement("br"), chico)
+      }
+
+      // Motivo de bloqueo en el arbol de accesibilidad (aria-describedby);
+      // vacio cuando no hay bloqueo, se rellena en aplicarBloqueos().
+      const motivo = document.createElement("span")
+      motivo.id = `motivo-${m.codigo}`
+      motivo.className = "sr-only"
+
       fila.append(
         celda(String(m.cuatrimestre), true),
         celda(m.codigo),
         celda(m.nombre),
         celda(String(m.creditos), true),
+        tdPre,
         (() => { const td = celda(""); td.appendChild(chkAprobada); return td })(),
-        (() => { const td = celda(""); td.appendChild(inputNota); return td })(),
+        (() => { const td = celda(""); td.appendChild(inputNota); td.appendChild(motivo); return td })(),
         (() => { const td = celda(""); td.appendChild(chkCurso); return td })(),
       )
-      controles.set(m.codigo, { fila, chkAprobada, nota: inputNota, chkCurso })
+      controles.set(m.codigo, { fila, chkAprobada, nota: inputNota, chkCurso, motivo })
       tbody.appendChild(fila)
     }
   }

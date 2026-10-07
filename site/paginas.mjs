@@ -156,6 +156,7 @@ export function renderUniversidades(carreras) {
   const contenido = `
   <h1>Universidades</h1>
   <p>Universidades dominicanas con pensum curado a partir de su documentación oficial.</p>
+  <h2>Universidades con oferta curada</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`
@@ -179,6 +180,7 @@ export function renderUniversidad(uniId, carreras) {
   const contenido = `
   <h1>${esc(nombre)}</h1>
   <p>Carreras curadas a partir de los documentos oficiales de ${esc(nombre)}.</p>
+  <h2>Carreras curadas</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`
@@ -297,6 +299,7 @@ export function renderHerramientas() {
   const contenido = `
   <h1>Herramientas</h1>
   <p>Calculadoras y visores que trabajan sobre el progreso que guardas en tu navegador. Sin cuentas y sin servidor: nada sale de tu equipo salvo lo que tú exportes.</p>
+  <h2>Las seis herramientas</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`
@@ -368,18 +371,21 @@ var FUNCION_POR_SLUG = {
 export function renderHerramienta(h, carrera) {
   const sinJs = FUNCION_POR_SLUG[h.slug](h, carrera)
   const jsonPensum = JSON.stringify(carrera).replaceAll("</", "<\\/")
+  // El cuaderno de progreso YA ES la malla completa: su seccion estatica solo
+  // existe sin JS (regla 6); con JS meter la misma tabla 55 filas otra vez es
+  // la redundancia que pidio eliminar el usuario (y hallazgo a11y #6).
+  const seccionSinJs = `<section aria-label="Datos de esta herramienta (visibles sin JavaScript)">\n${sinJs}\n  </section>`
+  const seccionEstatica = h.slug === "progreso" ? `<noscript>\n${seccionSinJs}\n</noscript>` : seccionSinJs
   const contenido = `
   <h1>${esc(h.titulo)}</h1>
   <p>${esc(h.descripcion)}</p>
   <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos).</p>
 
-  <div class="panel" id="app" aria-live="polite">
+  <div class="panel" id="app">
     <noscript><p><strong>JavaScript desactivado.</strong> Esta herramienta se muestra completa como datos; el cálculo en vivo se activa con JS. Todo el contenido esencial de la página está arriba.</p></noscript>
   </div>
 
-  <section aria-label="Datos de esta herramienta (visibles sin JavaScript)">
-${sinJs}
-  </section>
+${seccionEstatica}
 
   ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
   <script type="application/json" id="datos-pensum">${jsonPensum}</script>
@@ -496,6 +502,7 @@ export function renderGuias() {
   const contenido = `
   <h1>Guías</h1>
   <p>Explicaciones de cómo se calcula cada cosa y de dónde salen los números.</p>
+  <h2>Las guías</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`

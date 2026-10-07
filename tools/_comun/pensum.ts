@@ -22,7 +22,10 @@ export function cargarPensum(): Pensum | null {
 /** Registra el service worker (offline). Fallar no rompe nada. */
 export function registrarServiceWorker(): void {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../sw.js").catch(() => {
+    // Relativo al ORIGEN, no a la pagina: ../sw.js desde una herramienta
+    // resolvia a /herramientas/sw.js (404). El SW vive en la raiz (/sw.js)
+    // con scope raiz, para que el offline cubra todo el sitio.
+    navigator.serviceWorker.register("/sw.js").catch(() => {
       /* offline no disponible: el sitio sigue funcionando en linea */
     })
   }
