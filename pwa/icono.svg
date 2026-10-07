@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ciberpensum">
+  <rect width="512" height="512" rx="96" fill="#0e6f6a"/>
+  <path d="M256 132c-40 0-76 13-100 34v178c24-21 60-34 100-34s76 13 100 34V166c-24-21-60-34-100-34z" fill="#ffffff"/>
+  <path d="M208 196h96M208 246h96M208 296h60" stroke="#0e6f6a" stroke-width="22" stroke-linecap="round" fill="none"/>
+</svg>
