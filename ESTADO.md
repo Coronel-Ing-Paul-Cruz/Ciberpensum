@@ -23,26 +23,39 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 
 ## Fase actual
 
-**Fase 0 — Cimientos** · en curso
+**Fase 0 — Cimientos** · completada 2026-10-06
 
 | Entregable | Estado |
 |---|---|
-| repo git local | hecho (`git init -b main`, 2 commits) |
+| repo git local | hecho (`git init -b main`, commits iniciales) |
 | repo privado en GitHub | creado: `github.com/Coronel-Ing-Paul-Cruz/Ciberpensum` (privado) |
 | estructura de carpetas | hecha |
-| `AGENTS.md`, `opencode.jsonc`, 6 agentes, 20 skills | hechos y validados |
+| `AGENTS.md`, `opencode.jsonc`, 6 agentes, skills | hechos y validados |
 | gate `npm run gate` (4 chequeos) | **en verde** |
 | permisos sin prompts | lista de negativas + `--auto` (decisión del 2026-10-05) |
-| `core/indice` (primer módulo, TDD) | 5 tests en verde |
+| los 6 módulos de `core/` | hecho (191 tests) |
 | fuentes oficiales descargadas | 3 PDF en `data/raw/unicaribe/` con sha256 |
-| design tokens (`ui/`) | pendiente |
-| los otros 5 módulos de `core/` | pendiente |
+| design tokens (`ui/`) | hecho |
+
+**Fase 1 — Malla, cuaderno y sitio publicado** · completada 2026-10-07
+
+| Entregable | Estado |
+|---|---|
+| `data/curated/unicaribe/ciberseguridad.json` | curado (55 materias, 12 cuatrimestres, 191 créditos) |
+| malla y cuaderno en el **orden del pensum** (no alfabético) | verificado contra el PDF (12/12 bloques) |
+| bloqueo por prerrequisitos en el cuaderno (gris + deshabilitado) | verificado en navegador real |
+| cuatrimestres separados visualmente (fila cabecera de bloque) | verificado |
+| estadísticas siempre visibles (barra sticky) en malla y cuaderno | verificado |
+| SSG + PWA + servidor local (`npm run build`/`start`) | hecho (33 archivos dist) |
+| verificación en navegador (Playwright MCP) | configurado y pasado |
+| gates finales `revisor-a11y` + `auditor-seo` | pendiente |
+| publicación en Cloudflare Pages | pendiente |
 
 ## Carreras curadas
 
 | Universidad | Carrera | Pensum | Curado | Gate |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| Universidad del Caribe | Ingeniería en Ciberseguridad | 2024-11 | 2026-10-06 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -101,16 +114,52 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   materias, 191 créditos), Catálogo Estudiantil (`1b62add9…`) y Reglamento
   Estudiantil (`25be4df4…`). Pendiente: faltan las **horas semanales**, que no
   están en el PDF de grado (solo en el de maestría).
+- **2026-10-07** — La malla y el cuaderno de progreso muestran las materias en
+  el **orden del pensum oficial** (cuatrimestre ascendente y, dentro de cada
+  bloque, el orden visual del PDF), nunca alfabético. El JSON curado ya trae
+  ese orden; la UI lo preserva con un sort estable por (cuatrimestre, índice).
+  `verify:data` ahora exige cuatrimestres no decrecientes: la invariante de
+  orden pasó a ser del gate, para que una curaduría futura no la rompa.
+- **2026-10-07** — Bloqueo por prerrequisitos en el cuaderno: sin el
+  prerrequisito aprobado (nota final ≥ mínimo) **no se puede marcar** una
+  materia como aprobada, en curso, ni escribir su nota; la fila queda en gris
+  con el motivo ("falta aprobar FGC-102") en el tooltip. Lo ya registrado se
+  puede desmarcar (corregir), pero nunca se selecciona un estado nuevo. La
+  regla vive en `core/progresion` (`materiasDisponibles` evaluada sin
+  cuatrimestre): el bloqueo temporal es regla de planificación de inscripción
+  (herramienta progresión), no del cuaderno.
+- **2026-10-07** — Los prerrequisitos se muestran **solo con el código**, como
+  la columna PRE-REQ del PDF. Primera versión mostraba "nombre (código)" y el
+  usuario pidió revertir: el código es el identificador de la materia; el
+  nombre no se repite.
+- **2026-10-07** — Los cuatrimestres se separan visualmente con una fila
+  cabecera de bloque (`Cuatrimestre N — X créditos`) en la malla y en el
+  cuaderno, igual que el PDF agrupa por cuatrimestre. Y las estadísticas de
+  ambas páginas van en una barra `sticky` que queda siempre visible al
+  desplazar la tabla larga.
+- **2026-10-07** — Verificación contra el PDF: 55/55 materias sin sobrantes ni
+  faltantes, secuencia curada == orden visual del PDF, nombres de todas las
+  materias coinciden con su línea (INC-333 sale partido en dos líneas del PDF
+  y se reconstruyó: "TALLER SEGURIDAD DE INFRAESTRUCTURA FÍSICA, VIRTUAL Y EN
+  LA NUBE"). Verificado además en navegador real con **Playwright MCP**
+  (configurado en `opencode.jsonc`): orden, separadores, barra sticky,
+  bloqueo/desbloqueo en vivo.
+- **2026-10-07** — Diferencia conocida para fase siguiente: la herramienta
+  progresión considera "aprobada" cualquier materia con registro en el cuaderno
+  (presencia de la clave en `progreso.aprobadas`), mientras que el cuaderno y
+  el bloqueo de prerrequisitos usan `nota ≥ mínimo`. Conviene revisar si
+  `core/progresion` debe unificar criterio (una reprobada no destraba
+  disponibles).
 
 ## Próximos pasos
 
-1. `curador-pensum`: PDF → `data/curated/unicaribe/ciberseguridad.json`
-   (55 materias, 191 créditos, `INC-333` sale partido en tres líneas en el PDF)
-   y esta tabla crece.
-2. `constructor-herramienta` en paralelo sobre los módulos independientes:
-   `core/progresion` (DAG + motivo de bloqueo) y `core/nota-minima`
-   (nota mínima en examen final, ponderados hacia atrás).
-3. `core/datos`: carga y valida el JSON contra `data/schema/pensum.schema.json`.
-4. `constructor-herramienta`: `core/indice` ampliado con honores (Art. 89:
-   85-89 cum laude, 90-94 magna, 95-100 summa, base 100, sin reprobaciones).
-5. `ui/` tokens y primer `tools/` para poder abrir el sitio en el navegador.
+1. Correr los gates finales antes de publicar: `revisor-a11y` (WCAG 2.2) y
+   `auditor-seo` (SEO + Core Web Vitals + JSON-LD) sobre el `dist/` construido.
+2. Publicar en Cloudflare Pages (decisión del 2026-10-05: hosting elegido).
+3. Confirmar las **horas semanales** con la Vicerrectoría Académica o marcarlas
+   NO VERIFICADO en la herramienta de horario (no están en el PDF de grado).
+4. Revisar la diferencia conocida del 2026-10-07: unificar en
+   `core/progresion` el criterio de "aprobada" (el cuaderno usa nota ≥ mínimo;
+   la herramienta progresión usa presencia de la clave en `progreso.aprobadas`).
+5. Segunda universidad para el comparador (exigía modelo normalizado entre
+   universidades, que se descartó en v1; queda como evolución posterior).
