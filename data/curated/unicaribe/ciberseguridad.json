@@ -1,0 +1,488 @@
+{
+  "carrera": "Ingeniería en Ciberseguridad",
+  "slug": "ciberseguridad",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "grado",
+  "version": "2024-11",
+  "vigente": true,
+  "duracion": {
+    "periodos": 12,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 55,
+    "creditos": 191
+  },
+  "materias": [
+    {
+      "codigo": "FGC-101",
+      "nombre": "ORIENTACIÓN ACADÉMICA INSTITUCIONAL",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "FGC-102",
+      "nombre": "MÉTODO DEL TRABAJO ACADÉMICO",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "FGC-103",
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "ADE-101",
+      "nombre": "ADMINISTRACION I",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": [],
+      "observaciones": "PRE-REQ. = '-' en el PDF: sin prerrequisito."
+    },
+    {
+      "codigo": "FGC-104",
+      "nombre": "LENGUA ESPAÑOLA I",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "FGC-105",
+      "nombre": "MATEMÁTICA BÁSICA I",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "FGC-106",
+      "nombre": "TECNOLOGÍA DE LA INFORMACIÓN Y COMUNICACIÓN I",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "ING-101",
+      "nombre": "INTRODUCCIÓN A LA INGENIERÍA",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "FGC-107",
+      "nombre": "HISTORIA SOCIAL DOMINICANA",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "FGC-108",
+      "nombre": "INGLÉS I",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "DMF-209",
+      "nombre": "FISICA I",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": ["FGC-105"]
+    },
+    {
+      "codigo": "QUI-400",
+      "nombre": "QUÍMICA I",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": ["FGC-105"]
+    },
+    {
+      "codigo": "MTI-200",
+      "nombre": "MATEMÁTICA II",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": ["FGC-105"]
+    },
+    {
+      "codigo": "FGC-109",
+      "nombre": "FILOSOFÍA",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "FGC-110",
+      "nombre": "DESARROLLO SOSTENIBLE Y GESTIÓN DE RIESGOS",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "MTI-300",
+      "nombre": "MATEMÁTICA III",
+      "creditos": 4,
+      "cuatrimestre": 4,
+      "prerequisitos": ["MTI-200"]
+    },
+    {
+      "codigo": "DMF-210",
+      "nombre": "FISICA II",
+      "creditos": 4,
+      "cuatrimestre": 4,
+      "prerequisitos": ["DMF-209"]
+    },
+    {
+      "codigo": "FGC-112",
+      "nombre": "EDUCACIÓN CONSTITUCIONAL",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": [],
+      "observaciones": "PRE-REQ. vacío en el PDF: sin prerrequisito."
+    },
+    {
+      "codigo": "MAT-241",
+      "nombre": "ESTADISTICA I",
+      "creditos": 3,
+      "cuatrimestre": 5,
+      "prerequisitos": ["FGC-105"]
+    },
+    {
+      "codigo": "ING-102",
+      "nombre": "CIENCIA E INGENIERÍA DE MATERIALES",
+      "creditos": 4,
+      "cuatrimestre": 5,
+      "prerequisitos": ["QUI-400"]
+    },
+    {
+      "codigo": "ING-103",
+      "nombre": "CÁLCULO INTEGRAL",
+      "creditos": 4,
+      "cuatrimestre": 5,
+      "prerequisitos": ["MTI-300"]
+    },
+    {
+      "codigo": "INF-215",
+      "nombre": "INGENIERÍA ECONÓMICA",
+      "creditos": 3,
+      "cuatrimestre": 5,
+      "prerequisitos": ["MTI-200"]
+    },
+    {
+      "codigo": "FGC-116",
+      "nombre": "HISTORIA DEL ARTE",
+      "creditos": 3,
+      "cuatrimestre": 5,
+      "prerequisitos": ["FGC-102"]
+    },
+    {
+      "codigo": "MAT-242",
+      "nombre": "ESTADISTICA II",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": ["MAT-241"]
+    },
+    {
+      "codigo": "ING-105",
+      "nombre": "TALLER DE MECÁNICA DE HARDWARE",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": ["FGC-106"]
+    },
+    {
+      "codigo": "ING-104",
+      "nombre": "CÁLCULO VECTORIAL",
+      "creditos": 4,
+      "cuatrimestre": 6,
+      "prerequisitos": ["ING-103"]
+    },
+    {
+      "codigo": "INF-222",
+      "nombre": "SISTEMA OPERATIVO I",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": ["FGC-106"]
+    },
+    {
+      "codigo": "INF-221",
+      "nombre": "INTRODUCCIÓN A LA PROGRAMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": ["FGC-106"]
+    },
+    {
+      "codigo": "TIC-408",
+      "nombre": "SEGURIDAD DE LA INFORMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": ["FGC-106"]
+    },
+    {
+      "codigo": "ISW-301",
+      "nombre": "TALLER DE PROGRAMACIÓN I",
+      "creditos": 5,
+      "cuatrimestre": 7,
+      "prerequisitos": ["INF-221"]
+    },
+    {
+      "codigo": "INF-437",
+      "nombre": "REDES INFORMATICAS",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": ["INF-222"]
+    },
+    {
+      "codigo": "ISW-321",
+      "nombre": "TALLER DE BASES DE DATOS I",
+      "creditos": 4,
+      "cuatrimestre": 7,
+      "prerequisitos": ["INF-221"]
+    },
+    {
+      "codigo": "INR-215",
+      "nombre": "TALLER DE REDES I",
+      "creditos": 4,
+      "cuatrimestre": 8,
+      "prerequisitos": ["INF-437"]
+    },
+    {
+      "codigo": "TIC-402",
+      "nombre": "ETICA EN TECNOLOGÍA",
+      "creditos": 2,
+      "cuatrimestre": 8,
+      "prerequisitos": ["FGC-110"]
+    },
+    {
+      "codigo": "INC-404",
+      "nombre": "ELECTIVA I",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": [],
+      "desdeCuatrimestre": 7,
+      "observaciones": "La columna PRE-REQ. del PDF dice '7MO. CUAT.' (no es un código de materia) y la materia figura listada en el bloque del OCTAVO CUATRIMESTRE de la p.5: se conserva `cuatrimestre` = 8 por posición y `desdeCuatrimestre` = 7 por el texto del PDF."
+    },
+    {
+      "codigo": "INC-222",
+      "nombre": "CIBERDELITOS, CIBERTERRORISMO, CIBERGUERRA",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": ["TIC-408"]
+    },
+    {
+      "codigo": "INC-231",
+      "nombre": "CRIPTOGRAFÍA Y CRIPTOANÁLISIS",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": ["TIC-408"]
+    },
+    {
+      "codigo": "INC-315",
+      "nombre": "TALLER SEGURIDAD DE REDES Y TELECOMUNICACIONES",
+      "creditos": 4,
+      "cuatrimestre": 9,
+      "prerequisitos": ["INR-215"]
+    },
+    {
+      "codigo": "INC-325",
+      "nombre": "TALLER SEGURIDAD DE SISTEMAS OPERATIVOS Y SOFTWARE",
+      "creditos": 4,
+      "cuatrimestre": 9,
+      "prerequisitos": ["INF-222"]
+    },
+    {
+      "codigo": "INC-331",
+      "nombre": "SISTEMA DE GESTIÓN DE LA SEGURIDAD DE LA INFORMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": ["TIC-408"]
+    },
+    {
+      "codigo": "INC-332",
+      "nombre": "TALLER SEGURIDAD DE BASES DE DATOS",
+      "creditos": 4,
+      "cuatrimestre": 9,
+      "prerequisitos": ["ISW-321"]
+    },
+    {
+      "codigo": "INC-411",
+      "nombre": "GESTIÓN DE RIESGOS DE LA SEGURIDAD DE LA INFORMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 10,
+      "prerequisitos": ["INC-331"]
+    },
+    {
+      "codigo": "INC-333",
+      "nombre": "TALLER SEGURIDAD DE INFRAESTRUCTURA FÍSICA, VIRTUAL Y EN LA NUBE",
+      "creditos": 4,
+      "cuatrimestre": 10,
+      "prerequisitos": ["INC-315"],
+      "observaciones": "En el PDF la materia aparece partida en tres líneas (código, nombre en dos líneas y '4 INC-315'); los créditos (4) y el prerrequisito (INC-315) se reconstruyen de esas tres líneas."
+    },
+    {
+      "codigo": "INC-405",
+      "nombre": "ELECTIVA II",
+      "creditos": 3,
+      "cuatrimestre": 10,
+      "prerequisitos": [],
+      "desdeCuatrimestre": 9,
+      "observaciones": "La columna PRE-REQ. del PDF dice '9NO. CUAT.' (no es un código de materia) y la materia figura listada en el bloque del DÉCIMO CUATRIMESTRE de la p.5: se conserva `cuatrimestre` = 10 por posición y `desdeCuatrimestre` = 9 por el texto del PDF."
+    },
+    {
+      "codigo": "INC-401",
+      "nombre": "PROYECTO DE CIBERSEGURIDAD - I",
+      "creditos": 5,
+      "cuatrimestre": 10,
+      "prerequisitos": ["INC-331"]
+    },
+    {
+      "codigo": "INC-403",
+      "nombre": "PASANTÍA - PRÁCTICA DE CIBERSEGURIDAD",
+      "creditos": 8,
+      "cuatrimestre": 10,
+      "prerequisitos": ["INC-411"],
+      "observaciones": "El PDF lista INC-411 y INC-403 en el mismo cuatrimestre (DÉCIMO) con INC-411 como prerrequisito de INC-403: así consta en la fuente."
+    },
+    {
+      "codigo": "INC-412",
+      "nombre": "MARCO LEGAL DE LA SEGURIDAD DE LA INFORMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": ["INC-331"]
+    },
+    {
+      "codigo": "INC-413",
+      "nombre": "TALLER SEGURIDAD EN DISPOSITIVOS MÓVILES",
+      "creditos": 4,
+      "cuatrimestre": 11,
+      "prerequisitos": ["INC-325"]
+    },
+    {
+      "codigo": "INC-402",
+      "nombre": "PROYECTO DE CIBERSEGURIDAD - II",
+      "creditos": 5,
+      "cuatrimestre": 11,
+      "prerequisitos": ["INC-401"]
+    },
+    {
+      "codigo": "INC-334",
+      "nombre": "INGENIERÍA SOCIAL",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": ["INC-222"]
+    },
+    {
+      "codigo": "FGC-111",
+      "nombre": "SEMINARIO DE GRADO",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": ["FGC-103"]
+    },
+    {
+      "codigo": "INC-414",
+      "nombre": "TALLER DE SEGURIDAD IoT Y ENTORNOS INDUSTRIALES",
+      "creditos": 4,
+      "cuatrimestre": 12,
+      "prerequisitos": ["INC-333"]
+    },
+    {
+      "codigo": "INC-421",
+      "nombre": "ANÁLISIS FORENSE EN CIBERSEGURIDAD",
+      "creditos": 4,
+      "cuatrimestre": 12,
+      "prerequisitos": ["INC-412"]
+    },
+    {
+      "codigo": "INC-422",
+      "nombre": "TALLER DE AUDITORÍA DE SEGURIDAD DE LA INFORMACIÓN",
+      "creditos": 4,
+      "cuatrimestre": 12,
+      "prerequisitos": ["INC-331"]
+    },
+    {
+      "codigo": "INC-600",
+      "nombre": "PROYECTO INTEGRADOR DE CIBERSEGURIDAD: TRABAJO DE GRADO",
+      "creditos": 6,
+      "cuatrimestre": 12,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "La columna PRE-REQ. del PDF dice 'TODAS': requiere aprobar todas las demás asignaturas de la carrera."
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "Horas semanales por asignatura: ausentes en el PDF de grado (NO VERIFICADO).",
+    "El PDF no declara fecha ni version; '2024-11' proviene de la ruta del sitio oficial, no del documento (UNVERIFIABLE).",
+    "La pagina 2 del PDF contiene descripciones de otra carrera (Gestion Ambiental y de Energias Renovables).",
+    "INC-333 aparece partido en tres lineas en el PDF.",
+    "INC-404 (ELECTIVA I) y INC-405 (ELECTIVA II) traen '7MO. CUAT.' y '9NO. CUAT.' en la columna PRE-REQ. en lugar de un codigo; ademas estan listadas en los cuatrimestres 8 y 10 respectivamente, uno despues del cuatrimestre que declara la propia columna (discrepancia interna del PDF, NO VERIFICADO).",
+    "INC-403 (PASANTIA) tiene como prerrequisito a INC-411, materia que el PDF lista en el mismo cuatrimestre (DECIMO); se respeta tal cual la fuente.",
+    "El total declarado por el PDF (55 asignaturas, 191 creditos) coincide con la suma de las filas extraidas."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Pensum_Ingenieria-en-Ciberseguridad.pdf",
+    "sha256": "9cc25ed3f9a70007bf7d20bd196e7ab88b6d50de55bad2f2f4b85b29ecee77dc",
+    "verificadoEn": "2026-10-05",
+    "archivo": "Pensum_Ingenieria-en-Ciberseguridad.pdf"
+  }
+}
