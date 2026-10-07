@@ -121,7 +121,10 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   for (const f of [actual, completados, porCursar, objetivo, siguiente]) f.input.addEventListener("input", calcular)
 
   vaciar(app)
+  const encabezado = document.createElement("h2")
+  encabezado.textContent = "Completa los números de tu índice"
   app.append(
+    encabezado,
     actual.envoltura,
     completados.envoltura,
     porCursar.envoltura,

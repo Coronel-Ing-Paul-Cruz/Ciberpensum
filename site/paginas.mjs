@@ -93,7 +93,7 @@ export function renderHome(carreras) {
 
   const contenido = `
   <section class="hero">
-    <h1>Tu carrera, planificada con <em>fuente oficial</em></h1>
+    <h1>Tu carrera, planificada con fuente oficial</h1>
     <p>Ciberpensum es un planificador académico para universidades dominicanas: pensum, índice, prerrequisitos y objetivo de nota. Sin cuentas, sin servidor: tus datos viven en tu navegador y tú decides si los exportas. Cada cifra del sitio sale de un PDF oficial con su sha256; lo que no está confirmado se marca en pantalla, no se finge.</p>
   </section>
 
@@ -130,6 +130,7 @@ ${tarjetasHerramientas}
     contenido,
     rutaAssets: rutaAssets(0),
     seccion: "inicio",
+    canonical: SITIO_URL + "/",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -166,6 +167,7 @@ ${tarjetas}
     contenido,
     rutaAssets: rutaAssets(1),
     seccion: "universidades",
+    canonical: SITIO_URL + "/universidades/",
     jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Universidades", url: SITIO_URL + "/universidades/" },
   })
 }
@@ -190,6 +192,7 @@ ${tarjetas}
     contenido,
     rutaAssets: rutaAssets(2),
     seccion: "universidades",
+    canonical: SITIO_URL + `/universidades/${uniId}/`,
     migas: [
       ["Inicio", "../../index.html"],
       ["Universidades", "../index.html"],
@@ -267,6 +270,7 @@ ${noVerificado}`
     contenido,
     rutaAssets: rutaAssets(3),
     seccion: "universidades",
+    canonical: SITIO_URL + `/carreras/${c.universidad.id}/${c.slug}/`,
     migas,
     jsonLd: {
       "@context": "https://schema.org",
@@ -283,7 +287,10 @@ ${noVerificado}`
           description: `Pensum de ${c.carrera}: ${c.totales.asignaturas} asignaturas y ${c.totales.creditos} créditos en ${c.duracion.periodos} ${c.duracion.tipoPeriodo}s, según documento oficial de ${c.universidad.nombre}.`,
           url: SITIO_URL + `/carreras/${c.universidad.id}/${c.slug}/`,
           provider: { "@id": SITIO_URL + `/universidades/${c.universidad.id}/#uni` },
-          competencyRequired: graduados,
+          // La carrera (EducationalOccupationalCredential) CONTIENE los cursos:
+          // hasPart acepta CreativeWork (Course lo es). competencyRequired solo
+          // admite DefinedTerm/Role/Text/URL -> 55 errores en el validador.
+          hasPart: graduados,
         },
       ],
     },
@@ -309,6 +316,7 @@ ${tarjetas}
     contenido,
     rutaAssets: rutaAssets(1),
     seccion: "herramientas",
+    canonical: SITIO_URL + "/herramientas/",
     jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Herramientas", url: SITIO_URL + "/herramientas/" },
   })
 }
@@ -371,21 +379,20 @@ var FUNCION_POR_SLUG = {
 export function renderHerramienta(h, carrera) {
   const sinJs = FUNCION_POR_SLUG[h.slug](h, carrera)
   const jsonPensum = JSON.stringify(carrera).replaceAll("</", "<\\/")
-  // El cuaderno de progreso YA ES la malla completa: su seccion estatica solo
-  // existe sin JS (regla 6); con JS meter la misma tabla 55 filas otra vez es
-  // la redundancia que pidio eliminar el usuario (y hallazgo a11y #6).
-  const seccionSinJs = `<section aria-label="Datos de esta herramienta (visibles sin JavaScript)">\n${sinJs}\n  </section>`
-  const seccionEstatica = h.slug === "progreso" ? `<noscript>\n${seccionSinJs}\n</noscript>` : seccionSinJs
+  // CLS + una sola copia del contenido (regla 6 y hallazgos CWV/a11y): el panel
+  // #app nace con el contenido estatico (altura real de la pagina) y el modulo
+  // lo REPLACE en su sitio; sin JS, la pagina es el contenido estatico entero.
   const contenido = `
   <h1>${esc(h.titulo)}</h1>
   <p>${esc(h.descripcion)}</p>
   <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos).</p>
 
   <div class="panel" id="app">
-    <noscript><p><strong>JavaScript desactivado.</strong> Esta herramienta se muestra completa como datos; el cálculo en vivo se activa con JS. Todo el contenido esencial de la página está arriba.</p></noscript>
+    <noscript><p><strong>JavaScript desactivado.</strong> Esta herramienta se muestra completa como datos; el cálculo en vivo se activa con JS.</p></noscript>
+    <section aria-label="Contenido de esta herramienta (visible sin JavaScript)">
+${sinJs}
+    </section>
   </div>
-
-${seccionEstatica}
 
   ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
   <script type="application/json" id="datos-pensum">${jsonPensum}</script>
@@ -396,6 +403,7 @@ ${seccionEstatica}
     contenido,
     rutaAssets: rutaAssets(2),
     seccion: "herramientas",
+    canonical: SITIO_URL + `/herramientas/${h.slug}/`,
     migas: [
       ["Inicio", "../../index.html"],
       ["Herramientas", "../index.html"],
@@ -512,6 +520,7 @@ ${tarjetas}
     contenido,
     rutaAssets: rutaAssets(1),
     seccion: "guias",
+    canonical: SITIO_URL + "/guias/",
     jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Guías", url: SITIO_URL + "/guias/" },
   })
 }
@@ -531,6 +540,7 @@ ${cuerpo}
     contenido,
     rutaAssets: rutaAssets(1),
     seccion: "guias",
+    canonical: SITIO_URL + `/guias/${g.slug}.html`,
     migas: [
       ["Inicio", "../index.html"],
       ["Guías", "./index.html"],
@@ -551,6 +561,7 @@ export function render404() {
     descripcion: "Error 404: la página no existe.",
     contenido,
     rutaAssets: rutaAssets(0),
+    robots: "noindex",
   })
 }
 

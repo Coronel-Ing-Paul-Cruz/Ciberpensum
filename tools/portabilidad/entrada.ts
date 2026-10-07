@@ -35,12 +35,16 @@ function parrafo(contenido: string, clase = ""): HTMLParagraphElement {
   return p
 }
 
-function area(texto: string, placeholder: string): HTMLTextAreaElement {
+function area(texto: string, placeholder: string, etiqueta: string): HTMLTextAreaElement {
   const ta = document.createElement("textarea")
   ta.rows = 6
   ta.value = texto
   ta.placeholder = placeholder
   ta.spellcheck = false
+  ta.autocomplete = "off"
+  // Nombre accesible obligatorio (axe: label critical, WCAG 4.1.2): el
+  // placeholder NO es nombre; cada campo se anuncia con su uso.
+  ta.setAttribute("aria-label", etiqueta)
   return ta
 }
 
@@ -62,7 +66,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   // --- Exportar -----------------------------------------------------------
   const h1 = document.createElement("h2")
   h1.textContent = "1 · Exportar (guardar o copiar)"
-  const exp = area(serializarProgreso(progreso), "")
+  const exp = area(serializarProgreso(progreso), "", "Texto exportado del progreso (JSON)")
   exp.readOnly = true
   const copiar = boton("Copiar al portapapeles")
   const descargar = boton("Descargar archivo .json", false)
@@ -87,7 +91,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   // --- Importar -----------------------------------------------------------
   const h2 = document.createElement("h2")
   h2.textContent = "2 · Importar (pegar el texto exportado)"
-  const imp = area("", "Pega aquí el JSON exportado…")
+  const imp = area("", "Pega aquí el JSON exportado…", "Pega aquí el JSON exportado para importar")
   const importar = boton("Importar y sobrescribir")
 
   importar.addEventListener("click", () => {
@@ -110,7 +114,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   // --- Enlace portable ----------------------------------------------------
   const h3 = document.createElement("h2")
   h3.textContent = "3 · Enlace #p= (progreso dentro de la URL)"
-  const enlace = area("", "Genera el enlace con el botón de abajo")
+  const enlace = area("", "Genera el enlace con el botón de abajo", "Enlace con tu progreso (#p=…)")
   enlace.readOnly = true
   const generar = boton("Generar enlace con el progreso actual")
   const copiarEnlace = boton("Copiar enlace", false)

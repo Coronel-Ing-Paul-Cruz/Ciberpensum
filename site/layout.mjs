@@ -24,15 +24,32 @@ export function rutaAssets(profundidad) {
  * @param {string} o.descripcion    meta description
  * @param {string} o.contenido      HTML del main (sin <main>)
  * @param {string} o.rutaAssets     prefijo para assets/css
- * @param {string} [o.jsonLd]       bloque JSON-LD (objeto)
+ * @param {object} [o.jsonLd]       bloque JSON-LD (objeto)
  * @param {Array<[string,string]>} [o.migas]  ruta de navegacion: [etiqueta, href]
  * @param {string} [o.seccion]      seccion activa del nav: inicio|universidades|herramientas|guias
+ * @param {string} [o.canonical]    URL canonica absoluta (genera <link rel="canonical"> + OG). Omitir = sin canonical.
+ * @param {"noindex"} [o.robots]    "noindex" emite <meta name="robots" content="noindex, nofollow">
  */
-export function pagina({ titulo, descripcion, contenido, rutaAssets, jsonLd, migas, seccion }) {
+export function pagina({ titulo, descripcion, contenido, rutaAssets, jsonLd, migas, seccion, canonical, robots }) {
   // El nav y el pie viven a nivel de documento, no de pagina: hay que prefijar
   // con la misma profundidad que los assets ("../" x nivel) o los enlaces de
   // una pagina a profundidad 2 apuntan a rutas que no existen.
   const baseNav = rutaAssets === "assets" ? "" : rutaAssets.slice(0, -"assets".length)
+
+  // SEO: canonical unico por pagina (sin el no existe forma canonica de la URL,
+  // porque la misma pagina se sirve en /ruta/ y /ruta/index.html). OG/Twitter
+  // para que los enlaces compartidos muestren titulo y descripcion.
+  const canonicalHtml = canonical
+    ? `  <link rel="canonical" href="${esc(canonical)}">
+  <meta property="og:title" content="${esc(titulo)}">
+  <meta property="og:description" content="${esc(descripcion)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${esc(canonical)}">
+  <meta name="twitter:card" content="summary">
+`
+    : ""
+  const robotsHtml = robots === "noindex" ? `  <meta name="robots" content="noindex, nofollow">
+` : ""
   const nav = [
     ["inicio", "Inicio", "index.html"],
     ["universidades", "Universidades", "universidades/index.html"],
@@ -65,7 +82,8 @@ ${migas.map(([etiqueta, href], i) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(titulo)} — ${TITULO_SITIO}</title>
   <meta name="description" content="${esc(descripcion)}">
-  <link rel="icon" href="${rutaAssets}/icono.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#f7f4ec">
+${canonicalHtml}${robotsHtml}  <link rel="icon" href="${rutaAssets}/icono.svg" type="image/svg+xml">
   <link rel="manifest" href="${rutaAssets}/manifest.webmanifest">
   <link rel="stylesheet" href="${rutaAssets}/css/site.css">${jsonLdHtml}
 </head>
@@ -129,20 +147,23 @@ export function badge(etiqueta, tipo = "ok") {
 
 /** Bloque destacado de NO VERIFICADO (regla 8: se ve en pantalla). */
 export function avisoNoVerificado(texto) {
-  return `<aside class="aviso-no-verificado" aria-label="Dato no verificado">
+  // div y no aside: dentro de main, un landmark complementary anidado rompe
+  // la navegacion de puntos de referencia (hallazgo axe, revisor-a11y).
+  return `<div class="aviso-no-verificado">
   <strong>NO VERIFICADO</strong>
   <p>${esc(texto)}</p>
-</aside>`
+</div>`
 }
 
 /** Meta de fuente de un JSON curado: URL, sha256 y fecha. */
 export function metaFuente(fuente, etiqueta = "Fuente oficial") {
-  return `<aside class="panel">
+  // div y no aside: igual que avisoNoVerificado (landmark anidado en main).
+  return `<div class="panel">
   <h3>${esc(etiqueta)}</h3>
   <p class="meta-fuente">Documento oficial (<code>${esc(fuente.archivo ?? "")}</code>) descargado el <time datetime="${esc(fuente.verificadoEn)}">${esc(fuente.verificadoEn)}</time>.<br>
   sha256: <code>${esc(fuente.sha256)}</code></p>
   <p><a href="${esc(fuente.url)}" ref="noreferrer">${esc(fuente.url)}</a></p>
-</aside>`
+</div>`
 }
 
 /** Tabla de materias de un pensum completo. */

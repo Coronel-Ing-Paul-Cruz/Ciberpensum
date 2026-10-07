@@ -118,6 +118,13 @@ const archivosDe = (dir, raiz) => {
 const precache = [
   "/",
   "/index.html",
+  // Paginas de entrada + 404: el fallback offline de navegacion resume en
+  // /404.html y las portadas de seccion, no solo en la home (hallazgo
+  // auditor-seo: antes una navegacion offline a /herramientas/ fallaba).
+  "/404.html",
+  "/herramientas/",
+  "/universidades/",
+  "/guias/",
   ...archivosDe(dirAssets, DIST),
   ...archivosDe(dirDatos, DIST),
 ]

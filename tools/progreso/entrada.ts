@@ -97,6 +97,12 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   const plan = aPlan(pensum)
   let progreso = leerProgreso(pensum)
 
+  const encabezado = document.createElement("h2")
+  // Jerarquia h1->h2->h3 (revision a11y): el cuaderno no puede saltar del h1
+  // de la pagina directo al h3 de la fuente; tanto la version estatica como la
+  // interactiva llevan su h2.
+  encabezado.textContent = "Malla para marcar"
+
   const resumen = document.createElement("p")
   resumen.className = "meta-fuente barra-estadisticas"
   // unica region viva del cuaderno: los cambios de estado se anuncian en la
@@ -359,6 +365,6 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   tabla.append(tbody)
   contenedor.appendChild(tabla)
   vaciar(app)
-  app.append(resumen, contenedor, reset)
+  app.append(encabezado, resumen, contenedor, reset)
   pintarResumen()
 }

@@ -2,12 +2,16 @@
    Una sola fuente de verdad visual: el resto de ui/ y site/ las consume. */
 
 :root {
+  /* formularios, scrollbars y controles coherentes con el tema claro (web
+     interface guidelines: declarar color-scheme en vez de dejar el default) */
+  color-scheme: light;
+
   /* ---------- color ---------- */
   --papel: #f7f4ec;          /* fondo general, papel cálido */
   --papel-alto: #ffffff;     /* tarjetas y superficies */
   --tinta: #1d2733;          /* texto principal */
   --tinta-suave: #4a5563;    /* texto secundario */
-  --tinta-bloqueada: #5b6b7a; /* filas bloqueadas del cuaderno: >= 4.5:1 sobre blanco */
+  --tinta-bloqueada: #5b6b7a; /* filas bloqueadas del cuaderno: 5.48:1 sobre blanco (medido) */
   --accent: #0e6f6a;         /* teal profundo: única nota de color funcional */
   --accent-osc: #0a4f4b;
   --accent-claro: #e0f0ee;

@@ -121,7 +121,11 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     lista.appendChild(t2)
 
     vaciar(app)
-    app.append(panel, bandas, notaExtra, lista)
+    // jerarquia h1->h2: la seccion estatica (que antes aportaba el h2) ahora
+    // vive dentro de #app y este render la reemplaza; el app pinta su h2.
+    const encabezado = document.createElement("h2")
+    encabezado.textContent = "Tu índice actual"
+    app.append(encabezado, panel, bandas, notaExtra, lista)
   }
 
   window.addEventListener("ciberpensum:progreso", render)

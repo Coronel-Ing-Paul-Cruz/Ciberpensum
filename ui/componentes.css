@@ -159,10 +159,13 @@ h3 {
 }
 
 /* ---------- hero / portada ---------- */
+/* Plano, sin gradiente: un encabezado de documento oficial, no un hero de
+   plantilla (la identidad del sitio es el "expediente" con sellos, no un
+   degradado). El borde inferior puntua la cabecera. */
 .hero {
   padding-block: var(--g-6) var(--g-5);
-  border-bottom: 1px solid var(--borde);
-  background: linear-gradient(180deg, var(--papel-alto) 0%, var(--papel) 100%);
+  border-bottom: 2px solid var(--borde);
+  background: var(--papel);
 }
 
 .hero p {
@@ -190,9 +193,11 @@ h3 {
   color: var(--tinta);
 }
 
+/* hover quieto: la tarjeta no se "levanta" (traduccion generica de plantilla);
+   solo el borde y la sombra avisan del estado. */
 .tarjeta:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
+  box-shadow: var(--sombra), 0 4px 14px rgb(29 39 51 / 0.12);
 }
 
 .tarjeta h3 {
@@ -296,19 +301,28 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
-/* ---------- badges de honestidad ---------- */
+/* ---------- badges de honestidad (sellos) ---------- */
+/* La identidad del sitio es el "expediente con sellos": los estados de
+   verificacion ("vigente" / "NO VERIFICADO") se pintan como sellos de
+   documento oficial — contorno doble, mayusculas y una leve rotacion en el
+   aviso (sello estampado a mano). Es el unico elemento con personalidad
+   fuerte; el resto del sitio se mantiene quieto. */
 .badge {
   display: inline-block;
-  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
   font-size: var(--t-micro);
-  font-weight: 600;
-  padding: 0.15em 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.12em 0.55em;
   vertical-align: middle;
 }
 
 .badge-aviso {
   background: var(--aviso-fondo);
   color: var(--aviso);
+  transform: rotate(-1.5deg);
 }
 
 .badge-ok {
@@ -345,6 +359,14 @@ textarea:disabled {
 }
 
 /* ---------- formularios y controles ---------- */
+/* prosa: el texto corrido no se estira a 72rem (lineas de 90+ caracteres);
+   las tablas y rejillas siguen usando todo el ancho. */
+main > p,
+main > ul,
+main > ol {
+  max-width: 46rem;
+}
+
 label {
   display: block;
   font-weight: 600;
@@ -394,6 +416,27 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* tacto (web interface guidelines): sin retardo de doble tap en movil; los
+   punteros finos no arrastran la pagina con rubber-band (el pull-to-refresh
+   tactil se conserva: la regla es solo para punteros finos). */
+button,
+.boton,
+.tarjeta,
+a,
+input,
+select,
+textarea,
+label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: fine) {
+  html {
+    overscroll-behavior: none;
+  }
+}
+
 .campo {
   margin-bottom: var(--g-3);
 }
@@ -421,7 +464,7 @@ button:disabled {
 
 body {
   /* la pagina reserva lo que mide la barra para que no tape el pie */
-  padding-bottom: calc(var(--alto-global) + var(--g-4));
+  padding-bottom: calc(var(--alto-global) + var(--g-4) + env(safe-area-inset-bottom, 0px));
 }
 
 .barra-global .contenedor {
@@ -429,7 +472,10 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--g-2) var(--g-4);
+  /* safe-area: en telefonos con notch la barra es full-bleed y el contenido
+     no debe quedar debajo de la barra de gestos. */
   padding-block: var(--g-2);
+  padding-bottom: calc(var(--g-2) + env(safe-area-inset-bottom, 0px));
 }
 
 .barra-global p {

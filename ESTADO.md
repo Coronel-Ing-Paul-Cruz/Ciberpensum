@@ -185,23 +185,60 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   restaura el progreso y la barra global se actualiza sola; FGC-104 aparece
   bloqueada con `aria-describedby` y se desbloquea en vivo al aprobar FGC-102;
   la malla duplicada desaparece con JS (noscript). Gate 4/4 PASS.
+- **2026-10-07** — **CLS de las herramientas corregido** (auditor-seo había
+  medido Poor 0.47–0.34 en las 6): el panel `#app` nacía vacío y el módulo
+  insertaba la tabla tras el primer pintado. Ahora el contenido estático vive
+  DENTRO de `#app` (una sola copia; fin del `noscript` especial del cuaderno)
+  y el módulo lo reemplaza en el mismo lugar (`vaciar` + `append`, mismo alto).
+  Medido en navegador con PerformanceObserver: cuaderno **CLS 0.4726 → 0.001**.
+  Sin JS la página sigue siendo el contenido estático completo (regla 6).
+- **2026-10-07** — **SEO completo por página** (auditor-seo): `<link
+  rel="canonical">` en las 18 páginas indexables (una forma canónica con
+  trailing slash; el 404 sin canonical), Open Graph + Twitter Card en todas,
+  `<meta name="theme-color">`, `<meta name="robots" content="noindex">` en el
+  404, JSON-LD de carrera corregido (`competencyRequired` → `hasPart`:
+  `Course` es `CreativeWork`; el validador daba 55 errores severos con el rango
+  estrecho de competencyRequired), y precache del SW ampliado a 20 rutas
+  (`/404.html` + portadas de sección para el fallback offline de navegación).
+- **2026-10-07** — **Cierre a11y** (revisor-a11y, segunda ronda): nombres
+  accesibles en los 3 textareas de portabilidad (`aria-label` por uso +
+  `autocomplete="off"`), y como consecuencia de mover el contenido al `#app`:
+  cada herramienta pinta su **h2 propio** (progreso "Malla para marcar", indice
+  "Tu índice actual", nota-minima "Completa los números de tu índice";
+  portabilidad/progresion/plan-carga ya tenían) — h1→h2→h3 en las 6 con JS y
+  sin JS. Los helpers `avisoNoVerificado` y `metaFuente` pasan de `<aside>` a
+  `<div>` (landmark complementary anidado en `main`).
+- **2026-10-07** — **Mejoras de frontend/CSS con skills** (pedido del usuario:
+  "investiga skills que mejoren el frontend y el CSS, impleméntalos"): se
+  aplicaron `frontend-design` y `web-design-guidelines` (más los hallazgos de
+  `revisor-a11y`/`auditor-seo`). Identidad visual elegida: **el sitio es un
+  "expediente académico con sellos"** — anclada en el tema (documentos
+  oficiales, verificación con sha256), no en el default de plantilla. En
+  concreto: los badges pasan de píldoras a **sellos** (contorno doble,
+  mayúsculas, y rotación leve en el NO VERIFICADO como sello estampado;
+  elemento con personalidad única), el hero queda **plano sin gradiente**
+  (cabecera de documento), hover de tarjetas quieto (sin translateY genérico),
+  se eliminó el `<em>` de énfasis en el h1 del hero, texto corrido acotado a
+  46rem (`main > p/ul/ol`) sin tocar tablas, `color-scheme: light` declarado,
+  `touch-action: manipulation` + `-webkit-tap-highlight-color` en controles,
+  y `env(safe-area-inset-bottom)` en la barra global y el padding del body.
 
 ## Próximos pasos
 
-1. Re-auditoría final en curso (`revisor-a11y` + `auditor-seo` sobre el dist
-   actual, lanzadas por quien cierra esta fase en background).
+1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
+   relanzados sobre el dist actual; si salen hallazgos, resolverlos en un commit
+   de cierre antes de publicar).
 2. Publicar en Cloudflare Pages (decisión del 2026-10-05: hosting elegido).
-3. **Mejoras de frontend y CSS con skills** (pedido del usuario): investigar e
-   implementar `frontend-design` y `web-design-guidelines` (y lo que aporten
-   `accessibility`/`best-practices`) sobre el dist actual.
-4. **Habilitar toda la oferta curricular** (pedido del usuario): UNICARIBE,
+3. **Habilitar toda la oferta curricular** (pedido del usuario): UNICARIBE,
    OYM, UPID, UASD y UTESA — `investigador-datos` en paralelo (confirmar
    identidad oficial vía MESCYT), curaduría secuencial con `curador-pensum`,
    selector de carrera activa en herramientas (hoy hardcodeado a `carreras[0]`).
-5. Confirmar las **horas semanales** con la Vicerrectoría Académica o marcarlas
+4. Confirmar las **horas semanales** con la Vicerrectoría Académica o marcarlas
    NO VERIFICADO en la herramienta de horario (no están en el PDF de grado).
-6. Revisar la diferencia conocida del 2026-10-07: unificar en
+5. Revisar la diferencia conocida del 2026-10-07: unificar en
    `core/progresion` el criterio de "aprobada" (el cuaderno usa nota ≥ mínimo;
    la herramienta progresión usa presencia de la clave en `progreso.aprobadas`).
-7. Segunda universidad para el comparador (exigía modelo normalizado entre
+6. Segunda universidad para el comparador (exigía modelo normalizado entre
    universidades, que se descartó en v1; queda como evolución posterior).
+   (Las mejoras de frontend/CSS con skills quedaron hechas el 2026-10-07;
+   la re-auditoría de esa ronda se relanza arriba.)
