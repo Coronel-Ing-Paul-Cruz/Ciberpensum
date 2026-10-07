@@ -1,0 +1,560 @@
+// site/paginas.mjs — renderizadores de todas las paginas del sitio.
+// Consume data/curated/**/*.json a traves del index que pasa build.mjs.
+// Nada abre target=_blank; todo el contenido esencial es estatico (funciona sin JS).
+import {
+  pagina, esc, rutaAssets, migasCarrera, badge, avisoNoVerificado,
+  metaFuente, tablaMaterias, tablaHonores,
+} from "./layout.mjs"
+
+/** URL absoluta del sitio para JSON-LD. Se ajusta al desplegar (Cloudflare Pages). */
+export const SITIO_URL = "https://ciberpensum.do"
+
+/** Metadatos de las 6 herramientas. El orden es el de la pagina de herramientas. */
+export const HERRAMIENTAS = [
+  {
+    slug: "progreso",
+    titulo: "Cuaderno de progreso",
+    resumen: "Marca qué materias aprobaste y con qué nota. Es la base del resto de las herramientas.",
+    descripcion: "Registra el avance en la carrera: materias aprobadas con nota y materias en curso.",
+    tema: "progreso",
+  },
+  {
+    slug: "indice",
+    titulo: "Índice académico",
+    resumen: "Calcula tu índice ponderado por créditos y compáralo con las distinciones del reglamento.",
+    descripcion: "Índice acumulado ponderado por créditos y distinciones académicas con su fuente.",
+    tema: "índice y nota",
+  },
+  {
+    slug: "progresion",
+    titulo: "Progresión",
+    resumen: "Qué puedes inscribir hoy según tus aprobadas, y por qué algo sigue bloqueado.",
+    descripcion: "Materias disponibles por prerrequisitos y motivos de bloqueo uno a uno.",
+    tema: "progreso",
+  },
+  {
+    slug: "nota-minima",
+    titulo: "Nota mínima",
+    resumen: "¿Qué nota necesitas en la próxima materia para alcanzar un índice objetivo?",
+    descripcion: "Cálculo de la nota necesaria (ponderada) para llegar a un índice objetivo.",
+    tema: "índice y nota",
+  },
+  {
+    slug: "plan-carga",
+    titulo: "Plan de carga",
+    resumen: "Cuántos créditos llevarías por cuatrimestre y cuáles materias conviene inscribir primero.",
+    descripcion: "Distribución de créditos por cuatrimestre, criticidad de cada materia y selección de carga.",
+    tema: "planificación",
+  },
+  {
+    slug: "portabilidad",
+    titulo: "Guardar y compartir",
+    resumen: "Exporta tu progreso a texto, impórtalo de vuelta o compártelo con un enlace corto.",
+    descripcion: "Exportar, importar y enlazar el progreso como texto plano. Nada sale del navegador.",
+    tema: "progreso",
+  },
+]
+
+/** Carreras curadas para la portada/universidades. */
+function resumenCarrera(c) {
+  return {
+    slug: c.slug,
+    id: c.universidad.id,
+    universidad: c.universidad.nombre,
+    carrera: c.carrera,
+    grado: c.grado,
+    periodos: c.duracion.periodos,
+    tipo: c.duracion.tipoPeriodo,
+    materias: c.totales.asignaturas,
+    creditos: c.totales.creditos,
+    vigente: c.vigente,
+  }
+}
+
+/* ------------------------------------------------------------------ HOME */
+export function renderHome(carreras) {
+  const unis = []
+  for (const c of carreras) {
+    const u = resumenCarrera(c)
+    const existente = unis.find((x) => x.id === u.id)
+    if (existente) existente.carreras.push(u)
+    else unis.push({ id: u.id, nombre: u.universidad, carreras: [u] })
+  }
+  const tarjetasUnis = unis.length
+    ? unis.map((u) => `<a class="tarjeta" href="universidades/${esc(u.id)}/index.html">
+      <h3>${esc(u.nombre)}</h3>
+      <p>${u.carreras.length} carrera(s) curada(s) con fuente oficial.</p>
+    </a>`).join("\n")
+    : `<p>Sin carreras publicadas todavía.</p>`
+  const tarjetasHerramientas = HERRAMIENTAS.map((h) => `<a class="tarjeta" href="herramientas/${esc(h.slug)}/index.html">
+    <h3>${esc(h.titulo)}</h3>
+    <p>${esc(h.resumen)}</p>
+  </a>`).join("\n")
+
+  const contenido = `
+  <section class="hero">
+    <h1>Tu carrera, planificada con <em>fuente oficial</em></h1>
+    <p>Ciberpensum es un planificador académico para universidades dominicanas: pensum, índice, prerrequisitos y objetivo de nota. Sin cuentas, sin servidor: tus datos viven en tu navegador y tú decides si los exportas. Cada cifra del sitio sale de un PDF oficial con su sha256; lo que no está confirmado se marca en pantalla, no se finge.</p>
+  </section>
+
+  <section>
+    <h2>Universidades</h2>
+    <div class="rejilla">
+${tarjetasUnis}
+    </div>
+  </section>
+
+  <section>
+    <h2>Herramientas</h2>
+    <p>Todas funcionan desde <code>core/</code> en tu navegador; ninguna envía datos a ningún servidor.</p>
+    <div class="rejilla">
+${tarjetasHerramientas}
+    </div>
+  </section>
+
+  <section>
+    <h2>Cómo funciona</h2>
+    <div class="panel">
+      <ol>
+        <li><strong>Registras tu avance</strong> en el cuaderno de progreso (materias aprobadas con nota).</li>
+        <li><strong>El resto calcula sobre eso</strong>: índice, qué puedes inscribir, cuánto te falta, qué nota necesitas.</li>
+        <li><strong>Exportas o compartes</strong> con un enlace <code>#p=…</code>: el progreso viaja como texto, sin cuentas.</li>
+      </ol>
+      ${avisoNoVerificado("La forma exacta del índice no está documentada en el reglamento de UNICARIBE; el sitio usa la fórmula estándar ponderada por créditos y la marca aquí y en cada cálculo.")}
+    </div>
+  </section>`
+
+  return pagina({
+    titulo: "Planificador académico con fuentes oficiales",
+    descripcion: "Planificador académico para universidades dominicanas: pensum oficial, índice, progresión y nota mínima. Sin cuentas, sin servidor.",
+    contenido,
+    rutaAssets: rutaAssets(0),
+    seccion: "inicio",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Ciberpensum",
+      url: SITIO_URL,
+      inLanguage: "es-DO",
+      description: "Planificador académico para universidades dominicanas con datos de fuentes oficiales.",
+    },
+  })
+}
+
+/* ------------------------------------------------------- UNIVERSIDADES */
+export function renderUniversidades(carreras) {
+  const porUni = new Map()
+  for (const c of carreras) {
+    const i = c.universidad.id
+    if (!porUni.has(i)) porUni.set(i, { id: i, nombre: c.universidad.nombre, carreras: [] })
+    porUni.get(i).carreras.push(resumenCarrera(c))
+  }
+  const tarjetas = [...porUni.values()].map((u) => `<a class="tarjeta" href="${esc(u.id)}/index.html">
+    <h3>${esc(u.nombre)}</h3>
+    <p>${u.carreras.length} carrera(s) curada(s).</p>
+  </a>`).join("\n")
+  const contenido = `
+  <h1>Universidades</h1>
+  <p>Universidades dominicanas con pensum curado a partir de su documentación oficial.</p>
+  <div class="rejilla">
+${tarjetas}
+  </div>`
+  return pagina({
+    titulo: "Universidades",
+    descripcion: "Universidades dominicanas con pensum curado a partir de fuentes oficiales.",
+    contenido,
+    rutaAssets: rutaAssets(1),
+    seccion: "universidades",
+    jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Universidades", url: SITIO_URL + "/universidades/" },
+  })
+}
+
+export function renderUniversidad(uniId, carreras) {
+  const deUni = carreras.filter((c) => c.universidad.id === uniId)
+  const nombre = deUni[0]?.universidad.nombre ?? uniId
+  const tarjetas = deUni.map((c) => `<a class="tarjeta" href="../../carreras/${esc(c.universidad.id)}/${esc(c.slug)}/index.html">
+    <h3>${esc(c.carrera)}</h3>
+    <p>${c.totales.asignaturas} asignaturas · ${c.totales.creditos} créditos · ${c.duracion.periodos} ${esc(c.duracion.tipoPeriodo)}s ${c.vigente ? badge("vigente") : badge("histórica", "aviso")}</p>
+  </a>`).join("\n")
+  const contenido = `
+  <h1>${esc(nombre)}</h1>
+  <p>Carreras curadas a partir de los documentos oficiales de ${esc(nombre)}.</p>
+  <div class="rejilla">
+${tarjetas}
+  </div>`
+  return pagina({
+    titulo: `${nombre} — Universidades`,
+    descripcion: `Carreras curadas de ${nombre}.`,
+    contenido,
+    rutaAssets: rutaAssets(2),
+    seccion: "universidades",
+    migas: [
+      ["Inicio", "../../index.html"],
+      ["Universidades", "../index.html"],
+      [nombre, `./index.html`],
+    ],
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CollegeOrUniversity",
+      name: nombre,
+      url: SITIO_URL + `/universidades/${uniId}/`,
+    },
+  })
+}
+
+/* ------------------------------------------------------------- CARRERA */
+export function renderCarrera(c) {
+  const base = "../../../"
+  const migas = migasCarrera(c, 3)
+  const noVerificado = c.notas?.length
+    ? `<section>
+  <h2>Advertencias de la fuente</h2>
+${c.notas.map((n) => `<p class="aviso-no-verificado">${esc(n)}</p>`).join("\n")}
+  </section>`
+    : ""
+  const reglasTxt = []
+  if (c.reglas.escala.formaIndice === "no-verificado")
+    reglasTxt.push(avisoNoVerificado("El reglamento no documenta de forma explícita la fórmula del índice. El sitio usa el promedio ponderado por créditos (estándar) y lo marca."))
+
+  const contenido = `
+  <h1>${esc(c.carrera)}</h1>
+  <p class="meta-fuente">${esc(c.universidad.nombre)} · ${esc(c.grado)} · ${c.duracion.periodos} ${esc(c.duracion.tipoPeriodo)}s · ${badge(c.vigente ? "pensum vigente" : "pensum histórico")}</p>
+
+  <section>
+    <h2>Malla curricular</h2>
+    ${tablaMaterias(c)}
+  </section>
+
+  <section>
+    <h2>Reglas académicas</h2>
+    ${reglasTxt.join("\n")}
+    <h3>Escala y aprobación</h3>
+    <ul>
+      <li>Escala de ${c.reglas.escala.base} puntos (mínimo ${c.reglas.escala.minimo}, máximo ${c.reglas.escala.maximo}).</li>
+      <li>Se aprueba con ${c.reglas.escala.aprobacion} puntos o más.</li>
+    </ul>
+    ${tablaHonores(c.reglas)}
+  </section>
+
+  <section>
+    <h2>Documento fuente</h2>
+    ${metaFuente(c.fuente, "Fuente del pensum")}
+    ${c.reglas.fuente ? metaFuente(c.reglas.fuente, "Fuente de las reglas académicas (reglamento)") : ""}
+  </section>
+
+  <section>
+    <h2>Prueba las herramientas con esta carrera</h2>
+    <div class="rejilla">
+      <a class="tarjeta" href="${base}herramientas/progreso/index.html"><h3>Cuaderno de progreso</h3><p>Empieza marcando tus materias aprobadas.</p></a>
+      <a class="tarjeta" href="${base}herramientas/indice/index.html"><h3>Índice académico</h3><p>Calcula tu índice y compáralo con las distinciones.</p></a>
+      <a class="tarjeta" href="${base}herramientas/progresion/index.html"><h3>Progresión</h3><p>Qué puedes inscribir hoy.</p></a>
+    </div>
+  </section>
+${noVerificado}`
+
+  const graduados = c.materias.map((m) => ({
+    "@type": "Course",
+    name: m.nombre,
+    courseCode: m.codigo,
+    numberOfCredits: m.creditos,
+    inLanguage: "es",
+  }))
+  return pagina({
+    titulo: `${c.carrera} — ${c.universidad.nombre}`,
+    descripcion: `Pensum oficial de ${c.carrera} en ${c.universidad.nombre}: ${c.totales.asignaturas} asignaturas, ${c.totales.creditos} créditos, con fuente y sha256.`,
+    contenido,
+    rutaAssets: rutaAssets(3),
+    seccion: "universidades",
+    migas,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollegeOrUniversity",
+          "@id": SITIO_URL + `/universidades/${c.universidad.id}/#uni`,
+          name: c.universidad.nombre,
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          name: c.carrera,
+          credentialCategory: c.grado === "grado" ? "licenciatura" : "posgrado",
+          description: `Pensum de ${c.carrera}: ${c.totales.asignaturas} asignaturas y ${c.totales.creditos} créditos en ${c.duracion.periodos} ${c.duracion.tipoPeriodo}s, según documento oficial de ${c.universidad.nombre}.`,
+          url: SITIO_URL + `/carreras/${c.universidad.id}/${c.slug}/`,
+          provider: { "@id": SITIO_URL + `/universidades/${c.universidad.id}/#uni` },
+          competencyRequired: graduados,
+        },
+      ],
+    },
+  })
+}
+
+/* --------------------------------------------------------- HERRAMIENTAS */
+export function renderHerramientas() {
+  const tarjetas = HERRAMIENTAS.map((h) => `<a class="tarjeta" href="${esc(h.slug)}/index.html">
+    <h3>${esc(h.titulo)}</h3>
+    <p>${esc(h.resumen)}</p>
+  </a>`).join("\n")
+  const contenido = `
+  <h1>Herramientas</h1>
+  <p>Calculadoras y visores que trabajan sobre el progreso que guardas en tu navegador. Sin cuentas y sin servidor: nada sale de tu equipo salvo lo que tú exportes.</p>
+  <div class="rejilla">
+${tarjetas}
+  </div>`
+  return pagina({
+    titulo: "Herramientas",
+    descripcion: "Seis herramientas de planificación académica que funcionan sin cuentas ni servidor.",
+    contenido,
+    rutaAssets: rutaAssets(1),
+    seccion: "herramientas",
+    jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Herramientas", url: SITIO_URL + "/herramientas/" },
+  })
+}
+
+/** Contenido estatico (sin JS) que aterriza cada herramienta. */
+const CONTENIDO_SIN_JS = {
+  progreso: (c) => `
+    <p>Marca las materias aprobadas con su nota (escala ${c.reglas.escala.minimo}–${c.reglas.escala.maximo}, se aprueba con ${c.reglas.escala.aprobacion}) o en curso. El resto de herramientas lee este cuaderno. Tu avance queda en este navegador.</p>
+    <h2>Malla para marcar</h2>
+    ${tablaMaterias(c)}`,
+  indice: (c) => `
+    <p>Índice acumulado = promedio de notas <strong>ponderado por créditos</strong>. Mételo tu nota por materia y el índice se recalcula en vivo.</p>
+    <h2>Distinciones (${esc(c.universidad.nombre)})</h2>
+    ${tablaHonores(c.reglas)}
+    ${c.reglas.escala.formaIndice === "no-verificado" ? avisoNoVerificado("La fórmula del índice no está documentada en el reglamento; se usa el promedio ponderado por créditos (estándar) y se marca.") : ""}`,
+  progresion: (c) => `
+    <p>Con tus aprobadas, esta herramienta lista qué puedes inscribir ahora y los motivos de bloqueo de cada materia que aún no, una por una (prerrequisito pendiente, «desde cuatrimestre», «exige TODAS las anteriores»).</p>
+    <h2>Malla con prerrequisitos</h2>
+    ${tablaMaterias(c)}`,
+  "nota-minima": (c) => `
+    <p>Dado tu índice actual y los créditos que te faltan, calcula el promedio que necesitas en lo que falta, y la nota exacta de la próxima materia, para alcanzar un índice objetivo.</p>
+    <h2>Datos de la escala</h2>
+    <ul>
+      <li>Escala: ${c.reglas.escala.minimo}–${c.reglas.escala.maximo} · aprobación en ${c.reglas.escala.aprobacion}.</li>
+      <li>${c.totales.creditos} créditos en total.</li>
+    </ul>
+    ${c.reglas.escala.formaIndice === "no-verificado" ? avisoNoVerificado("Cálculo sobre promedio ponderado por créditos; la fórmula exacta no está documentada (NO VERIFICADO).") : ""}`,
+  "plan-carga": (c) => `
+    <p>Créditos por cuatrimestre del plan, cuántos llevas y qué materias conviene inscribir primero (las que más destraban), ajustado a tu capacidad de créditos.</p>
+    <h2>Créditos por cuatrimestre (plan oficial)</h2>
+    <div class="tabla-contenedor"><table>
+      <caption>Distribución oficial de créditos</caption>
+      <thead><tr><th scope="col">Cuat.</th><th scope="col" class="numerico">Créditos</th></tr></thead>
+      <tbody>${(carreraPorCuatrimestre(c)).map(([k, v]) => `<tr><td class="numerico">${k}</td><td class="numerico">${v}</td></tr>`).join("\n")}</tbody>
+    </table></div>`,
+  portabilidad: (c) => `
+    <p>Tu progreso vive en <code>localStorage</code> de este navegador. Aquí puedes exportarlo a texto (descarga o <em>copy-paste</em>), importarlo de vuelta en otro navegador, y generar un enlace <code>#p=…</code> para compartir. Nada de esto usa un servidor.</p>
+    <h2>La carrera activa</h2>
+    <p>${esc(c.carrera)} — ${esc(c.universidad.nombre)} (${c.totales.asignaturas} materias, ${c.totales.creditos} créditos).</p>`,
+}
+
+function carreraPorCuatrimestre(c) {
+  const m = new Map()
+  for (const a of c.materias) {
+    const v = (m.get(a.cuatrimestre) ?? 0) + a.creditos
+    m.set(a.cuatrimestre, v)
+  }
+  return [...m.entries()].sort((a, b) => a[0] - b[0])
+}
+
+var FUNCION_POR_SLUG = {
+  progreso: (h, c, base) => CONTENIDO_SIN_JS.progreso(c),
+  indice: (h, c, base) => CONTENIDO_SIN_JS.indice(c),
+  progresion: (h, c, base) => CONTENIDO_SIN_JS.progresion(c),
+  "nota-minima": (h, c, base) => CONTENIDO_SIN_JS["nota-minima"](c),
+  "plan-carga": (h, c, base) => CONTENIDO_SIN_JS["plan-carga"](c),
+  portabilidad: (h, c, base) => CONTENIDO_SIN_JS.portabilidad(c),
+}
+
+export function renderHerramienta(h, carrera) {
+  const sinJs = FUNCION_POR_SLUG[h.slug](h, carrera)
+  const jsonPensum = JSON.stringify(carrera).replaceAll("</", "<\\/")
+  const contenido = `
+  <h1>${esc(h.titulo)}</h1>
+  <p>${esc(h.descripcion)}</p>
+  <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos).</p>
+
+  <div class="panel" id="app" aria-live="polite">
+    <noscript><p><strong>JavaScript desactivado.</strong> Esta herramienta se muestra completa como datos; el cálculo en vivo se activa con JS. Todo el contenido esencial de la página está arriba.</p></noscript>
+  </div>
+
+  <section aria-label="Datos de esta herramienta (visibles sin JavaScript)">
+${sinJs}
+  </section>
+
+  ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
+  <script type="application/json" id="datos-pensum">${jsonPensum}</script>
+  <script type="module" src="${rutaAssets(2)}/js/${esc(h.slug)}.js"></script>`
+  return pagina({
+    titulo: `${h.titulo} — Herramientas`,
+    descripcion: h.descripcion,
+    contenido,
+    rutaAssets: rutaAssets(2),
+    seccion: "herramientas",
+    migas: [
+      ["Inicio", "../../index.html"],
+      ["Herramientas", "../index.html"],
+      [h.titulo, `./index.html`],
+    ],
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: h.titulo,
+      description: h.descripcion,
+      url: SITIO_URL + `/herramientas/${h.slug}/`,
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Cualquiera (navegador)",
+    },
+  })
+}
+
+/* ----------------------------------------------------------------- GUIAS */
+export const GUIAS = [
+  {
+    slug: "indice-academico",
+    titulo: "El índice académico, sin misterio",
+    resumen: "Qué es, cómo se pondera y dónde está la fuente.",
+  },
+  {
+    slug: "honores-y-distinciones",
+    titulo: "Honores y distinciones",
+    resumen: "Las bandas del reglamento y sus requisitos (Art. 89).",
+  },
+  {
+    slug: "prerrequisitos",
+    titulo: "Prerrequisitos y electivas",
+    resumen: "El grafo de la carrera, las electivas «desde cuatrimestre» y el proyecto final.",
+  },
+  {
+    slug: "objetivo-de-indice",
+    titulo: "Cómo leer la nota mínima",
+    resumen: "Qué significa el promedio que te falta y cuándo un objetivo es imposible.",
+  },
+  {
+    slug: "plan-de-carga",
+    titulo: "Planificar tu carga",
+    resumen: "Créditos por cuatrimestre, qué inscribir primero y capacidad razonable.",
+  },
+  {
+    slug: "progreso-y-privacidad",
+    titulo: "Tu progreso, tu privacidad",
+    resumen: "localStorage, exportar e importar, y el enlace #p=.",
+  },
+]
+
+const CUERPO_GUIAS = {
+  "indice-academico": `
+    <p>El índice académico (o promedio) suele ser lo primero que una universidad exige para honores, ayudantías o continuidad. En Ciberpensum se calcula como el <strong>promedio ponderado por créditos</strong>:</p>
+    <p class="al-centro"><code>índice = Σ(nota × créditos) ÷ Σ(créditos)</code></p>
+    <p>Una materia de 4 créditos pesa el doble que una de 2, lo que evita que una materia pequeña con nota altísima maquille el promedio.</p>
+    ${avisoNoVerificado("La fórmula del índice de UNICARIBE no aparece de forma explícita en el Reglamento Estudiantil (Art. 72 fija la escala 0–100; el Art. 76 menciona una escala 0–4 que choca con la anterior). El sitio usa la ponderación estándar y la marca por todas partes.")}
+    <p>Dónde verlo: herramienta <a href="../herramientas/indice/index.html">Índice académico</a>.</p>`,
+  "honores-y-distinciones": `
+    <p>El Reglamento Estudiantil de UNICARIBE (Art. 89) fija las distinciones por banda de índice, sobre la escala de 100:</p>
+    <div class="tabla-contenedor"><table>
+      <thead><tr><th scope="col">Distinción</th><th scope="col" class="numerico">Índice</th></tr></thead>
+      <tbody>
+        <tr><td>Summa Cum Laude</td><td class="numerico">95 – 100</td></tr>
+        <tr><td>Magna Cum Laude</td><td class="numerico">90 – 94</td></tr>
+        <tr><td>Cum Laude</td><td class="numerico">85 – 89</td></tr>
+      </tbody>
+    </table></div>
+    <p>Además del índice, el reglamento exige no haber reprobado ninguna materia y excluye a quien esté en <strong>separación temporal</strong> o bajo <strong>sancción disciplinaria</strong>.</p>
+    <p>No basta el número: un índice alto con una materia reprobada no da distinción.</p>`,
+  prerrequisitos: `
+    <p>Las materias de la carrera forman un <strong>grafo</strong>: muchas abren otras. Ciberpensum lo muestra al revés, como bloqueos: «Falta aprobar FGC-102» es más útil que «necesitas FGC-102».</p>
+    <p>Caso especial de UNICARIBE en esta carrera: las <strong>electivas</strong> no tienen prerrequisito con código; el PDF dice «7MO. CUAT.» y «9NO. CUAT.» en esa columna. Ciberpensum las marca como <em>desde el 7.º cuatrimestre</em>.</p>
+    <p>El <strong>proyecto integrador</strong> (INC-600) exige literalmente «TODAS» las anteriores: no termina la carrera sin aprobar el resto.</p>`,
+  "objetivo-de-indice": `
+    <p>La herramienta <a href="../herramientas/nota-minima/index.html">Nota mínima</a> responde: «si hoy tengo índice X con C créditos, ¿qué promedio necesito en los siguientes P créditos para llegar a Y?»</p>
+    <p>La fórmula es la inversa de la del índice:</p>
+    <p class="al-centro"><code>necesario = (Y×(C+P) − X×C) ÷ P</code></p>
+    <p>Dos detalles que importan:</p>
+    <ul>
+      <li>Si el resultado supera la escala (más de 100), el objetivo es <strong>imposible</strong> desde donde estás: el sitio te lo dice.</li>
+      <li>Si el resultado sale por debajo del mínimo de aprobación, la nota mínima mostrada es la de aprobación: una materia reprobada rompe el índice y las distinciones.</li>
+    </ul>`,
+  "plan-de-carga": `
+    <p>La carrera dura 12 cuatrimestres y reparte los ${166 + (166 - 166)} créditos de forma irregular: cuatrimestres flacos (10 créditos) y gordos (23). Conocer la distribución ayuda a no cargar de más al final.</p>
+    <p>Lo que Ciberpensum añade es la <strong>criticidad</strong>: cuántas materias dependen de cada una. Una materia que destraba tres vale más inscribirla antes que una que no abre nada, aunque ambas quepan en tu capacidad.</p>
+    <p>La capacidad de créditos por cuatrimestre la pones tú: no hay una cifra oficial en el PDF (queda NO VERIFICADO).</p>`,
+  "progreso-y-privacidad": `
+    <p>Tus datos viven en <code>localStorage</code> de este navegador, bajo una clave por universidad y carrera. No hay cuentas ni servidores: nada se sube en ningún momento.</p>
+    <p>Tres vías para llevar tu progreso contigo:</p>
+    <ul>
+      <li><strong>Exportar</strong> — genera un texto JSON listo para guardar o copiar.</li>
+      <li><strong>Importar</strong> — pegas ese texto y el cuaderno se restaura (con comprobación de integridad).</li>
+      <li><strong>Enlace <code>#p=…</code></strong> — un fragmento compacto que codifica tu progreso; quien lo abra carga la página con tu avance.</li>
+    </ul>
+    <p>Borrar los datos del sitio en el navegador (o usar otro navegador/equipo) significa empezar de cero: por eso existe la exportación.</p>`,
+}
+
+export function renderGuias() {
+  const tarjetas = GUIAS.map((g) => `<a class="tarjeta" href="${esc(g.slug)}.html">
+    <h3>${esc(g.titulo)}</h3>
+    <p>${esc(g.resumen)}</p>
+  </a>`).join("\n")
+  const contenido = `
+  <h1>Guías</h1>
+  <p>Explicaciones de cómo se calcula cada cosa y de dónde salen los números.</p>
+  <div class="rejilla">
+${tarjetas}
+  </div>`
+  return pagina({
+    titulo: "Guías",
+    descripcion: "Guías de Ciberpensum: índice, honores, prerrequisitos, nota mínima, carga y privacidad.",
+    contenido,
+    rutaAssets: rutaAssets(1),
+    seccion: "guias",
+    jsonLd: { "@context": "https://schema.org", "@type": "CollectionPage", name: "Guías", url: SITIO_URL + "/guias/" },
+  })
+}
+
+export function renderGuia(g) {
+  const cuerpo = CUERPO_GUIAS[g.slug]
+  const contenido = `
+  <h1>${esc(g.titulo)}</h1>
+${cuerpo}
+  <section>
+    <h2>¿Dudas o datos contradictorios?</h2>
+    <p>Cada página de carrera lista sus advertencias de fuente. Si encuentras una discrepancia con el PDF oficial, es un error del sitio: está hecho para que se lea, no para que se le crea a ciegas.</p>
+  </section>`
+  return pagina({
+    titulo: g.titulo,
+    descripcion: g.resumen,
+    contenido,
+    rutaAssets: rutaAssets(1),
+    seccion: "guias",
+    migas: [
+      ["Inicio", "../index.html"],
+      ["Guías", "./index.html"],
+      [g.titulo, `./${g.slug}.html`],
+    ],
+    jsonLd: { "@context": "https://schema.org", "@type": "Article", headline: g.titulo, inLanguage: "es-DO" },
+  })
+}
+
+/* ------------------------------------------------------------------ 404 */
+export function render404() {
+  const contenido = `
+  <h1>Página no encontrada</h1>
+  <p>Esta dirección no existe (o el enlace <code>#p=</code> apunta a una versión antigua).</p>
+  <p><a class="boton" href="index.html">Volver al inicio</a></p>`
+  return pagina({
+    titulo: "Página no encontrada",
+    descripcion: "Error 404: la página no existe.",
+    contenido,
+    rutaAssets: rutaAssets(0),
+  })
+}
+
+/** Rutas reales del sitio (para sitemap). */
+export function rutasDelSitio(carreras) {
+  const out = ["/", "/universidades/", "/herramientas/", "/guias/", "/404.html"]
+  for (const c of carreras) {
+    out.push(`/universidades/${c.universidad.id}/`)
+    out.push(`/carreras/${c.universidad.id}/${c.slug}/`)
+  }
+  for (const h of HERRAMIENTAS) out.push(`/herramientas/${h.slug}/`)
+  for (const g of GUIAS) out.push(`/guias/${g.slug}.html`)
+  return out
+}
