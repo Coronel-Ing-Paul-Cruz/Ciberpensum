@@ -158,8 +158,11 @@ export function avisoNoVerificado(texto) {
 /** Meta de fuente de un JSON curado: URL, sha256 y fecha. */
 export function metaFuente(fuente, etiqueta = "Fuente oficial") {
   // div y no aside: igual que avisoNoVerificado (landmark anidado en main).
+  // h2: en las paginas de herramienta este panel va ANTES de #app (para que el
+  // crecimiento del app no desplace nada visible: CLS) y actua como
+  // encabezado de seccion, no como sub-nivel.
   return `<div class="panel">
-  <h3>${esc(etiqueta)}</h3>
+  <h2>${esc(etiqueta)}</h2>
   <p class="meta-fuente">Documento oficial (<code>${esc(fuente.archivo ?? "")}</code>) descargado el <time datetime="${esc(fuente.verificadoEn)}">${esc(fuente.verificadoEn)}</time>.<br>
   sha256: <code>${esc(fuente.sha256)}</code></p>
   <p><a href="${esc(fuente.url)}" ref="noreferrer">${esc(fuente.url)}</a></p>

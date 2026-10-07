@@ -387,6 +387,8 @@ export function renderHerramienta(h, carrera) {
   <p>${esc(h.descripcion)}</p>
   <p class="meta-fuente">Carrera activa: ${esc(carrera.carrera)} — ${esc(carrera.universidad.nombre)} (${carrera.totales.asignaturas} materias, ${carrera.totales.creditos} créditos).</p>
 
+  ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
+
   <div class="panel" id="app">
     <noscript><p><strong>JavaScript desactivado.</strong> Esta herramienta se muestra completa como datos; el cálculo en vivo se activa con JS.</p></noscript>
     <section aria-label="Contenido de esta herramienta (visible sin JavaScript)">
@@ -394,7 +396,6 @@ ${sinJs}
     </section>
   </div>
 
-  ${metaFuente(carrera.fuente, "Fuente de los datos de esta página")}
   <script type="application/json" id="datos-pensum">${jsonPensum}</script>
   <script type="module" src="${rutaAssets(2)}/js/${esc(h.slug)}.js"></script>`
   return pagina({
