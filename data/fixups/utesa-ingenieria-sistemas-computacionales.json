@@ -1,0 +1,18 @@
+{
+  "carrera": "utesa/ingenieria-sistemas-computacionales",
+  "fuente": "Pensum Carrera de Ingenieria en Sistemas Computacionales 2023.pdf",
+  "pendientes": [
+    {
+      "materia": "SOC-118",
+      "campo": "prerequisitos",
+      "problema": "El PDF dice 'SOC-118' en su propia columna PRE-REQ (autorreferencia: ciclo, errata del documento). Probablemente quiso decir SOC-114 (Metodologia de la Investigacion I), pero eso es inferencia: el valor queda vacio y PENDIENTE hasta confirmarlo con una version corregida del pensum o con UTESA.",
+      "aplicado": "prerequisitos = [] (sin la autorreferencia, para no introducir un ciclo en el grafo); co-requisito MAT-134 anotado en observaciones."
+    },
+    {
+      "materia": "totales.creditos",
+      "campo": "totales",
+      "problema": "El PDF declara TOTAL DE CREDITOS 245 pero la suma de las filas del propio PDF es 257 (diferencia de 12). El bloque de ELECTIVAS suma 23 creditos aunque el propio PDF solo exige cursar 6. No resoluble desde el documento.",
+      "aplicado": "totales.creditos = 257 (suma de las filas, exigido por el gate); el 245 declarado queda anotado en notas del JSON curado."
+    }
+  ]
+}

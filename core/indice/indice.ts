@@ -21,10 +21,12 @@ export interface MateriaCursada {
 
 /** Escala academica de una universidad, tal como viene del reglamento. */
 export interface Escala {
-  /** Nota minima para aprobar (UNICARIBE: 70, Art. 85). */
+  /** Nota minima que se puede obtener en la escala (UTESA y UNICARIBE: 0). */
   readonly minimo: number
-  /** Nota maxima de la escala (UNICARIBE: 100). */
+  /** Nota maxima de la escala (100). */
   readonly maximo: number
+  /** Nota minima para APROBAR una asignatura (UNICARIBE Art. 85: 70; UTESA Art. 81: 70). Distinta de `minimo`: la escala empieza en 0 pero se aprueba en 70. */
+  readonly aprobacion: number
 }
 
 /**
@@ -59,13 +61,17 @@ export function redondearIndice(indice: number): number {
 }
 
 /**
- * Indica si el estudiante cumple la escala: TODAS las materias deben alcanzar el
- * minimo de aprobacion.
+ * Indica si el estudiante cumple la escala: TODAS las materias deben alcanzar
+ * la nota de aprobacion.
+ *
+ * OJO: `aprobacion`, no `minimo`. `minimo` es el piso de la escala (0), y usar
+ * `nota >= minimo` cuenta TODAS las materias como aprobadas (bug detectado al
+ * curar UTESA: con escala 0-100 el cuaderno vacio decia "98 de 98").
  *
  * El indice acumulado alto no compensa una materia reprobada: por eso esta
  * funcion es independiente del indice. Honores, ademas, exigen no haber
  * reprobado nunca (Art. 89, parrafo I).
  */
 export function escalaCumple(notas: readonly MateriaCursada[], escala: Escala): boolean {
-  return notas.every((m) => m.nota >= escala.minimo)
+  return notas.every((m) => m.nota >= escala.aprobacion)
 }

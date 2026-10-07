@@ -1,0 +1,1039 @@
+{
+  "carrera": "Ingeniería en Sistemas Computacionales",
+  "slug": "ingenieria-sistemas-computacionales",
+  "universidad": {
+    "id": "utesa",
+    "nombre": "Universidad Tecnológica de Santiago"
+  },
+  "grado": "grado",
+  "version": "2023",
+  "vigente": true,
+  "duracion": {
+    "periodos": 12,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 98,
+    "creditos": 257
+  },
+  "materias": [
+    {
+      "codigo": "ESP-181",
+      "nombre": "LENGUA ESPAÑOLA I",
+      "creditos": 4,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "INF-117",
+      "nombre": "ALGORITMOS COMPUTACIONALES",
+      "creditos": 4,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "ING-105",
+      "nombre": "INGLÉS I",
+      "creditos": 0,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MAT-115",
+      "nombre": "MATEMÁTICAS DISCRETAS",
+      "creditos": 4,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MAT-160",
+      "nombre": "PRECÁLCULO",
+      "creditos": 4,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MED-750",
+      "nombre": "QUÍMICA INORGÁNICA I",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": [],
+      "observaciones": "Co-requisito(s) segun el PDF: MED-755 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "MED-755",
+      "nombre": "LABORATORIO DE QUÍMICA INORGÁNICA I",
+      "creditos": 1,
+      "cuatrimestre": 1,
+      "prerequisitos": [],
+      "observaciones": "Co-requisito(s) segun el PDF: MED-750 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "ORI-112",
+      "nombre": "ORIENTACIÓN UNIVERSITARIA",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "SOC-182",
+      "nombre": "REFLEXIÓN FILOSÓFICA",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "ESP-189",
+      "nombre": "LENGUA ESPAÑOLA II",
+      "creditos": 4,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "ESP-181"
+      ]
+    },
+    {
+      "codigo": "INF-164",
+      "nombre": "PROGRAMACIÓN I",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "INF-117",
+        "MAT-115"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-165 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-165",
+      "nombre": "LABORATORIO DE PROGRAMACIÓN I",
+      "creditos": 1,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "INF-117",
+        "MAT-115"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-164 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-204",
+      "nombre": "LÓGICA COMPUTACIONAL",
+      "creditos": 4,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MAT-115",
+        "INF-117"
+      ]
+    },
+    {
+      "codigo": "ING-115",
+      "nombre": "INGLÉS II",
+      "creditos": 0,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "ING-105"
+      ]
+    },
+    {
+      "codigo": "MAT-170",
+      "nombre": "CÁLCULO I",
+      "creditos": 4,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MAT-160"
+      ]
+    },
+    {
+      "codigo": "MAT-190",
+      "nombre": "FÍSICA I",
+      "creditos": 4,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MAT-160"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: MAT-191 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "MAT-191",
+      "nombre": "LABORATORIO DE FÍSICA I",
+      "creditos": 1,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MAT-160"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: MAT-190 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "ESP-302",
+      "nombre": "REDACCIÓN PROFESIONAL",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "ESP-189"
+      ]
+    },
+    {
+      "codigo": "INF-121",
+      "nombre": "ANÁLISIS DE SISTEMAS",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "INF-164",
+        "INF-165"
+      ]
+    },
+    {
+      "codigo": "INF-167",
+      "nombre": "PROGRAMACIÓN II (ORIENTADA A OBJETO)",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "INF-164",
+        "INF-165"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-168 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-168",
+      "nombre": "LABORATORIO DE PROGRAMACIÓN II",
+      "creditos": 1,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "INF-164",
+        "INF-165"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-167 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "ING-125",
+      "nombre": "INGLÉS III",
+      "creditos": 0,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "ING-115"
+      ]
+    },
+    {
+      "codigo": "MAT-306",
+      "nombre": "PENSAMIENTO LÓGICO",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MAT-160",
+        "SOC-182"
+      ]
+    },
+    {
+      "codigo": "MAT-340",
+      "nombre": "CÁLCULO II",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MAT-170"
+      ]
+    },
+    {
+      "codigo": "MAT-500",
+      "nombre": "FÍSICA II",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MAT-190",
+        "MAT-191"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: MAT-501 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "MAT-501",
+      "nombre": "LABORATORIO DE FÍSICA II",
+      "creditos": 1,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MAT-190",
+        "MAT-191"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: MAT-500 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "SOC-114",
+      "nombre": "METODOLOGIA DE LA INVESTIGACIÓN I",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "IEL-100",
+      "nombre": "ELECTRICIDAD BÁSICA",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MAT-500",
+        "MAT-501"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: IEL-105 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "IEL-105",
+      "nombre": "TALLER DE ELECTRICIDAD BÁSICA",
+      "creditos": 1,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MAT-500",
+        "MAT-501"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: IEL-100 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-171",
+      "nombre": "DISEÑO DE SISTEMAS",
+      "creditos": 4,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "INF-121",
+        "INF-167",
+        "INF-168"
+      ]
+    },
+    {
+      "codigo": "INF-172",
+      "nombre": "PROGRAMACIÓN III (ORIENTADA A OBJETO)",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "INF-121",
+        "INF-167",
+        "INF-168"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-173 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-173",
+      "nombre": "LABORATORIO DE PROGRAMACIÓN III",
+      "creditos": 1,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "INF-121",
+        "INF-167",
+        "INF-168"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-172 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-385",
+      "nombre": "BASE DE DATOS I",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "INF-121",
+        "INF-167",
+        "INF-168"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-387 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-387",
+      "nombre": "LABORATORIO DE BASE DE DATOS I",
+      "creditos": 1,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "INF-121",
+        "INF-167",
+        "INF-168"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-385 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "ING-135",
+      "nombre": "INGLÉS IV",
+      "creditos": 0,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "ING-125"
+      ]
+    },
+    {
+      "codigo": "MAT-134",
+      "nombre": "FUNDAMENTOS DE ESTADÍSTICA",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MAT-160"
+      ]
+    },
+    {
+      "codigo": "MAT-350",
+      "nombre": "CÁLCULO III",
+      "creditos": 4,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MAT-340"
+      ]
+    },
+    {
+      "codigo": "SOC-118",
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN II",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": [],
+      "observaciones": "La columna PRE-REQ del PDF dice 'SOC-118' (autorreferencia: errata del PDF, probablemente quiso decir SOC-114 — PENDIENTE de confirmar contra una version corregida del pensum; NO se rellena con el valor presumido) junto a CO-REQ. MAT-134. Co-requisito(s) segun el PDF: MAT-134 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "SOC-172",
+      "nombre": "DEBATES DE HISTORIA DOMINICANA",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "DIB-520",
+      "nombre": "DIBUJO TÉCNICO",
+      "creditos": 4,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "IID-420",
+      "nombre": "SEGURIDAD E HIGIENE INDUSTRIAL",
+      "creditos": 3,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "INF-440",
+      "nombre": "ARQUITECTURA COMPUTACIONAL",
+      "creditos": 1,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "INF-204",
+        "IEL-100",
+        "IEL-105"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-445 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-445",
+      "nombre": "LABORATORIO ARQUITECTURA COMPUTACIONAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "INF-204",
+        "IEL-100",
+        "IEL-105"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-440 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-481",
+      "nombre": "BASE DE DATOS II",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "INF-171",
+        "INF-385",
+        "INF-387"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-482 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-482",
+      "nombre": "LABORATORIO DE BASE DE DATOS II",
+      "creditos": 1,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "INF-171",
+        "INF-385",
+        "INF-387"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-481 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-535",
+      "nombre": "DISEÑO Y PROGRAMACIÓN DE PÁGINAS WEB",
+      "creditos": 3,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "INF-171",
+        "INF-385",
+        "INF-387"
+      ]
+    },
+    {
+      "codigo": "MAT-360",
+      "nombre": "CÁLCULO IV",
+      "creditos": 4,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "MAT-350"
+      ]
+    },
+    {
+      "codigo": "SOC-502",
+      "nombre": "CIUDADANÍA Y GLOBALIZACIÓN",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "INF-184",
+      "nombre": "SISTEMAS OPERATIVOS",
+      "creditos": 2,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "INF-440",
+        "INF-445"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-185 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-185",
+      "nombre": "LABORATORIO DE SISTEMAS OPERATIVOS",
+      "creditos": 1,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "INF-440",
+        "INF-445"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-184 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-217",
+      "nombre": "ALGORITMOS Y ESTRUCTURAS DE DATOS",
+      "creditos": 2,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "INF-172",
+        "INF-173"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-218 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-218",
+      "nombre": "LABORATORIO DE ALGORITMOS Y ESTRUCTURAS DE DATOS",
+      "creditos": 1,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "INF-172",
+        "INF-173"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-217 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-225",
+      "nombre": "PROYECTO INTEGRADOR I",
+      "creditos": 5,
+      "cuatrimestre": 6,
+      "prerequisitos": [],
+      "observaciones": "PRE-REQ del PDF: 'Aprobar todas las asignaturas hasta el 5.to Cuatrimestre' (restriccion global, no codigos)."
+    },
+    {
+      "codigo": "INF-331",
+      "nombre": "SEMINARIO DE INFORMÁTICA",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": [],
+      "observaciones": "PRE-REQ del PDF: 'Aprobar todas las asignaturas hasta el 5.to Cuatrimestre' (restriccion global, no codigos)."
+    },
+    {
+      "codigo": "INF-640",
+      "nombre": "MINERÍA DE DATOS",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "INF-481",
+        "INF-482"
+      ]
+    },
+    {
+      "codigo": "ING-168",
+      "nombre": "INGLÉS PROFESIONAL",
+      "creditos": 0,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "ING-135"
+      ]
+    },
+    {
+      "codigo": "MAT-135",
+      "nombre": "ESTADÍSTICA PARA INGENIEROS I",
+      "creditos": 3,
+      "cuatrimestre": 6,
+      "prerequisitos": [
+        "MAT-134"
+      ]
+    },
+    {
+      "codigo": "SOC-160",
+      "nombre": "ÉTICA PROFESIONAL",
+      "creditos": 2,
+      "cuatrimestre": 6,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "INF-502",
+      "nombre": "INTELIGENCIA ARTIFICIAL",
+      "creditos": 2,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "INF-217",
+        "INF-218"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-503 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-503",
+      "nombre": "LABORATORIO INTELIGENCIA ARTIFICIAL",
+      "creditos": 2,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "INF-217",
+        "INF-218"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-502 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-700",
+      "nombre": "COMPUTACIÓN GRÁFICA",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "INF-440",
+        "INF-445",
+        "INF-184",
+        "INF-185"
+      ]
+    },
+    {
+      "codigo": "INF-705",
+      "nombre": "MÉTODOS NUMÉRICOS",
+      "creditos": 2,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "MAT-360"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-706 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-706",
+      "nombre": "LABORATORIO MÉTODOS NUMÉRICOS",
+      "creditos": 2,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "MAT-360"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-705 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-710",
+      "nombre": "METODOLOGÍA ÁGIL",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "INF-167",
+        "INF-168"
+      ]
+    },
+    {
+      "codigo": "MAT-145",
+      "nombre": "ESTADÍSTICA PARA INGENIEROS II",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": [
+        "MAT-135"
+      ]
+    },
+    {
+      "codigo": "SIC-766",
+      "nombre": "INTELIGENCIA EMOCIONAL",
+      "creditos": 2,
+      "cuatrimestre": 7,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "SOC-155",
+      "nombre": "MEDIO AMBIENTE Y SOSTENIBILIDAD",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "ECO-525",
+      "nombre": "FINANZAS PERSONALES",
+      "creditos": 2,
+      "cuatrimestre": 8,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "IID-725",
+      "nombre": "INVESTIGACIÓN OPERATIVA I",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": [
+        "MAT-360"
+      ]
+    },
+    {
+      "codigo": "INF-241",
+      "nombre": "INGENIERÍA DE SOFTWARE I",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": [
+        "INF-225"
+      ]
+    },
+    {
+      "codigo": "INF-810",
+      "nombre": "AUDITORÍA DE SISTEMAS INFORMÁTICOS",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": [
+        "INF-225"
+      ]
+    },
+    {
+      "codigo": "INF-840",
+      "nombre": "PROGRAMACIÓN DE DISPOSITIVOS MÓVILES",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": [
+        "INF-535",
+        "INF-700"
+      ]
+    },
+    {
+      "codigo": "ADM-910",
+      "nombre": "LIDERAZGO Y DESEMPEÑO",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "IID-830",
+      "nombre": "INVESTIGACIÓN DE OPERATIVA II",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "IID-725"
+      ]
+    },
+    {
+      "codigo": "INF-021",
+      "nombre": "GESTIÓN DE PROYECTO INFORMÁTICO",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "INF-241"
+      ]
+    },
+    {
+      "codigo": "INF-411",
+      "nombre": "REDES Y COMUNICACIONES",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "INF-440",
+        "INF-445",
+        "INF-184",
+        "INF-185"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-412 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-412",
+      "nombre": "LABORATORIO DE REDES Y COMUNICACIONES",
+      "creditos": 1,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "INF-440",
+        "INF-445",
+        "INF-184",
+        "INF-185"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-411 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-450",
+      "nombre": "INGENIERÍA DE SOFTWARE II",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "INF-241"
+      ]
+    },
+    {
+      "codigo": "INF-910",
+      "nombre": "PROGRAMACIÓN DE VIDEOJUEGOS",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": [
+        "INF-700"
+      ]
+    },
+    {
+      "codigo": "ADM-900",
+      "nombre": "FORMACIÓN DE EMPRENDEDORES",
+      "creditos": 3,
+      "cuatrimestre": 10,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "IID-945",
+      "nombre": "INGENIERÍA ECONÓMICA",
+      "creditos": 3,
+      "cuatrimestre": 10,
+      "prerequisitos": [
+        "MAT-360"
+      ]
+    },
+    {
+      "codigo": "INF-344",
+      "nombre": "TELECOMUNICACIÓN DE DATOS",
+      "creditos": 2,
+      "cuatrimestre": 10,
+      "prerequisitos": [
+        "INF-411",
+        "INF-412"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-345 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-345",
+      "nombre": "LABORATORIO DE TELECOMUNICACIÓN DE DATOS",
+      "creditos": 1,
+      "cuatrimestre": 10,
+      "prerequisitos": [
+        "INF-411",
+        "INF-412"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: INF-344 (mutuos; no se modelan como prerrequisito porque crearian ciclo)."
+    },
+    {
+      "codigo": "INF-433",
+      "nombre": "ASEGURAMIENTO DE CALIDAD DEL SOFTWARE",
+      "creditos": 3,
+      "cuatrimestre": 10,
+      "prerequisitos": [
+        "INF-450"
+      ]
+    },
+    {
+      "codigo": "INF-920",
+      "nombre": "COMPILADORES",
+      "creditos": 4,
+      "cuatrimestre": 10,
+      "prerequisitos": [
+        "INF-502",
+        "INF-503",
+        "INF-184",
+        "INF-185"
+      ]
+    },
+    {
+      "codigo": "DPG-010",
+      "nombre": "ANTEPROYECTO DE GRADO",
+      "creditos": 4,
+      "cuatrimestre": 11,
+      "prerequisitos": [
+        "ADM-900"
+      ]
+    },
+    {
+      "codigo": "IID-025",
+      "nombre": "DISEÑO Y EVALUACIÓN DE PROYECTOS",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": [
+        "IID-945"
+      ]
+    },
+    {
+      "codigo": "INF-025",
+      "nombre": "ALGORITMOS PARALELOS",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": [
+        "INF-705",
+        "INF-706"
+      ]
+    },
+    {
+      "codigo": "INF-820",
+      "nombre": "SEGURIDAD INFORMÁTICA",
+      "creditos": 3,
+      "cuatrimestre": 11,
+      "prerequisitos": [
+        "INF-344",
+        "INF-345"
+      ]
+    },
+    {
+      "codigo": "DPG-020",
+      "nombre": "PROYECTO DE GRADO",
+      "creditos": 6,
+      "cuatrimestre": 12,
+      "prerequisitos": [],
+      "observaciones": "PRE-REQ del PDF: 'Haber aprobado todas las asignaturas hasta el 11.mo Cuatrimestre' (restriccion global, no codigos)."
+    },
+    {
+      "codigo": "CON-118",
+      "nombre": "CONTABILIDAD I",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "IEL-200",
+      "nombre": "CIRCUITOS ELÉCTRICOS I",
+      "creditos": 4,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "IEL-100",
+        "IEL-105"
+      ],
+      "observaciones": "Co-requisito(s) segun el PDF: IEL-205 (mutuos; no se modelan como prerrequisito porque crearian ciclo). Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "IEL-205",
+      "nombre": "TALLER DE CIRCUITOS ELÉCTRICOS I",
+      "creditos": 1,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "IEL-100",
+        "IEL-105"
+      ],
+      "observaciones": "Inconsistencia menor del PDF: HT(0)+HP(30) != TH(32); CRED=1 tal cual la fuente. Co-requisito(s) segun el PDF: IEL-200 (mutuos; no se modelan como prerrequisito porque crearian ciclo). Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "INF-022",
+      "nombre": "SISTEMA Y TECNOLOGÍA DE INFORMACIÓN",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "INF-385",
+        "INF-387"
+      ],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "INF-023",
+      "nombre": "DOMÓTICA Y ENTORNO INTELIGENTE",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "INF-344",
+        "INF-345"
+      ],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "INF-024",
+      "nombre": "ADMINISTRACIÓN DE NEGOCIOS ELECTRÓNICOS",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "INF-225"
+      ],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "INF-026",
+      "nombre": "ROBÓTICA",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "INF-344",
+        "INF-345"
+      ],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    },
+    {
+      "codigo": "INF-027",
+      "nombre": "BLOCKHAIN, CRIPTOMONEDAS Y METAVERSO",
+      "creditos": 3,
+      "cuatrimestre": 12,
+      "prerequisitos": [
+        "INF-411",
+        "INF-412"
+      ],
+      "observaciones": "Electiva segun el PDF (seccion 'ELECTIVAS: Debe haber cursado minimo 6 creditos', sin cuatrimestre asignado en la fuente); se lista al final, tras el 12.o cuatrimestre, como en el PDF."
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 4,
+      "minimo": 0,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "ponderado-por-creditos"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 3.2,
+        "max": 3.49,
+        "fuente": {
+          "url": "https://www.utesa.edu/home/acerca_de/descargables/reglamento-academico.pdf",
+          "sha256": "ce2095d1d6bee7dd1afadbf6012695bb87aaf81149f6eec908e59c933e89fcc1",
+          "verificadoEn": "2026-10-07",
+          "archivo": "reglamento-academico.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 3.5,
+        "max": 3.79,
+        "fuente": {
+          "url": "https://www.utesa.edu/home/acerca_de/descargables/reglamento-academico.pdf",
+          "sha256": "ce2095d1d6bee7dd1afadbf6012695bb87aaf81149f6eec908e59c933e89fcc1",
+          "verificadoEn": "2026-10-07",
+          "archivo": "reglamento-academico.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 3.8,
+        "max": 4,
+        "fuente": {
+          "url": "https://www.utesa.edu/home/acerca_de/descargables/reglamento-academico.pdf",
+          "sha256": "ce2095d1d6bee7dd1afadbf6012695bb87aaf81149f6eec908e59c933e89fcc1",
+          "verificadoEn": "2026-10-07",
+          "archivo": "reglamento-academico.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "haber reprobado alguna asignatura (Art. 99)",
+        "sancion disciplinaria (Art. 99)",
+        "mas de 5 retiros (Art. 99)",
+        "transferidos con menos del 60% de creditos cursados en UTESA (Art. 99)"
+      ]
+    },
+    "fuente": {
+      "url": "https://www.utesa.edu/home/acerca_de/descargables/reglamento-academico.pdf",
+      "sha256": "ce2095d1d6bee7dd1afadbf6012695bb87aaf81149f6eec908e59c933e89fcc1",
+      "verificadoEn": "2026-10-07",
+      "archivo": "reglamento-academico.pdf"
+    }
+  },
+  "notas": [
+    "Version del pensum: 2023 (el PDF cita la Resolucion No. 104-22); el titulo declarado es 'INGENIERO EN SISTEMAS COMPUTACIONALES' y la universidad se escribe 'UNIVERSIDAD TECNOLOGICA DE SANTIAGO (UTESA)'.",
+    "Escala: calificaciones numericas 0-100, aprobacion 70 (Reglamento Academico UTESA, Art. 81: 'La calificacion minima para aprobar una asignatura es 70 puntos.'); indice en base 4.",
+    "Forma del indice: promedio ponderado por creditos (Art. 83: 'Es un promedio ponderado que se obtiene de dividir el total de puntos entre el total de creditos.').",
+    "Honores (Art. 97-99): el Art. 98 declara CUM LAUDE 3.2-3.4, MAGNA CUM LAUDE 3.5-3.7 y SUMMA CUM LAUDE 3.8-4.0; aqui se interpretan como 3.2<=x<3.5, 3.5<=x<3.8, 3.8<=x<=4.0 (cada rango llega hasta el techo del siguiente grado), interpretacion anotada porque el texto del reglamento deja ambiguo el borde superior.",
+    "El PDF declara TOTAL DE CREDITOS 245, pero la suma de las filas del propio PDF es 257 (diferencia de 12; el bloque de electivas suma 23 creditos aunque solo exige 6 cursados). La cifra declarada del PDF queda anotada aqui; los totales del JSON reflejan la suma real de las filas. Discrepancia de la fuente, NO resoluble desde el documento.",
+    "El PDF declara TOTAL DE CUATRIMESTRES 12, TOTAL DE HORAS 4860 (3180 teoricas + 1680 practicas).",
+    "SOC-118 trae en PRE-REQ 'SOC-118' (autorreferencia: errata del PDF, probablemente SOC-114); queda PENDIENTE de confirmar en data/fixups/ y NO se rellena con el valor presumido.",
+    "INF-167/INF-168 citan su co-requisito como 'INF168'/'INF167' sin guion; son co-requisitos mutuos.",
+    "IEL-205: TH=32 pero HT+HP=30 (inconsistencia menor de la fuente; CRED=1).",
+    "INF-225 e INF-331: PRE-REQ 'Aprobar todas las asignaturas hasta el 5.to Cuatrimestre'; DPG-020: 'Haber aprobado todas las asignaturas hasta el 11.mo Cuatrimestre' (restricciones globales sin codigos; van en observaciones).",
+    "Las 8 materias del bloque ELECTIVAS no tienen cuatrimestre en el PDF; se listan al final con cuatrimestre 12 por posicion, aclarado en sus observaciones.",
+    "Las asignaturas de ingles (ING-*) valen 0 creditos tal cual dice el PDF.",
+    "Los co-requisitos (pares teoria/laboratorio) son mutuos en el PDF; modelarlos como prerrequisito crearia ciclos, asi que van en observaciones."
+  ],
+  "fuente": {
+    "url": "https://www.utesa.edu/santiago/ingenierias/sistemas/descargables/Pensum%20Carrera%20de%20Ingenieria%20en%20Sistemas%20Computacionales%202023.pdf",
+    "sha256": "7aca99c02482af9ccc33fb7326f4e6ce24e335745fe44c27102cb923f38c1193",
+    "verificadoEn": "2026-10-07",
+    "archivo": "Pensum Carrera de Ingenieria en Sistemas Computacionales 2023.pdf"
+  }
+}

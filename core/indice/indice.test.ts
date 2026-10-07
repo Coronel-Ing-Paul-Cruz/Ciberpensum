@@ -24,17 +24,22 @@ describe("calcularIndiceAcumulado", () => {
 
 describe("escalaCumple", () => {
   it("rechaza una materia reprobada aunque el indice sea alto", () => {
-    const escala = { minimo: 70, maximo: 100 }
+    const escala = { minimo: 0, maximo: 100, aprobacion: 70 }
     const notas = [
       { nota: 100, creditos: 3 },
       { nota: 40, creditos: 1 }, // reprobada
     ]
-    // Art. 85 UNICARIBE: se aprueba con minimo 70
+    // Art. 85 UNICARIBE / Art. 81 UTESA: se aprueba con minimo 70
     expect(escalaCumple(notas, escala)).toBe(false)
   })
 
-  it("acepta si todas superan el minimo", () => {
-    const escala = { minimo: 70, maximo: 100 }
+  it("acepta si todas superan el minimo de aprobacion", () => {
+    const escala = { minimo: 0, maximo: 100, aprobacion: 70 }
     expect(escalaCumple([{ nota: 70, creditos: 3 }], escala)).toBe(true)
+  })
+
+  it("con minimo de escala 0 y aprobacion 70, una nota 50 NO cumple (bug UTESA)", () => {
+    const escala = { minimo: 0, maximo: 100, aprobacion: 70 }
+    expect(escalaCumple([{ nota: 50, creditos: 3 }], escala)).toBe(false)
   })
 })

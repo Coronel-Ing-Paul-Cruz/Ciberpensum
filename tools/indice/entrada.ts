@@ -28,6 +28,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     const escala = {
       minimo: pensum.reglas.escala.minimo,
       maximo: pensum.reglas.escala.maximo,
+      aprobacion: pensum.reglas.escala.aprobacion,
     }
     const resumen = resumenProgreso(progreso)
 

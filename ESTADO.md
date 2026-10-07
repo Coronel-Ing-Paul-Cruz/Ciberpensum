@@ -56,6 +56,7 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | Universidad | Carrera | Pensum | Curado | Gate |
 |---|---|---|---|---|
 | Universidad del Caribe | Ingeniería en Ciberseguridad | 2024-11 | 2026-10-06 | PASS |
+| UTESA | Ingeniería en Sistemas Computacionales | 2023 | 2026-10-07 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.

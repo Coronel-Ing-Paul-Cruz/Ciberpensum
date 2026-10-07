@@ -68,12 +68,12 @@ function escalaDe(p: Pensum): { minimo: number; maximo: number; aprobacion: numb
   }
 }
 
-/** Codigos de materias aprobadas con nota final >= minimo (el codigo identifica la materia). */
-function aprobadasDe(progreso: Progreso, pensum: Pensum, escala: { minimo: number }): Set<string> {
+/** Codigos de materias aprobadas con nota final >= aprobacion (el codigo identifica la materia). */
+function aprobadasDe(progreso: Progreso, pensum: Pensum, escala: { aprobacion: number }): Set<string> {
   const s = new Set<string>()
   for (const m of pensum.materias) {
     const reg = progreso.aprobadas[m.codigo]
-    if (reg !== undefined && reg.nota >= escala.minimo) s.add(m.codigo)
+    if (reg !== undefined && reg.nota >= escala.aprobacion) s.add(m.codigo)
   }
   return s
 }
@@ -147,7 +147,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
   const pintarResumen = (): void => {
     const r = resumenProgreso(progreso)
-    const aprobadas = pensum.materias.filter((m) => (progreso.aprobadas[m.codigo]?.nota ?? 0) >= escala.minimo).length
+    const aprobadas = pensum.materias.filter((m) => (progreso.aprobadas[m.codigo]?.nota ?? 0) >= escala.aprobacion).length
     resumen.textContent =
       `${aprobadas} de ${pensum.materias.length} aprobadas · ` +
       `${r.creditos} créditos · índice ${fmt(r.indice)} · ` +
@@ -173,7 +173,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       if (!c) continue
 
       const reg = progreso.aprobadas[m.codigo]
-      const aprobada = reg !== undefined && reg.nota >= escala.minimo
+      const aprobada = reg !== undefined && reg.nota >= escala.aprobacion
       const enCurso = (progreso.enCurso ?? []).includes(m.codigo)
       const bloqueada = !aprobada && !disponibles.has(m.codigo)
 
@@ -210,7 +210,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         ? "var(--ok-fondo)"
         : enCurso
           ? "var(--accent-claro)"
-          : reg !== undefined && reg.nota < escala.minimo
+          : reg !== undefined && reg.nota < escala.aprobacion
             ? "var(--peligro-fondo)"
             : ""
     }
