@@ -222,6 +222,21 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   46rem (`main > p/ul/ol`) sin tocar tablas, `color-scheme: light` declarado,
   `touch-action: manipulation` + `-webkit-tap-highlight-color` en controles,
   y `env(safe-area-inset-bottom)` en la barra global y el padding del body.
+- **2026-10-07** — **Arranque de la fase "toda la oferta curricular"** (pedido del
+  usuario: habilitar UNICARIBE, OYM, UPID, UASD y UTESA). `investigador-datos`
+  en paralelo (uno por universidad) aterrizó en `data/raw/`: **29 pensums de
+  grado de UNICARIBE** y **22 de UTESA** (más los 3 PDFs previos de UNICARIBE);
+  OYM, UPID y UASD siguen en curso. La curaduría es **secuencial** (regla 11):
+  arrancó con **UTESA — Ingeniería en Sistemas Computacionales**
+  (`data/raw/utesa/pensum-grado-ingenieria-sistemas-computacionales.pdf`); le
+  siguen las demás carreras a medida que se valida cada JSON.
+- **2026-10-07** — **Selector de carrera activa: decisión de diseño.** Las
+  herramientas dejan de usar `carreras[0]` (build.mjs:157). Se adoptan páginas
+  de herramienta **por carrera** en `//herramientas/<slug>/<uniId>-<carreraSlug>/`
+  (un nivel más de profundidad) y `dist/herramientas/<slug>/` pasa a ser un
+  **índice estático de carreras** (el selector). Encaja con la arquitectura sin
+  JS/offline: el selector es navegación, no estado. Implementación con TDD
+  (`constructor-herramienta` lanzado el 2026-10-07).
 - **2026-10-07** — Re-medición del verificador SEO final: portabilidad seguía con
   **CLS 0.176** (era el único «gordo»): su contenido estático es corto y el
   reemplazo del `#app` desplazaba el panel de fuente, hermano *debajo*. Se
