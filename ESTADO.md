@@ -222,6 +222,16 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   46rem (`main > p/ul/ol`) sin tocar tablas, `color-scheme: light` declarado,
   `touch-action: manipulation` + `-webkit-tap-highlight-color` en controles,
   y `env(safe-area-inset-bottom)` en la barra global y el padding del body.
+- **2026-10-07** — Re-medición del verificador SEO final: portabilidad seguía con
+  **CLS 0.176** (era el único «gordo»): su contenido estático es corto y el
+  reemplazo del `#app` desplazaba el panel de fuente, hermano *debajo*. Se
+  aplicó la opción (a) del auditor: el **panel de fuente va ahora ANTES de
+  `#app`** (lo que crece ya no empuja nada visible; además, la proveniencia
+  primero encaja con la regla 4) y `metaFuente` pasa de `<h3>` a `<h2>` para
+  mantener h1→h2→h3. Verificado con el mismo protocolo (SW+caches limpios,
+  carga fría, PerformanceObserver): 3/3 corridas en **0.001**. INP real medido
+  con clic de confianza: **32 ms** (first-input pointerdown). `og:description`
+  y `og:type` presentes en las 18 páginas indexables (el 404 no lleva OG).
 
 ## Próximos pasos
 
