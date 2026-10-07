@@ -36,6 +36,18 @@
   // Un subagente puede lanzar a otro subagente (constructor -> verificador).
   "subagent_depth": 2,
 
+  // MCP: Playwright para verificar el sitio en un navegador real (orden de la
+  // malla, bloqueo de prerrequisitos, accesibilidad) antes de publicar. Local,
+  // stdin/stdout via npx; el binario de Chromium se descarga fuera del workspace.
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": ["npx", "-y", "@playwright/mcp@latest"]
+      }
+    }
+  },
+
   "permissions": [
     // --- politica base: permitido. Sin excepciones ocultas --------------------
     { "action": "read", "resource": "*", "effect": "allow" },
