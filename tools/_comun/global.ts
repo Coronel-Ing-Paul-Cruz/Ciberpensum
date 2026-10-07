@@ -37,11 +37,12 @@ if (zona && botones) {
   let pensum: Pensum | null = null
   let progreso: Progreso | null = null
 
-  /** Aprobadas de verdad: las que superan la nota minima de la escala. */
+  /** Aprobadas de verdad: las que superan la nota de APROBACION de la escala
+      (no el minimo del rango 0-100; bug destapado al curar UTESA). */
   const aprobadasReales = (p: Progreso): number => {
     if (!pensum) return 0
-    const minimo = pensum.reglas.escala.minimo
-    return pensum.materias.filter((m) => (p.aprobadas[m.codigo]?.nota ?? 0) >= minimo).length
+    const aprobacion = pensum.reglas.escala.aprobacion
+    return pensum.materias.filter((m) => (p.aprobadas[m.codigo]?.nota ?? 0) >= aprobacion).length
   }
 
   const pintar = (): void => {
