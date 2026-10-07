@@ -34,7 +34,22 @@
   // ---------------------------------------------------------------------------
 
   // Un subagente puede lanzar a otro subagente (constructor -> verificador).
-  "subagent_depth": 2,
+  // OJO: subagent_depth a nivel raiz es LEGACY en v2 — el runtime lo omite con
+  // el warning "omitted unsupported legacy setting" en opencode.log (medido el
+  // 2026-10-07). El lugar valido en v2 es experimental.subagent_depth.
+  "experimental": {
+    "subagent_depth": 2
+  },
+
+  // Compaction (prestado de html5web, verificado contra la doc V2
+  // /v2/docs/config/#compaction): sin keep.tokens, al compactar estandar queda
+  // una cola corta y la sesion pierde contexto fase a fase (este proyecto lo
+  // vive: compacto medio-deploy 2026-10-07, datos de prueba). keep.tokens da
+  // holgura para que el detalle del trabajo sobreviva al ajuste.
+  "compaction": {
+    "auto": true,
+    "keep": { "tokens": 24000 }
+  },
 
   // MCP: Playwright para verificar el sitio en un navegador real (orden de la
   // malla, bloqueo de prerrequisitos, accesibilidad) antes de publicar. Local,

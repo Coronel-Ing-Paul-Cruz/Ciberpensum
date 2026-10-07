@@ -98,9 +98,12 @@ if (!existsSync(ruta)) {
       }
     }
 
-    typeof cfg.subagent_depth === "number"
-      ? ok(`subagent_depth en la raiz = ${cfg.subagent_depth}`)
-      : mal("subagent_depth falta o no es numero (va en la raiz, no bajo experimental)")
+    // En v2 la clave va bajo experimental (la raiz es legacy: el runtime la
+    // omite con "unsupported legacy setting" en opencode.log — medido 2026-10-07
+    // en v2.0.16; html5web la tiene bien en experimental).
+    typeof cfg.experimental?.subagent_depth === "number"
+      ? ok(`experimental.subagent_depth = ${cfg.experimental.subagent_depth}`)
+      : mal("experimental.subagent_depth falta o no es numero")
   }
 }
 
