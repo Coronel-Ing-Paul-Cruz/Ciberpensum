@@ -1,0 +1,225 @@
+{
+  "carrera": "Maestría en Gestión de Recursos Humanos",
+  "slug": "maestria-gestion-recursos-humanos",
+  "universidad": {
+    "id": "upid",
+    "nombre": "Universidad Psicología Industrial Dominicana"
+  },
+  "grado": "postgrado",
+  "version": "2018",
+  "vigente": true,
+  "duracion": {
+    "periodos": 6,
+    "tipoPeriodo": "periodo"
+  },
+  "totales": {
+    "asignaturas": 24,
+    "creditos": 57
+  },
+  "materias": [
+    {
+      "codigo": "GRH-101",
+      "nombre": "SISTEMA DE COMUNICACIÓN Y GESTIÓN DE INF. TEC. TIC",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-102",
+      "nombre": "GESTIÓN Y FUNCIÓN ADMINISTRATIVA DE LOS RRHH.",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-103",
+      "nombre": "DERECHO LABORAL Y SEGURIDAD SOCIAL",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-104",
+      "nombre": "PSICOLOGÍA ORGANIZACIONAL",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-201",
+      "nombre": "TEORÍAS GEREN. Y CORRIENTES ACTUALES DE ADM. DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-202",
+      "nombre": "DIRECCIÓN Y DESARROLLO DEL DEPARTAMENTO DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-203",
+      "nombre": "ORGANIZACIÓN Y MÉTODOS DE EMPRESA",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-204",
+      "nombre": "ESTADÍSTICAS APLICADAS A RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-205",
+      "nombre": "METODOLOGÍA Y TEC. DE INV. APLICADAS A RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-301",
+      "nombre": "PLANIFICACIÓN ESTRATÉGICA DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-302",
+      "nombre": "ANÁLISIS, DESCRIPCIÓN Y VALORACIÓN DE PUESTOS",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-303",
+      "nombre": "RECLUTAMIENTO, SELEC. / CONTR. PERSONAL X COMPETENCIA",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-304",
+      "nombre": "CONTABILIDAD, NÓMINA Y PRESUPUESTO APLICADA A RRHH.",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-401",
+      "nombre": "EVALUACIÓN DEL DESEMPEÑO LABORAL",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-402",
+      "nombre": "FORM. / DESARR. RRHH. BASADAS EN EVIDENCIA / NECESIDADES",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-403",
+      "nombre": "AUDITORÍA DE RECURSOS HUMANOS",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-404",
+      "nombre": "ADMINISTRACIÓN DE SUELDO, SALARIOS Y COMPENSACIONES",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-405",
+      "nombre": "PRUEBAS PSICOLÓGICAS APLICADAS A RRHH (PSICOMETRÍA)",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-501",
+      "nombre": "ADMINISTRACIÓN Y MANEJO DEL MEDIO AMBIENTE LABORAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-502",
+      "nombre": "SISTEMAS GESTIÓN DE CALIDAD Y OPTIMIZACIÓN DE SERVICIOS",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-503",
+      "nombre": "CONDUCTA LABORAL Y MANEJO DE CONFLICTOS",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-504",
+      "nombre": "SALUD LABORAL, PREVENCIÓN E HIGIENE INDUSTRIAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-505",
+      "nombre": "MÉTODOS Y TÉCNICAS DE INV. DEL MERCADO SALARIAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-601",
+      "nombre": "TRABAJO FINAL",
+      "creditos": 6,
+      "cuatrimestre": 6,
+      "prerequisitos": []
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 4,
+      "minimo": 0,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "ponderado-por-creditos"
+    },
+    "honores": [],
+    "fuente": {
+      "url": "https://upid.edu.do/wp-content/uploads/2023/01/6-REGLAMENTO-ACADEMICO.pdf",
+      "sha256": "58f12077f9b316295844bbcefd20a0f3d7af119e7673dadff75990fd7ba5eb30",
+      "verificadoEn": "2026-10-07",
+      "archivo": "reglamento-academico.pdf"
+    }
+  },
+  "notas": [
+    "Version y vigencia: el PDF no declara version ni resolucion; '2018' corresponde a la ruta de publicacion oficial (/2018/04/). Sin verificacion independiente de vigencia: se asume vigente, NO VERIFICADO.",
+    "Duracion declarada en la portada: 2 anos; el pensum tiene 6 periodos (tipoPeriodo = 'periodo' porque el header impreso es 'PERIODO 1..6', no 'cuatrimestre').",
+    "Totales impresos: 'TOTALES CR / HT / HP 57 420 870'. La suma de las 24 filas cuadra exactamente, y tambien por periodo (CR/HT/HP): P1 10/90/120, P2 10/75/150, P3 10/75/150, P4 11/75/180, P5 10/75/150, P6 6/30/120.",
+    "Horas: cada fila del PDF trae HT (teoricas) y HP (practicas) ademas de CR; el schema no admite horas por materia, por lo que no se copian a materias y quedan registradas aqui en sus totales por periodo (arriba). Ejemplo de fila: 'TRABAJO FINAL 6 30 120'.",
+    "Codigos: el PDF no imprime columna de clave (formato NOMBRE | CR | HT | HP; verificado por coordenadas: nombre en x<396, CR@396, HT@454, HP@504). Los codigos GRH-PNN son SINTETICOS: prefijo GRH (Gestion de Recursos Humanos) + digito de periodo (1-6) + orden dentro del periodo (01-05); ej. GRH-101 = periodo 1, materia 1. El mapeo fila->codigo vive en data/fixups/upid-maestria-gestion-recursos-humanos-adiciones.json.",
+    "Prerrequisitos: la fuente no tiene columna PRE-REQ ni declara prerrequisitos para ninguna asignatura: [] en las 24 materias (grafo vacio).",
+    "TRABAJO FINAL (periodo 6): unica asignatura del ultimo periodo; se cura igual que el resto con lo que declara su fila (6 creditos, 30 HT, 120 HP).",
+    "Escala (NO esta en el PDF del pensum; tomada del Reglamento Academico de UPID): Art. 14 'DE LAS CALIFICACIONES' -> A 95-100% = 4 ptos, B+ 90-94% = 3.5, B 85-89% = 3, C 70-84% = 2, D 60-69% = 1, F 0-59% = 0, mas 'el 70% es el minimo para aprobar la asignatura' (carga minima de 100 puntos); Art. 15 'DEL INDICE ACADEMICO' -> indice = suma(creditos x calificacion numerica) / total de creditos, escala 0-4.0. De ahi base 4, maximo 100, aprobacion 70 y formaIndice 'ponderado-por-creditos'.",
+    "Alcance institucional de la escala: el Reglamento Academico es aprobado por el Consejo Academico de UPID y en su Art. 1 define los Programas Academicos en grado (tecnico superior y licenciatura) Y postgrado ('2. Post-Grado: Programas Academicos de Especializacion, y aquellos conducentes a los grados de Maestria y Doctorado'); el Art. 14 no restringe el nivel, a diferencia del Art. 20.I que si dice 'Los literales del presente articulo solo se refieren a los estudiantes de tecnico superior y los de Grado'. La fuente se verifico descargandola de la pagina oficial de reglamentos de UPID: sha256 58f12077... identico al archivo local (la propia pagina enlaza tambien /2018/04/REGLAMENTO-ACADEMICO1.pdf con el mismo hash).",
+    "Discrepancia de trazabilidad detectada al curar: data/curated/upid/licenciatura-contabilidad.json cita como fuente de su escala 'reglamento-de-evaluacion-de-aprendizajes.pdf' (sha256 66215309...), pero ese texto NO contiene la escala numerica (verificacion con pdfplumber: '95-100' -> 0 coincidencias en sus 15 paginas). Los valores citados alli corresponden literalmente al Art. 14 del Reglamento Academico (sha256 58f12077...). Este JSON cita la fuente que contiene los numeros.",
+    "Honores: el Art. 21 del Reglamento Academico define Cuadro de Honor (3.4-3.65 CUM LAUDE, 3.66-3.80 MAGNA CUM LAUDE, 3.81-4.0 SUMMA CUM LAUDE), pero el Art. 22.H dice 'Solo en los titulos de Grado se asentaran en los mismos el Honor Academico obtenido durante los estudios': la aplicabilidad de honores a esta maestria no esta confirmada -> honores = [] NO VERIFICADO.",
+    "El ensamblador (tools-cli/ensamblar-curaduria.mjs) marco 2 filas FANTASMA en su draft: HP-574 (creditos 870) y TIC-215 (creditos 30), ambas en cuatrimestre 0 con nombre vacio, generadas por la cola CR/HT/HP de la linea 'TOTALES CR / HT / HP 57 420 870' y por 'TIC ... 2 15' de la primera fila (misma clase de 'claves fantasma' documentada en APRENDIZAJES.md, ahora sin codigo de prefijo). El draft reporto 26 materias / 957 creditos; al validar contra el PDF se descartan las 2 artefactas y quedan 24 materias / 57 creditos, cuadrando con los totales impresos."
+  ],
+  "fuente": {
+    "url": "https://upid.edu.do/wp-content/uploads/2018/04/Maestri%CC%81a-Gestio%CC%81n-de-RRHH-N-1.pdf",
+    "sha256": "c1609fbda0be9e9684362c02d04be7aab3f4f72e3b3265c6d0dabb5f6d04dd74",
+    "verificadoEn": "2026-10-07",
+    "archivo": "pensum-maestria-gestion-de-recursos-humanos.pdf"
+  }
+}

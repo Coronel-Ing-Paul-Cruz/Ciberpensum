@@ -1,0 +1,178 @@
+{
+  "notas": [
+    "Curaduria Maestria en Gestion de Recursos Humanos (UPID). El PDF no imprime columna de CLAVE: el formato de fila es NOMBRE | CR | HT | HP (verificado por coordenadas: nombre en x<396, CR@396, HT@454, HP@504; uniche numericas = CR/HT/HP, sin columna PRE-REQ).",
+    "Los codigos GRH-PNN de este archivo son SINTETICOS, no impresos en la fuente: prefijo GRH (Gestion de Recursos Humanos) + digito de periodo (1-6) + orden dentro del periodo (01-05). Ej. GRH-101 = periodo 1, materia 1. El parser de tools-cli/ensamblar-curaduria.mjs busca claves tipo XXX-NNN en las lineas y por eso no parsea ninguna fila de este pensum: las 24 materias entran por esta via de adiciones, y la herramienta valida igual totales, codigos unicos y prerequisitos.",
+    "ht/hp NO se incluyen por materia: data/schema/pensum.schema.json no tiene campo de horas (additionalProperties false). Las horas por periodo quedan documentadas en las notas del JSON curado.",
+    "prerequisitos: el PDF no declara prerrequisitos para ninguna asignatura (no existe la columna) -> [] en las 24 filas."
+  ],
+  "adiciones": [
+    {
+      "codigo": "GRH-101",
+      "nombre": "SISTEMA DE COMUNICACIÓN Y GESTIÓN DE INF. TEC. TIC",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-102",
+      "nombre": "GESTIÓN Y FUNCIÓN ADMINISTRATIVA DE LOS RRHH.",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-103",
+      "nombre": "DERECHO LABORAL Y SEGURIDAD SOCIAL",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-104",
+      "nombre": "PSICOLOGÍA ORGANIZACIONAL",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-201",
+      "nombre": "TEORÍAS GEREN. Y CORRIENTES ACTUALES DE ADM. DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-202",
+      "nombre": "DIRECCIÓN Y DESARROLLO DEL DEPARTAMENTO DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-203",
+      "nombre": "ORGANIZACIÓN Y MÉTODOS DE EMPRESA",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-204",
+      "nombre": "ESTADÍSTICAS APLICADAS A RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-205",
+      "nombre": "METODOLOGÍA Y TEC. DE INV. APLICADAS A RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-301",
+      "nombre": "PLANIFICACIÓN ESTRATÉGICA DE RRHH.",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-302",
+      "nombre": "ANÁLISIS, DESCRIPCIÓN Y VALORACIÓN DE PUESTOS",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-303",
+      "nombre": "RECLUTAMIENTO, SELEC. / CONTR. PERSONAL X COMPETENCIA",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-304",
+      "nombre": "CONTABILIDAD, NÓMINA Y PRESUPUESTO APLICADA A RRHH.",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-401",
+      "nombre": "EVALUACIÓN DEL DESEMPEÑO LABORAL",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-402",
+      "nombre": "FORM. / DESARR. RRHH. BASADAS EN EVIDENCIA / NECESIDADES",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-403",
+      "nombre": "AUDITORÍA DE RECURSOS HUMANOS",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-404",
+      "nombre": "ADMINISTRACIÓN DE SUELDO, SALARIOS Y COMPENSACIONES",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-405",
+      "nombre": "PRUEBAS PSICOLÓGICAS APLICADAS A RRHH (PSICOMETRÍA)",
+      "creditos": 3,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-501",
+      "nombre": "ADMINISTRACIÓN Y MANEJO DEL MEDIO AMBIENTE LABORAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-502",
+      "nombre": "SISTEMAS GESTIÓN DE CALIDAD Y OPTIMIZACIÓN DE SERVICIOS",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-503",
+      "nombre": "CONDUCTA LABORAL Y MANEJO DE CONFLICTOS",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-504",
+      "nombre": "SALUD LABORAL, PREVENCIÓN E HIGIENE INDUSTRIAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-505",
+      "nombre": "MÉTODOS Y TÉCNICAS DE INV. DEL MERCADO SALARIAL",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "GRH-601",
+      "nombre": "TRABAJO FINAL",
+      "creditos": 6,
+      "cuatrimestre": 6,
+      "prerequisitos": []
+    }
+  ]
+}

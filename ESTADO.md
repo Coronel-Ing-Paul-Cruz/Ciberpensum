@@ -58,6 +58,7 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | Universidad del Caribe | Ingeniería en Ciberseguridad | 2024-11 | 2026-10-06 | PASS |
 | UTESA | Ingeniería en Sistemas Computacionales | 2023 | 2026-10-07 | PASS |
 | UPID | Licenciatura en Contabilidad (`licenciatura-contabilidad`) | 2018 | 2026-10-07 | PASS |
+| UPID | Maestría en Gestión de Recursos Humanos (`maestria-gestion-recursos-humanos`) | 2018 | 2026-10-07 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -325,6 +326,25 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   Verificado con Playwright en las 3 situaciones (UPID 0/56, unicaribe 0/55,
   home estática; 0 errores de consola). Lección en APRENDIZAJES.md.
 
+- **2026-10-07** — **Curaduría UPID — Maestría en Gestión de Recursos Humanos
+  entra al gate** (pedido en Próximos pasos #10). 24 materias / 57 créditos /
+  6 periodos (`tipoPeriodo: "periodo"`), suma por periodo cuadra con los
+  subtotales impresos y con TOTALES 57/420/870. El PDF **no imprime columna de
+  clave** (formato NOMBRE | CR | HT | HP): códigos **sintéticos GRH-PNN**
+  (prefijo GRH + dígito de periodo + orden, ej. GRH-101) documentados en
+  `data/fixups/upid-maestria-gestion-recursos-humanos-adiciones.json`; sin
+  columna PRE-REQ → prerrequisitos `[]` en las 24. **Escala**: el PDF no la
+  declara y el Reglamento de Evaluación (sha256 `66215309…`) **no contiene** la
+  escala numérica; los valores viven en el **Reglamento Académico** Art. 14/15
+  (sha256 `58f12077…`), cuya URL oficial se verificó por hash idéntico
+  (`/2023/01/6-REGLAMENTO-ACADEMICO.pdf` y `/2018/04/REGLAMENTO-ACADEMICO1.pdf`
+  en `upid.edu.do/reglamentos/`); es institucional y su Art. 1 define el
+  Post-Grado (Maestría) sin restringir el Art. 14 a un nivel. **Honores = []
+  NO VERIFICADO**: Art. 21 define Cuadro de Honor pero Art. 22.H dice "Sólo en
+  los títulos de Grado". El ensamblador marcó 2 filas fantasma (`HP-574`,
+  `TIC-215`, cuatrimestre 0) que se descartaron contra el PDF (26/957 → 24/57).
+  Hallazgo para corrección posterior en Próximos pasos #11.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -394,3 +414,21 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     UNVERIFIABLE**: el PDF del menú oficial responde 404, sin copia en Wayback
     ni en WP (media 5873 borrada) → queda bloqueada sin fuente (regla 4: datos
     con fuente o no son datos). `curador-pensum` curando Gestión RRHH.
+    — **curaduría 2026-10-07**: Gestión RRHH **PASS** en `verify:data`
+    (`data/curated/upid/maestria-gestion-recursos-humanos.json`, 24 materias /
+    57 créditos).
+11. **Corregir la trazabilidad de la escala en
+    `data/curated/upid/licenciatura-contabilidad.json`** (hallazgo de la
+    curaduría de la maestría de RRHH, 2026-10-07; no se corrigió ahí porque el
+    encargo de ese curador era solo el JSON de la maestría): su
+    `reglas.fuente` apunta a `reglamento-de-evaluacion-de-aprendizajes.pdf`
+    (sha256 `66215309…`) pero ese texto **no contiene** la escala numérica
+    (verificado con pdfplumber: "95-100" → 0 coincidencias en sus 15 páginas);
+    los valores citados corresponden literalmente al Art. 14 del Reglamento
+    Académico (sha256 `58f12077…`,
+    `https://upid.edu.do/wp-content/uploads/2023/01/6-REGLAMENTO-ACADEMICO.pdf`).
+    Revisar también su nota de honores: dice "sin artículo de escala de
+    honores detectado", pero el Art. 21 del Reglamento Académico sí define el
+    Cuadro de Honor (3.4-4.0); mantiene `honores: []` por el Art. 22.H
+    ("Sólo en los títulos de Grado se asentarán…"), criterio que habría que
+    confirmar para grado.
