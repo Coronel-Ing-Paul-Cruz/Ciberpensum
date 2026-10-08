@@ -5,8 +5,9 @@ import {
   creditosAprobados,
   creditosFaltantes,
   cuatrimestresRestantes,
+  siguienteEstadoAlClic,
 } from "./progresion.js"
-import type { MateriaPlan } from "./progresion.js"
+import type { MateriaPlan, EstadoClic } from "./progresion.js"
 
 /**
  * core/progresion — inscripcion, bloqueos y saldo crediticio de un plan.
@@ -53,7 +54,6 @@ describe("materiasDisponibles", () => {
   })
 
   it("requiereTodas con plan incompleto: no se ofrece", () => {
-    // Falta aprobar solo HUM101 y el TFG sigue bloqueado.
     const aprobadas = new Set(["MAT101", "FIS101", "FIS201"])
     const res = materiasDisponibles(plan, aprobadas)
     expect(codigos(res)).toEqual(["HUM101"])
@@ -61,15 +61,11 @@ describe("materiasDisponibles", () => {
   })
 
   it("requiereTodas con plan completo: se ofrece aunque sus prerequisitos digan otra cosa", () => {
-    // TFG declara prerequisito FIS201, pero la regla del PDF es 'TODAS las
-    // demas': con el resto aprobado, los prerequisitos se ignoran.
     const aprobadas = new Set(["MAT101", "FIS101", "FIS201", "HUM101"])
     expect(codigos(materiasDisponibles(plan, aprobadas))).toEqual(["TFG"])
   })
 
   it("requiereTodas en plan de una sola materia: vaciamente se cumple", () => {
-    // Duda documentada: no hay 'demas materias' que exigir. Comportamiento
-    // elegido: se ofrece (no se bloquea sin motivo).
     const uniplemente: MateriaPlan[] = [
       { codigo: "TFG", nombre: "TFG", creditos: 4, cuatrimestre: 5, prerequisitos: [], requiereTodas: true },
     ]
@@ -77,10 +73,6 @@ describe("materiasDisponibles", () => {
   })
 
   it("dos materias con requiereTodas: sin ninguna aprobada se bloquean entre si (lectura literal, conservadora)", () => {
-    // Duda documentada: si ninguna esta aprobada, cada una exige la otra y
-    // ninguna se ofrece (falso bloqueo conservador: no se afirma disponibilidad
-    // sin poder probarla). En cuanto se aprueba una, la otra se abre, porque
-    // "todas las demas" no incluye la propia.
     const cruzadas: MateriaPlan[] = [
       { codigo: "A", nombre: "A", creditos: 1, cuatrimestre: 1, prerequisitos: [], requiereTodas: true },
       { codigo: "B", nombre: "B", creditos: 1, cuatrimestre: 1, prerequisitos: [], requiereTodas: true },
@@ -90,16 +82,12 @@ describe("materiasDisponibles", () => {
   })
 
   it("sin cuatrimestreActual se ignoran las restricciones temporales", () => {
-    // HUM101 es de cuatrimestre 3 y MAT101 de cuatrimestre 1: sin cuatrimestre
-    //Actual ambas son inscribibles por prerrequisitos.
     expect(codigos(materiasDisponibles(plan, new Set()))).toEqual(["MAT101", "HUM101"])
   })
 
   it("con cuatrimestreActual exige cuatrimestreActual >= desdeCuatrimestre ?? cuatrimestre", () => {
     const aprobadas = new Set(["MAT101"])
-    // Todo lo disponible es de cuatrimestre posterior a 1.
     expect(codigos(materiasDisponibles(plan, aprobadas, 1))).toEqual([])
-    // En cuatrimestre 3 si entra FIS101 (c2) y HUM101 (c3).
     expect(codigos(materiasDisponibles(plan, aprobadas, 3))).toEqual(["FIS101", "HUM101"])
   })
 
@@ -109,7 +97,6 @@ describe("materiasDisponibles", () => {
     ]
     expect(codigos(materiasDisponibles(conDesde, new Set(), 2))).toEqual([])
     expect(codigos(materiasDisponibles(conDesde, new Set(), 3))).toEqual(["LAB101"])
-    // Sin cuatrimestreActual la restriccion no se aplica.
     expect(codigos(materiasDisponibles(conDesde, new Set(), undefined))).toEqual(["LAB101"])
   })
 
@@ -144,8 +131,6 @@ describe("motivosBloqueo", () => {
   })
 
   it("varios prerequisitos pendientes, en el orden declarado", () => {
-    // Incluye un codigo que ni siquiera existe en el plan: no aprobado es no
-    // aprobado, no se asume cumplido.
     const materia: MateriaPlan = {
       codigo: "X",
       nombre: "X",
@@ -178,10 +163,6 @@ describe("motivosBloqueo", () => {
   })
 
   it("requiereTodas no es comprobable sin el plan: se informa siempre (conservador)", () => {
-    // Duda documentada: motivosBloqueo no recibe el plan, asi que no puede
-    // saber si 'todas las demas' estan aprobadas. Comportamiento elegido: no
-    // afirmar disponibilidad que no se puede probar. La disponibilidad real la
-    // decide materiasDisponibles, que si tiene el plan.
     const tfg = plan[4]!
     const todoElResto = new Set(["MAT101", "FIS101", "FIS201", "HUM101"])
     expect(motivosBloqueo(tfg, todoElResto, 5)).toEqual([{ tipo: "requiere-todas" }])
@@ -195,10 +176,6 @@ describe("motivosBloqueo", () => {
   })
 
   it("materia ya aprobada: el contrato no tiene motivo para eso, no se inventa", () => {
-    // Duda documentada: el tipo MotivoBloqueo no incluye 'ya aprobada'.
-    // Elegimos no inventarlo; excluir aprobadas es trabajo de
-    // materiasDisponibles. Aqui solo se informan bloqueos temporales/de
-    // prerrequisito, que para una aprobada estan satisfechos.
     expect(motivosBloqueo(plan[0]!, new Set(["MAT101"]), 1)).toEqual([])
   })
 
@@ -208,7 +185,7 @@ describe("motivosBloqueo", () => {
     const disponibles = new Set(codigos(materiasDisponibles(plan, aprobadas, cuatri)))
     for (const m of plan) {
       if (aprobadas.has(m.codigo)) continue
-      if (m.requiereTodas) continue // ver test anterior: no comprobable sin plan
+      if (m.requiereTodas) continue
       const sinMotivos = motivosBloqueo(m, aprobadas, cuatri).length === 0
       expect(sinMotivos).toBe(disponibles.has(m.codigo))
     }
@@ -273,13 +250,82 @@ describe("cuatrimestresRestantes", () => {
   })
 
   it("cuatrimestre invalido en el plan se trata como el 1 (el resultado es >= 1)", () => {
-    // Duda documentada: el contrato dice 'primer cuatrimestre (>= 1)', pero
-    // un JSON con cuatrimestre 0 no debe producir un 0 indistinguible de
-    // 'no queda nada'. Comportamiento elegido: acotar a 1.
     const rara: MateriaPlan[] = [
       { codigo: "Z", nombre: "Z", creditos: 1, cuatrimestre: 0, prerequisitos: [] },
     ]
     expect(cuatrimestresRestantes(rara, new Set())).toBe(1)
     expect(cuatrimestresRestantes(rara, new Set(["Z"]))).toBe(0)
+  })
+})
+
+describe("siguienteEstadoAlClic", () => {
+  it("1) Hay nota registrada: la quita aunque no este habilitada", () => {
+    const estado: EstadoClic = {
+      aprobadas: { MAT101: { nota: 90 } },
+      enCurso: ["FIS101"],
+    }
+    const res = siguienteEstadoAlClic(estado, "MAT101", false, 70)
+    expect(res.aprobadas.MAT101).toBeUndefined()
+    expect(res.enCurso).toEqual(["FIS101"])
+    expect(Object.is(res.enCurso, estado.enCurso)).toBe(true)
+  })
+
+  it("1b) Hay nota registrada (reprobada): la quita", () => {
+    const estado: EstadoClic = {
+      aprobadas: { MAT101: { nota: 60 } },
+      enCurso: [],
+    }
+    const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(res.aprobadas).toEqual({})
+  })
+
+  it("2) Esta en curso sin nota: si habilitada, aprueba con notaPorDefecto", () => {
+    const estado: EstadoClic = { aprobadas: {}, enCurso: ["MAT101"] }
+    const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(res.enCurso).toEqual([])
+    expect(res.aprobadas.MAT101).toEqual({ nota: 70 })
+  })
+
+  it("2b) Esta en curso: si no habilitada, devuelve el mismo estado", () => {
+    const estado: EstadoClic = { aprobadas: { FIS201: { nota: 80 } }, enCurso: ["MAT101"] }
+    const res = siguienteEstadoAlClic(estado, "MAT101", false, 70)
+    expect(Object.is(res, estado)).toBe(true)
+  })
+
+  it("3) Sin estado: si habilitada, pone en curso", () => {
+    const estado: EstadoClic = { aprobadas: {}, enCurso: ["FIS101"] }
+    const res = siguienteEstadoAlClic(estado, "HUM101", true, 70)
+    expect(res.aprobadas).toEqual({})
+    expect(res.enCurso).toContain("HUM101")
+    expect(res.enCurso.length).toBe(2)
+  })
+
+  it("3b) Sin estado: si no habilitada, devuelve el mismo estado", () => {
+    const estado: EstadoClic = { aprobadas: {}, enCurso: [] }
+    const res = siguienteEstadoAlClic(estado, "HUM101", false, 70)
+    expect(Object.is(res, estado)).toBe(true)
+  })
+
+  it("ciclo completo: sin estado->en curso->aprobada->sin estado", () => {
+    let estado: EstadoClic = { aprobadas: {}, enCurso: [] }
+    estado = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(estado.enCurso).toContain("MAT101")
+    estado = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(estado.aprobadas.MAT101).toEqual({ nota: 70 })
+    expect(estado.enCurso).not.toContain("MAT101")
+    estado = siguienteEstadoAlClic(estado, "MAT101", false, 70)
+    expect(estado.aprobadas.MAT101).toBeUndefined()
+    expect(estado.enCurso).toEqual([])
+  })
+
+  it("no muta las entradas", () => {
+    const aprobadasOrig = { MAT101: { nota: 85 } }
+    const enCursoOrig = ["FIS101"]
+    const estado: EstadoClic = { aprobadas: aprobadasOrig, enCurso: enCursoOrig }
+    const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(Object.is(res.aprobadas, aprobadasOrig)).toBe(false)
+    expect(Object.is(res.enCurso, enCursoOrig)).toBe(true)
+    expect(aprobadasOrig.MAT101).toEqual({ nota: 85 })
+    expect(enCursoOrig).toEqual(["FIS101"])
   })
 })

@@ -29,8 +29,10 @@ import { resumenProgreso, type Progreso } from "../../core/portabilidad/portabil
 import {
   materiasDisponibles,
   motivosBloqueo,
+  siguienteEstadoAlClic,
   type MateriaPlan,
   type MotivoBloqueo,
+  type EstadoClic,
 } from "../../core/progresion/progresion.js"
 import type { Pensum } from "../../core/datos/datos.js"
 
@@ -142,6 +144,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       nota: HTMLInputElement
       chkCurso: HTMLInputElement
       motivo: HTMLSpanElement
+      botonFila: HTMLButtonElement
     }
   >()
 
@@ -213,6 +216,18 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
           : reg !== undefined && reg.nota < escala.aprobacion
             ? "var(--peligro-fondo)"
             : ""
+
+      // Actualizar boton de fila accesible
+      const tieneNota = reg !== undefined
+      let estadoTexto = "Sin estado"
+      if (tieneNota && reg.nota >= escala.aprobacion) estadoTexto = "Aprobada"
+      else if (tieneNota && reg.nota < escala.aprobacion) estadoTexto = "Reprobada"
+      else if (enCurso) estadoTexto = "En curso"
+      else estadoTexto = "Sin estado"
+      const habilitada = !bloqueada || tieneNota // lo registrado se puede corregir
+      c.botonFila.setAttribute("aria-label", `${m.codigo} ${m.nombre}. ${estadoTexto}. Clic o Enter alterna: sin estado → en curso → aprobada → sin estado.`)
+      c.botonFila.disabled = !habilitada
+      c.botonFila.setAttribute("aria-disabled", (!habilitada).toString())
     }
   }
 
@@ -315,6 +330,52 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         })
       })
 
+      // Boton accesible en la celda del nombre
+      const botonFila = document.createElement("button")
+      botonFila.type = "button"
+      botonFila.className = "boton-fila"
+      botonFila.textContent = m.nombre
+
+      const ejecutarCiclo = (): void => {
+        const aprobadasSet = aprobadasDe(progreso, pensum, escala)
+        const disponibles = new Set(materiasDisponibles(plan, aprobadasSet).map((d) => d.codigo))
+        const regActual = progreso.aprobadas[m.codigo]
+        const tieneNota = regActual !== undefined
+        const bloqueada = !tieneNota && !disponibles.has(m.codigo)
+        const habilitada = !bloqueada || tieneNota // lo registrado siempre se corrige
+        const estadoClic: EstadoClic = {
+          aprobadas: progreso.aprobadas,
+          enCurso: progreso.enCurso ?? [],
+        }
+        const nuevo = siguienteEstadoAlClic(estadoClic, m.codigo, habilitada, escala.aprobacion)
+        if (nuevo === estadoClic) {
+          return // sin estado registrado y bloqueada: no hay nada que alternar
+        }
+        const nuevoProgreso: Progreso = {
+          ...progreso,
+          aprobadas: nuevo.aprobadas as Progreso["aprobadas"],
+          enCurso: nuevo.enCurso.length > 0 ? [...nuevo.enCurso] : [],
+        }
+        // Cuando pasa a aprobada con nota por defecto, añadir metadatos
+        const regNuevo = nuevoProgreso.aprobadas[m.codigo]
+        if (regNuevo !== undefined && (regActual === undefined || regActual.nota !== regNuevo.nota)) {
+          nuevoProgreso.aprobadas[m.codigo] = {
+            nota: regNuevo.nota,
+            creditos: m.creditos,
+            cuatrimestre: m.cuatrimestre,
+          }
+        }
+        guardar(nuevoProgreso)
+      }
+
+      // Boton real con apariencia de texto en la celda del nombre: el teclado
+      // lo activa con Enter/Espacio NATIVOS (un <button> no necesita keydown
+      // manual; duplicar el handler arriesgaba doble disparo).
+      botonFila.addEventListener("click", (e) => {
+        e.stopPropagation()
+        ejecutarCiclo()
+      })
+
       // PRE-REQ: igual que la malla, SOLO los codigos (asi los referencia el
       // pensum oficial), con el matiz "desde cuat." / "exige TODAS" aparte.
       const pre = (m.prerequisitos ?? []).join(", ") || "—"
@@ -335,17 +396,29 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       motivo.id = `motivo-${m.codigo}`
       motivo.className = "sr-only"
 
+      const tdNombre = celda("")
+      tdNombre.appendChild(botonFila)
       fila.append(
         celda(String(m.cuatrimestre), true),
         celda(m.codigo),
-        celda(m.nombre),
+        tdNombre,
         celda(String(m.creditos), true),
         tdPre,
         (() => { const td = celda(""); td.appendChild(chkAprobada); return td })(),
         (() => { const td = celda(""); td.appendChild(inputNota); td.appendChild(motivo); return td })(),
         (() => { const td = celda(""); td.appendChild(chkCurso); return td })(),
       )
-      controles.set(m.codigo, { fila, chkAprobada, nota: inputNota, chkCurso, motivo })
+      controles.set(m.codigo, { fila, chkAprobada, nota: inputNota, chkCurso, motivo, botonFila })
+
+      // Clic en cualquier parte de la fila (conveniencia de raton; el pedido
+      // n. 7 dice "clic en cualquier parte de la fila"). El boton ya frena su
+      // propia propagacion; aqui se ignoran los controles interactivos para
+      // que el clic en checkbox/nota no dispare ademas el ciclo.
+      fila.addEventListener("click", (e) => {
+        const objetivo = e.target as HTMLElement
+        if (objetivo.closest("input, button")) return
+        ejecutarCiclo()
+      })
       tbody.appendChild(fila)
     }
   }

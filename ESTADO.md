@@ -350,7 +350,24 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
    aprobar sin nota registrada, `escala.aprobacion` por defecto; en curso quita
    la nota. TDD en `core/progresion` (función pura) + wiring accesible
    (tabindex + Enter/Espacio) en `tools/progreso/entrada.ts`.
+   — **hecho el 2026-10-08**: `siguienteEstadoAlClic` en `core/progresion`
+   (TDD, 8 tests nuevos, 201 totales); wiring con botón real en la celda del
+   nombre (Enter/Espacio nativos, focus visible) + clic de ratón en toda la
+   fila ignorando los controles; `.boton-fila` en `ui/componentes.css`.
+   Verificado con Playwright en UPID: secuencia completa por clic de fila y por
+   teclado, widget actualizado, 0 errores de consola.
 8. Verificar guardado/importación en navegador real — **hecho el 2026-10-07**:
    destapó el bug de rutas absolutas bajo subpath (ver Decisiones); corregido y
    verificado con Playwright bajo `/Ciberpensum/` (export + import + SW + 0
    errores de consola).
+9. **Mejorar frontend y CSS, con foco en dispositivos móviles** (pedido del
+   usuario, 2026-10-08): investigar los skills/agentes disponibles
+   (frontend-design, performance, core-web-vitals, web-design-guidelines,
+   revisor-a11y) y aplicarlos al diseño responsive actual (p. ej. la tabla del
+   cuaderno con 8 columnas y la barra sticky en pantallas angostas).
+10. **Agregar las maestrías de UPID con el mismo pipeline** (pedido del
+    usuario, 2026-10-08): `investigador-datos` verifica los PDFs oficiales
+    (Neuroeducación `/2023/09/Pensum-Maestria-en-Neuroeducacion-Hoja-1-1.pdf`,
+    Gestión RRHH `/2018/04/Maestría-Gestión-de-RRHH-N-1.pdf`), luego
+    `curador-pensum` secuencial: dos carreras nuevas, mismas reglas de
+    trazabilidad (fuente + sha256 + verificadoEn).

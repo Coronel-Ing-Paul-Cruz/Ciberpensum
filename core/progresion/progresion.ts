@@ -38,6 +38,15 @@ export type MotivoBloqueo =
   | { tipo: "requiere-todas" }
 
 /**
+ * Estado minimo del cuaderno para el ciclo de clic en la fila.
+ */
+export interface EstadoClic {
+  /** Notas registradas por codigo; aqui solo importa `nota`. */
+  aprobadas: Readonly<Record<string, { nota: number }>>
+  enCurso: readonly string[]
+}
+
+/**
  * Cuatrimestre efectivo a partir del cual se puede inscribir `materia`:
  * `desdeCuatrimestre` si viene, si no el cuatrimestre propio del plan.
  */
@@ -164,4 +173,66 @@ export function cuatrimestresRestantes(
     if (menor === null || cuatri < menor) menor = cuatri
   }
   return menor ?? 0
+}
+
+/**
+ * Maquina de 3 estados por materia al hacer clic en la fila:
+ * 1. Hay nota registrada (aprobadas[codigo] !== undefined) → quita la nota.
+ *    Esto SIEMPRE se permite, aunque no esté habilitada.
+ * 2. Está en curso (en enCurso sin nota) → aprueba solo si habilitada:
+ *    saca de enCurso y añade aprobadas[codigo] = { nota: notaPorDefecto }.
+ * 3. Sin estado → pone en curso solo si habilitada: añade a enCurso.
+ *
+ * 100% pura: no muta ninguna entrada, devuelve objetos nuevos.
+ */
+export function siguienteEstadoAlClic(
+  estado: EstadoClic,
+  codigo: string,
+  habilitada: boolean,
+  notaPorDefecto: number,
+): EstadoClic {
+  // Caso 1: Hay nota registrada → siempre se permite quitarla
+  if (estado.aprobadas[codigo] !== undefined) {
+    const nuevasAprobadas: Record<string, { nota: number }> = {}
+    for (const key of Object.keys(estado.aprobadas)) {
+      if (key !== codigo) {
+        nuevasAprobadas[key] = estado.aprobadas[key]!
+      }
+    }
+    return {
+      aprobadas: nuevasAprobadas,
+      enCurso: estado.enCurso,
+    }
+  }
+
+  // Caso 2: Está en curso (sin nota) → aprueba si habilitada
+  if (estado.enCurso.includes(codigo)) {
+    if (!habilitada) {
+      return estado
+    }
+    const nuevasAprobadas: Record<string, { nota: number }> = {}
+    for (const key of Object.keys(estado.aprobadas)) {
+      nuevasAprobadas[key] = estado.aprobadas[key]!
+    }
+    nuevasAprobadas[codigo] = { nota: notaPorDefecto }
+    const nuevoEnCurso = estado.enCurso.filter((c) => c !== codigo)
+    return {
+      aprobadas: nuevasAprobadas,
+      enCurso: nuevoEnCurso,
+    }
+  }
+
+  // Caso 3: Sin estado → pone en curso si habilitada
+  if (!habilitada) {
+    return estado
+  }
+  const nuevoEnCurso = [...estado.enCurso, codigo]
+  const nuevasAprobadas: Record<string, { nota: number }> = {}
+  for (const key of Object.keys(estado.aprobadas)) {
+    nuevasAprobadas[key] = estado.aprobadas[key]!
+  }
+  return {
+    aprobadas: nuevasAprobadas,
+    enCurso: nuevoEnCurso,
+  }
 }
