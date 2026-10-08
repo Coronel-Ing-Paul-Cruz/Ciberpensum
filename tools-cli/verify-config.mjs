@@ -110,7 +110,7 @@ if (!existsSync(ruta)) {
 // --------------------------------------------------------------------- agentes
 const dirAgents = join(ROOT, ".opencode", "agents")
 const mds = existsSync(dirAgents) ? readdirSync(dirAgents).filter((f) => f.endsWith(".md")) : []
-mds.length === 6 ? ok(`6 agentes definidos`) : mal(`hay ${mds.length} agentes, deben ser 6`)
+mds.length === 7 ? ok(`7 agentes definidos`) : mal(`hay ${mds.length} agentes, deben ser 7`)
 
 for (const f of mds) {
   const t = readFileSync(join(dirAgents, f), "utf8")

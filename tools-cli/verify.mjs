@@ -65,11 +65,11 @@ try {
   ok(`core/ revisado (${coreFiles.length} archivos .ts, sin DOM ni fetch ni almacenamiento)`)
 } catch { ok("core/ aun sin .ts (fase 0)") }
 
-// 4. Agentes: 6 y con description + mode
+// 4. Agentes: 7 (los 6 originales + resolvedor-bugs, regla 12) con description + mode
 const agentsDir = join(ROOT, ".opencode", "agents")
 try {
   const mds = readdirSync(agentsDir).filter((f) => f.endsWith(".md"))
-  mds.length === 6 ? ok(`agentes: 6`) : mal(`agentes: hay ${mds.length}, deben ser 6`)
+  mds.length === 7 ? ok(`agentes: 7`) : mal(`agentes: hay ${mds.length}, deben ser 7`)
   for (const f of mds) {
     const t = readFileSync(join(agentsDir, f), "utf8")
     new RegExp("description:\\s*\\S").test(t) && new RegExp("mode:\\s*(subagent|primary|all)").test(t)
@@ -121,6 +121,16 @@ try {
   }
   ok(`ESTADO.md al dia (${curadas} carreras curadas)`)
 } catch { mal("ESTADO.md no existe o es ilegible") }
+
+// 7b. APRENDIZAJES.md: la memoria de los agentes existe y tiene lecciones
+//     (regla 12 de AGENTS.md: bug -> investigar en foros -> corregir -> registrar).
+try {
+  const ap = readFileSync(join(ROOT, "APRENDIZAJES.md"), "utf8")
+  const lecciones = (ap.match(/^## \d{4}-\d{2}-\d{2}/gm) ?? []).length
+  lecciones >= 1
+    ? ok(`APRENDIZAJES.md al dia (${lecciones} lecciones)`)
+    : mal("APRENDIZAJES.md no tiene ninguna leccion registrada")
+} catch { mal("APRENDIZAJES.md no existe o es ilegible (regla 12)") }
 
 // 8. typecheck real. core/ se comprueba SIN DOM y el resto CON DOM, asi que la
 //    regla 3 de AGENTS.md la aplica el compilador y no solo el grep del punto 3.

@@ -47,6 +47,24 @@ Sin cuentas, sin backend, sin scraping. Lee esto antes de tocar nada.
     y el gate los juzga a todos juntos. La excepción es `data/`, que es secuencial:
     un solo `curador-pensum` a la vez, porque dos curadores escribiendo el mismo
     JSON es como se pierde trazabilidad.
+12. **Los agentes aprenden; el bug se registra y se corrige con investigación.**
+    Ante un bug o error (propio, del sitio o de un agente): (a) investiga en
+    foros y documentación oficial (issues/discussions de OpenCode, la comunidad)
+    ANTES de corregir, y pega la salida real de los comandos (regla 1);
+    (b) corrige; (c) anota la lección en `APRENDIZAJES.md` (append-only: síntoma,
+    causa raíz, fix, prevención, fuentes); y (d) si el error viene del diseño de
+    un agente (ej. contexto saturado), ajusta el agente, crea uno nuevo
+    (`resolvedor-bugs` investiga y registra) o mueve la parte mecánica a una
+    herramienta determinista para que no se repita. El gate vigila que
+    `APRENDIZAJES.md` exista y tenga secciones.
+13. **Las peticiones nuevas durante un trabajo van a la cola, no interrumpen.**
+    Si llega una petición del usuario cuando ya hay trabajo a medio hacer, se
+    anota en `ESTADO.md → ## Próximos pasos` (append-only, con número nuevo y
+    el porqué si hace falta) y **el trabajo en curso se termina antes de
+    arrancar lo nuevo**. Nunca se deja un entregable a medio camino por saltar
+    a otra cosa; si el trabajo en curso está bloqueado de verdad (pendiente de
+    una decisión o de un dato externo), se anota el bloqueo y se toma la
+    siguiente tarea de la cola.
 
 ## Estructura
 

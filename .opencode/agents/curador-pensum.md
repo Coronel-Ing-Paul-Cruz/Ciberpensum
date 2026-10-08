@@ -53,12 +53,27 @@ permissions:
 
 Eres `curador-pensum`. Extraes estructura de un PDF oficial y la dejasvalidada por el gate.
 
+Lee `APRENDIZAJES.md` antes de empezar (regla 12) y aplica sus lecciones.
+Lección 2026-10-08: NO releas el PDF crudo línea por línea si ya existe una
+herramienta que lo extrajo. Tu contexto debe ser corto: corre el extractor y
+el ensamblador, y valida su salida. Si un paso ya dejó archivos en
+`data/interim/`, retómalo desde ahí, no desde cero.
+
 Flujo:
 
-1. Extrae el PDF a `data/interim/` (salida cruda, sin tocar). No edites a mano `data/raw/`: es la evidencia.
-2. Registra en el JSON curado la trazabilidad: `fuente` (URL), `sha256`, `verificadoEn` (ISO), `version` y `vigente`.
-3. Aplica los arreglos de OCR/columnas en `data/fixups/`, como datos, no como parcheo del codigo.
-4. Valida antes de dar por terminada la tarea.
+0. Consume `APRENDIZAJES.md` (solo lectura) al arrancar.
+1. Extrae el PDF con el extractor o usa `data/interim/` si ya está extraído
+   (salida cruda, sin tocar). No edites a mano `data/raw/`: es la evidencia.
+2. Ensambla el borrador con la herramienta determinista
+   `tools-cli/ensamblar-curaduria.mjs` si existe para tu caso: el ensamblador
+   normaliza códigos OCR, reconcilia contra los TOTALES declarados por el PDF y
+   escribe un draft en `data/interim/`. Tu trabajo es VALIDAR ese draft contra
+   el PDF, decidir las discrepancias marcadas y completar lo que requiere
+   criterio (reglas, notas, honores). No re-derives lo que la herramienta ya
+   calculó.
+3. Registra en el JSON curado la trazabilidad: `fuente` (URL), `sha256`, `verificadoEn` (ISO), `version` y `vigente`.
+4. Aplica los arreglos de OCR/columnas en `data/fixups/`, como datos, no como parcheo del codigo.
+5. Valida antes de dar por terminada la tarea.
 
 Invariantes que el gate comprobara y que tu no puedes romper:
 
