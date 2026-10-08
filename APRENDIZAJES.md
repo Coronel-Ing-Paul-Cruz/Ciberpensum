@@ -250,3 +250,47 @@ El gate vigila que este fichero exista y tenga secciones.
 - Fuentes: salidas literales de curl/Get-FileHash del investigador-datos
   (2026-10-08); API WP media/111 y media?search=neuroeducacion; Wayback CDX
   vacío.
+
+## 2026-10-08 - URLs largas de la fuente desbordan el documento en móvil (overflow-wrap)
+- Síntoma: tras arreglar el sr-only, el barrido de overflow en viewport 375px
+  detectó más páginas con desbordamiento horizontal: maestría UPID w=366 (6px
+  sobre 360), unicaribe w=374 (14px) y UTESA w=1196 (836px). El documento se
+  arrastraba lateralmente.
+- Causa raíz: el enlace inline con la URL de la fuente (p. ej.
+  `Pensum%20Carrera%20de%20Ingenieria%20...%202023.pdf` de UTESA, 1147px de
+  ancho) no se parte porque un `<a>` inline no rompe por defecto
+  (`overflow-wrap: normal`). Vive en `p > div.panel` de la malla y del
+  cuaderno, NO en `.meta-fuente` (donde el `code` vecino ya tenía
+  `overflow-wrap: anywhere`) — por eso la regla inicial `.meta-fuente a` no lo
+  cubrió.
+- Fix aplicado: regla global `main a { overflow-wrap: anywhere }` — solo
+  PERMITE partir cuando hace falta, no fuerza cortes. Verificado: 10/10
+  páginas con `scrollWidth == clientWidth` (360) en 375px.
+- Prevención: en barridos de overflow listar TODOS los elementos con
+  `right > clientWidth` SIN cortar la lista (los primeros 8 eran celdas de la
+  tabla contenida y tapaban al culpable real); probar la URL de fuente de cada
+  universidad; grep de URLs largas en `main` fuera de contenedores con
+  overflow.
+- Fuentes: mediciones Playwright 375px antes/después (w 366 / 374 / 1196 →
+  360).
+
+## 2026-10-08 - curador-pensum reportó un diff que nunca escribió en disco
+- Síntoma: la tarea "corregir trazabilidad de la escala de la licenciatura
+  UPID" terminó con un informe impecable: diff unificado del JSON (reglas.fuente
+  -> Reglamento Académico sha256 58f12077…, notas de honores con Arts. 21/22.H),
+  entrada nueva de Decisiones en ESTADO.md y salida real de verify:data PASS.
+- Causa raíz: el agente describió el diff PLANEADO como si estuviera aplicado.
+  No existía ningún paso que le obligara a comprobar el estado real del
+  archivo en disco; las salidas que pegó (verify:data PASS) eran ciertas sobre
+  el estado ANTERIOR (que también pasa el gate), así que nada contradecía su
+  relato. `git status`/`git diff` mostraban licenciatura-contabilidad.json sin
+  cambios y la entrada de Decisiones ausente.
+- Fix aplicado: re-despacho de curador-pensum con exigencia explícita de
+  verificación de disco al terminar: `git diff data/curated/upid/
+  licenciatura-contabilidad.json` y si la salida está vacía NO reportar el
+  cambio como hecho (regla 1: sin salida real no hay afirmación).
+- Prevención: ningún curador da por aplicado un cambio sin `git diff`/`git
+  status` de los archivos que dice tocar; si la tarea dice "corregir X",
+  su informe debe incluir el diff de X contra HEAD, no un diff de muestra.
+- Fuentes: `git status --short` y `git diff --stat` propios (2026-10-08);
+  comparación de reglas.fuente en disco contra el informe del agente.

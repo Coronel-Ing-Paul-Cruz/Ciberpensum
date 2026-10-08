@@ -400,6 +400,14 @@ textarea:disabled {
   overflow-wrap: anywhere;
 }
 
+/* Cualquier URL larga dentro del contenido (p. ej. el PDF de UPID con acentos
+   NFD, o el de UTESA) desbordaba el documento en movil (medido: scrollW 366,
+   374 y 1196 > 360 segun la pagina) porque un enlace inline no se parte por
+   defecto. overflow-wrap: anywhere solo PERMITE partir cuando hace falta. */
+main a {
+  overflow-wrap: anywhere;
+}
+
 /* ---------- formularios y controles ---------- */
 /* prosa: el texto corrido no se estira a 72rem (lineas de 90+ caracteres);
    las tablas y rejillas siguen usando todo el ancho. */
