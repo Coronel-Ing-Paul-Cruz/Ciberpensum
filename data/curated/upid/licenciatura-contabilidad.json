@@ -494,22 +494,23 @@
     },
     "honores": [],
     "fuente": {
-      "url": "https://upid.edu.do/wp-content/uploads/2023/01/REC-REGLAMENTO-EVALUACION-DE-LOS-APRENDIZAJES.pdf",
-      "sha256": "66215309e270c20956a250514615bae406f6584fb5eb15ea7af954d9838607a6",
+      "url": "https://upid.edu.do/wp-content/uploads/2023/01/6-REGLAMENTO-ACADEMICO.pdf",
+      "sha256": "58f120778e9736ea7eb77a87bd1e524bcd026b8e4a8b5aa7701977d6a46808ea",
       "verificadoEn": "2026-10-07",
-      "archivo": "reglamento-de-evaluacion-de-aprendizajes.pdf"
+      "archivo": "reglamento-academico.pdf"
     }
   },
   "notas": [
     "Version y vigencia: el PDF no declara una version ni resolucion; '2018' corresponde a la ruta de publicacion oficial (/2018/04/). Sin verificacion independiente de vigencia: se asume vigente, NO VERIFICADO.",
     "El PDF declara TOTAL DE ASIGNATURAS 56, TOTAL DE CREDITOS 172 y TOTAL DE HORAS 5250 (114 teoricas + 118 practicas por periodo x 11? El PDF lista 'TOTAL HORAS TEORICAS 114', 'TOTAL HORAS PRACTICAS 118' y 'TOTAL DE HORAS 5250'; la consistencia interna de esas cifras es de la fuente).",
-    "Escala (Reglamento de Evaluacion de los Aprendizajes, Res. 2/2019): calificaciones 0-100 con literales A(95-100, 4 ptos), B+(90-94, 3.5), B(85-89, 3), C(70-84, 2), D(60-69, 1.5), F(0-59, 0); 'el 70% es el minimo para aprobar' y 'calificacion C o su equivalente (70)'. Indice ponderado por creditos (base 4).",
-    "Honores: sin articulo de escala de honores detectado en los reglamentos disponibles (reglamento-academico.pdf y reglamento-de-evaluacion-de-aprendizajes.pdf). array honores vacio; NO VERIFICADO.",
+    "Escala (Reglamento Académico de UPID, Arts. 14 y 15): Art. 14 establece la escala A (95-100)=4, B+ (90-94)=3.5, B (85-89)=3, C (70-84)=2, D (60-69)=1, F (0-59)=0; 'el 70% es el mínimo para aprobar'. Art. 15: el índice académico es la sumatoria (créditos x calificación) / sumatoria de créditos, con base 4.0 (0-4.0).",
+    "Honores: NO VERIFICADO. Cuadro de Honor según Art. 21 (promedio entre 3.4 y 4.0, condiciones establecidas) y Art. 22.H (inscripción del 'Honor Académico' restringida a títulos de Grado); no se infieren valores concretos de honores para esta carrera en el JSON. array honores vacio; ver fuente reglamento-academico.pdf.",
     "Layer de texto del PDF incompleto: 4 filas de los periodos 7-8 (CON-378 COSTOS II, DER-374 DERECHO LABORAL Y SINDICAL, CON-395 FINANZAS PUBLICAS, CON-398 AUDITORIA II) no tienen clave ni nombre en el texto extractible (ni pdfjs ni pdfminer las ven); tampoco el prerrequisito de CON-388/CON-185/CON-426 (CON-248) ni de CON-268 (CON-268) ni la clave de SISTEMAS DE SEGURIDAD SOCIAL (DER-385). Todo eso se recupero por OCR de pixeles (Windows OCR, render 300-400dpi, bounding boxes alineados a filas); los datos OCR viven en la trazabilidad del fixup.",
     "Codigo duplicado de la fuente: CON-392 aparece impreso para AUDITORIA INTERNA (P9) y AUDITORIA FORENSE (P10). El JSON distingue FORENSE con el sufijo documentado '-F' en el identificador unico; el codigo impreso es CON-392 para ambas.",
     "ECN-399 lista como prerrequisito ECN-389, codigo inexistente en el pensum (errata de la fuente, probablemente ECN-239); no se rellena con el valor presumido.",
     "Las erratas de nombres se conservan tal como las imprime el PDF: 'S I', 'MATEMATICA S', 'LSO', 'CANTABILIDAD', 'DEECHO', 'PRESUPUETO', 'PORFESIONAL', 'INGLES TECNICO... I' duplicado en IDI-241/IDI-131, 'ETICA'/'ANALISIS'/'TECNICO' sin acentos. Solo se unieron fragmentos partidos por el ancho de columna (p.ej. 'EMPRE SARIAL' -> 'EMPRESARIAL', 'CO NTABILIDAD' -> 'CONTABILIDAD', 'DEECHO CO MERCIAL' -> 'DEECHO COMERCIAL').",
-    "El PDF usa el header 'PERIODO 1..11' (no 'cuatrimestre'): tipoPeriodo = 'periodo'."
+    "El PDF usa el header 'PERIODO 1..11' (no 'cuatrimestre'): tipoPeriodo = 'periodo'.",
+    "discrepancia de trazabilidad corregida: reglas.fuente cambió de Reglamento de Evaluación (sha256 66215309…) a Reglamento Académico (sha256 58f12077…) — 2026-10-08 (curador-pensum)."
   ],
   "fuente": {
     "url": "https://upid.edu.do/wp-content/uploads/2018/04/Licenciatura-Contabilidad.pdf",

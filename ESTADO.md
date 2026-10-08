@@ -69,6 +69,8 @@ sería una segunda fuente de verdad que se desincroniza.
 
 Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
 
+- **2026-10-08** — UPID Licenciatura en Contabilidad: corregida la trazabilidad de `reglas.fuente` del Reglamento de Evaluación de los Aprendizajes (sha256 66215309…) al Reglamento Académico de UPID (sha256 58f12077…, https://upid.edu.do/wp-content/uploads/2023/01/6-REGLAMENTO-ACADEMICO.pdf, verificadoEn 2026-10-07). La escala numérica (A 95-100=4, B+ 90-94=3.5, B 85-89=3, C 70-84=2, D 60-69=1, F 0-59=0, aprobación 70%, índice ponderado por créditos base 4.0) corresponde a los Arts. 14-15 del Reglamento Académico. Para honores se cita Art. 21 (Cuadro de Honor) y Art. 22.H (reserva a títulos de Grado); se mantiene `honores: []` NO VERIFICADO. Causa: el PDF del Reglamento de Evaluación no contenía "95-100" (pdfplumber: 0 coincidencias en 15 páginas). (curador-pensum)
+
 - **2026-10-05** — Stack: SSG propio en TypeScript con esbuild, sin framework.
   Motivo: salida 100 % estática y auditable, y el gate necesita control total del
   HTML generado. Si el sitio pasa de ~50 a cientos de páginas programáticas, se
@@ -432,3 +434,4 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     Cuadro de Honor (3.4-4.0); mantiene `honores: []` por el Art. 22.H
     ("Sólo en los títulos de Grado se asentarán…"), criterio que habría que
     confirmar para grado.
+    - corregido 2026-10-08 (curador-pensum): reglas.fuente movida a Reglamento Académico (58f12077…, URL 2023/01/6-REGLAMENTO-ACADEMICO.pdf, verificadoEn 2026-10-07); notas actualizadas citando Arts. 14-15 (escala e índice ponderado) y Arts. 21/22.H (honores), manteniendo honores=[] NO VERIFICADO.
