@@ -466,3 +466,13 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     2026-10-08; sin criterio incumplido): `position: sticky; left: 0` en la
     primera columna o en `thead th` para no perder la referencia de columna
     con el scroll horizontal.
+14. **Completar la oferta curricular de OYM, UTESA y UASD** (pedido del
+    usuario, 2026-10-08, llegó con la curaduría de UNICARIBE en marcha —
+    regla 13: va a la cola y el trabajo en curso se termina antes): cerrado
+    UNICARIBE (ver #3), seguir con OYM, UTESA y UASD en ese orden, con el
+    mismo pipeline: `investigador-datos` localiza y verifica los PDFs
+    oficiales de cada pensum (sha256 + URL), luego `curador-pensum`
+    secuencial (regla 11: un curador a la vez). UTESA ya arrancó con 22
+    pensums de grado descargados (Decisiones 2026-10-07) y una carrera
+    curada; OYM y UASD quedaron "en curso" ahí: antes de relanzar al
+    investigador, revisar qué hay ya en `data/raw/` de cada una.
