@@ -194,3 +194,59 @@ El gate vigila que este fichero exista y tenga secciones.
   primera" en `tools/` debe devolver vacío.
 - Fuentes: verificación Playwright propia en las 3 páginas (UPID/unicaribe/
   home) tras el fix; consola sin errores.
+
+## 2026-10-08 - sr-only estirando el documento y objetivos de toque bajo WCAG 2.5.8
+- Síntoma: al auditar el cuaderno de progreso en viewport móvil (375px),
+  `document.documentElement.scrollWidth` daba 618 > clientWidth 360: la
+  página se desplazaba horizontalmente. Además, objetivos de toque bajo el
+  mínimo AA en 3 páginas (checkbox 13×13, nav/migas 22px, `.boton-fila`
+  21px) y el pie quedaba parcialmente oculto bajo la barra global fija de
+  97px (la reserva del body era 76px).
+- Causa raíz 1: el `.sr-only` (1×1, absolute) al final de una celda del
+  cuaderno heredaba posición estática (x≈617) y su caja contribuía al área
+  de scroll del documento; `overflow: hidden` en el propio elemento no lo
+  evita (clipa sus hijos, no su aporte al ancestro).
+- Causa raíz 2: botones/enlaces con apariencia de texto miden solo su
+  line-height (~21px); los checkbox nativos ~13px; la barra global en móvil
+  se parte en DOS filas (texto + botones) y crece a ~97px pero el token
+  `--alto-global` (3.25rem) no era responsivo.
+- Causa raíz 3 (metodología): medir el pie tras `window.scrollTo` con
+  `html { scroll-behavior: smooth }` devuelve coordenadas mid-scroll;
+  comparaba coordenadas de documento con las del viewport de la barra fija
+  (falsos "solapados"). La medida fiable: reserva del body (padding-bottom)
+  ≥ altura real de la barra.
+- Fix aplicado (ui/componentes.css + ui/tokens.css): `.sr-only` anclado a
+  `top: 0; left: 0` + `clip-path: inset(50%)` (ya no aporta scroll);
+  `padding-block` en nav/migas/`.boton-fila` para objetivos ≥24px; checkbox
+  `1.5rem` en ≤640px; `--alto-global: 6.5rem` en ≤560px (reserva 128px ≥
+  barra de 76-97px). Verificado: scrollW 360 en las 3 páginas, solo 2
+  enlaces inline-en-oración < 24px (excepción 2.5.8), pie legible.
+- Prevención: en auditorías usar `behavior: 'instant'` (o medir la reserva
+  del CSS, no geometría post-scroll); toda auditoría móvil incluye overflowX,
+  tamaño de objetivos y reserva de la barra fija; vigilar `.sr-only` en
+  celdas/columnas derechas.
+- Fuentes: mediciones Playwright propias (375px) antes/después; WCAG 2.5.8
+  (Target Size Minimum, AA); patrón sr-only moderno (web.dev / CSS-Tricks).
+
+## 2026-10-08 - Maestrías UPID y el 404 silencioso de Neuroeducación
+- Síntoma: el pedido de agregar las maestrías de UPID traía 2 URLs del menú
+  oficial; al verificar, una respondía 200 y la otra 404, y el HTML de error
+  se había descargado por error como si fuera el PDF.
+- Causa raíz: la URL de "Maestría" lleva acentos COMBINANTES (NFD) y la
+  variante NFC da 404 (el nombre real del archivo en WordPress es NFD);
+  Neuroeducación: el archivo del menú (media 5873) fue BORRADO del servidor,
+  sin copia en Wayback ni en uploads/2023/09 (toda la carpeta responde 404).
+- Fix/avance: investigación completa con evidencia (tabla dato|valor|fuente|
+  fecha|sha256|estado): RRHH VERIFICADO (sha256 c1609f…, 24 asignaturas, 57
+  créditos, 6 PERÍODOS, "Duración: 2 años"; escala de notas AUSENTE en el
+  PDF → NO VERIFICADO salvo reglamento institucional); Neuroeducación
+  UNVERIFIABLE → bloqueada sin fuente (regla 4), con el camino para
+  destrabarla anotado (pedir el PDF a admisiones@upid.edu.do, reintentar
+  tras la migración de uploads). La variante NFC del PDF de RRHH guardada
+  como evidencia falsa fue detectada por su 404/Content-Type y descartada.
+- Prevención: al verificar URLs con tildes, probar NFD y NFC y pegar el
+  Content-Type del 200; nunca confundir HTML de error con el PDF; si un PDF
+  falta, reportar UNVERIFIABLE con los pasos para obtenerlo.
+- Fuentes: salidas literales de curl/Get-FileHash del investigador-datos
+  (2026-10-08); API WP media/111 y media?search=neuroeducacion; Wayback CDX
+  vacío.

@@ -365,9 +365,29 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
    (frontend-design, performance, core-web-vitals, web-design-guidelines,
    revisor-a11y) y aplicarlos al diseño responsive actual (p. ej. la tabla del
    cuaderno con 8 columnas y la barra sticky en pantallas angostas).
+   — **hecho el 2026-10-08**: auditoría en viewport 375px (Playwright) y
+   corrección en `ui/componentes.css` + `ui/tokens.css`:
+   (a) el `sr-only` al final de una celda estiraba el documento (`scrollW`
+   618→360) — anclado a `top/left: 0` + `clip-path`; (b) objetivos de toque:
+   checkbox 13→24px, nav 22→29px, migas 22→34px, `.boton-fila` 21→34-55px
+   (WCAG 2.5.8 AA; quedan 2 enlaces "inline" en oración, excepción válida);
+   (c) la barra global mide ~97px en móvil (2 filas) y la reserva era 52px:
+   `--alto-global: 6.5rem` en ≤560px → el pie ya no queda oculto. Gate 4/4.
 10. **Agregar las maestrías de UPID con el mismo pipeline** (pedido del
     usuario, 2026-10-08): `investigador-datos` verifica los PDFs oficiales
     (Neuroeducación `/2023/09/Pensum-Maestria-en-Neuroeducacion-Hoja-1-1.pdf`,
     Gestión RRHH `/2018/04/Maestría-Gestión-de-RRHH-N-1.pdf`), luego
     `curador-pensum` secuencial: dos carreras nuevas, mismas reglas de
     trazabilidad (fuente + sha256 + verificadoEn).
+    — **investigación 2026-10-08**: **GESTIÓN RRHH VERIFICADO** — PDF
+    descargado a `data/raw/upid/pensum-maestria-gestion-de-recursos-humanos.pdf`,
+    sha256 `c1609fbda0be9e9684362c02d04be7aab3f4f72e3b3265c6d0dabb5f6d04dd74`,
+    URL `https://upid.edu.do/wp-content/uploads/2018/04/Maestri%CC%81a-Gestio%CC%81n-de-RRHH-N-1.pdf`
+    (acentos NFD; la variante NFC da 404), 6 PERÍODOS (P1-P5 con 4/5 materias,
+    P6 = TRABAJO FINAL), 24 asignaturas, TOTALES 57 créditos / 420 HT / 870 HP,
+    "Duración: 2 años". Formato de fila sin prefijo de clave. Escala de notas
+    AUSENTE en el PDF → NO VERIFICADO salvo que el reglamento institucional de
+    UPID la cubra (lo decide el curador con la evidencia). **NEUROEDUCACIÓN
+    UNVERIFIABLE**: el PDF del menú oficial responde 404, sin copia en Wayback
+    ni en WP (media 5873 borrada) → queda bloqueada sin fuente (regla 4: datos
+    con fuente o no son datos). `curador-pensum` curando Gestión RRHH.

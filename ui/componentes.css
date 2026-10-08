@@ -149,6 +149,10 @@ h3 {
   color: var(--tinta-suave);
   text-decoration: none;
   font-weight: 500;
+  /* area de toque minima (WCAG 2.5.8 AA: 24px): padding vertical sobre
+     inline-block para que el objetivo no quede en 22px (medido). */
+  display: inline-block;
+  padding-block: 0.35rem;
 }
 
 .navegacion a:hover,
@@ -156,6 +160,13 @@ h3 {
   color: var(--accent-osc);
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+/* migas de pan: area de toque minima (WCAG 2.5.8 AA) — en movil los enlaces
+   median 22px de alto (medido); el padding los sube a ~34px. */
+.migas a {
+  display: inline-block;
+  padding-block: 0.35rem;
 }
 
 /* ---------- hero / portada ---------- */
@@ -273,6 +284,9 @@ tbody tr:hover {
   text-align: left;
   cursor: pointer;
   width: 100%;
+  /* area de toque minima (WCAG 2.5.8 AA): el texto solo media 21px en
+     movil (medido) aunque una fila sea alta; el padding garantiza >=24px. */
+  padding-block: 0.4rem;
 }
 .boton-fila:hover {
   text-decoration: underline;
@@ -545,6 +559,12 @@ body {
   margin: 0 0 var(--g-2);
 }
 
+/* area de toque en los enlaces del pie (WCAG 2.5.8 AA): de 18px a ~29px */
+.pie a {
+  display: inline-block;
+  padding-block: 0.35rem;
+}
+
 /* ---------- utilidades ---------- */
 .solo-script {
   display: none;
@@ -560,14 +580,39 @@ body {
 
 .sr-only {
   position: absolute;
+  /* anclado al origen del contenedor: sin esto, un sr-only al final de una
+     celda (cuaderno) estira el documento horizontalmente en movil (bug
+     medido: scrollW 618 > 360). El clip lo deja invisible igual. */
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: 0;
   overflow: hidden;
   clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* ---------- movil: objetivos de toque (WCAG 2.5.8 AA, 24x24) ---------- */
+/* Medido en viewport 375px: los checkbox del cuaderno eran 13x13 y los
+   enlaces de nav/pie quedaban en 22px (base) -> aqui suben a 24x24+ y la nav
+   pasa a alturas de dedo (~41px). Desktop ya paso a >=24px en la base. */
+@media (max-width: 640px) {
+  .navegacion a {
+    padding-block: 0.6rem;
+  }
+
+  .pie a {
+    padding-block: 0.45rem;
+  }
+
+  input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 @media print {

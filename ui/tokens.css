@@ -57,6 +57,15 @@
   --alto-global: 3.25rem;
 }
 
+/* En movil la barra global se parte en dos filas (texto + botones) y mide
+   ~97px en vez de 52px (medido en 375px); la reserva sube para que el pie no
+   quede oculto. */
+@media (max-width: 560px) {
+  :root {
+    --alto-global: 6.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto !important;
