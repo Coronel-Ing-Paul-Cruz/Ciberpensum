@@ -6,8 +6,10 @@ import {
   metaFuente, tablaMaterias, tablaHonores,
 } from "./layout.mjs"
 
-/** URL absoluta del sitio para JSON-LD. Se ajusta al desplegar (Cloudflare Pages). */
-export const SITIO_URL = "https://ciberpensum.do"
+/** URL absoluta del sitio para canonicals, sitemap y JSON-LD.
+ * 2026-10-07: el dominio ciberpensum.do nunca se registro; el sitio vive en
+ * GitHub Pages. Cuando se registre el dominio propio, cambiar aqui y rebuild. */
+export const SITIO_URL = "https://coronel-ing-paul-cruz.github.io/Ciberpensum"
 
 /** Metadatos de las 6 herramientas. El orden es el de la pagina de herramientas. */
 export const HERRAMIENTAS = [
