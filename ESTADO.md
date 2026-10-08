@@ -331,6 +331,9 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
    relanzados sobre el dist actual; si salen hallazgos, resolverlos en un commit
    de cierre antes de publicar).
 2. Publicar en Cloudflare Pages (decisión del 2026-10-05: hosting elegido).
+   — **superado el 2026-10-07**: hosting final = GitHub Pages con deploy
+   automático en push a main (`.github/workflows/pages.yml`; ver Decisiones).
+   El push ya está desplegando; este paso queda como histórico, no pendiente.
 3. **Habilitar toda la oferta curricular** (pedido del usuario): UNICARIBE,
    OYM, UPID, UASD y UTESA — `investigador-datos` en paralelo (confirmar
    identidad oficial vía MESCYT), curaduría secuencial con `curador-pensum`,
