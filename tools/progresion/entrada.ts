@@ -4,7 +4,7 @@
  */
 import { cargarPensum, registrarServiceWorker } from "../_comun/pensum.js"
 import { leerProgreso } from "../_comun/progreso.js"
-import { $, vaciar } from "../_comun/dom.js"
+import { $, nombrePeriodo, vaciar } from "../_comun/dom.js"
 import { resumenProgreso } from "../../core/portabilidad/portabilidad.js"
 import {
   creditosAprobados,
@@ -53,7 +53,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   control.className = "campo"
   const etiqueta = document.createElement("label")
   etiqueta.htmlFor = "cuatrimestre-actual"
-  etiqueta.textContent = "Cuatrimestre actual"
+  etiqueta.textContent = `${nombrePeriodo(pensum.duracion.tipoPeriodo)} actual`
   const input = document.createElement("input")
   input.id = "cuatrimestre-actual"
   input.type = "number"

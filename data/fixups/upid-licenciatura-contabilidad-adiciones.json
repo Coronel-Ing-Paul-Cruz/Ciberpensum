@@ -1,0 +1,74 @@
+{
+  "adiciones": [
+    {
+      "codigo": "CON-378",
+      "nombre": "COSTOS II",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": ["CON-268"],
+      "observaciones": "Fila sin texto en el layer de texto del PDF (clave/nombre ausentes); recuperada por OCR de píxeles con bounding boxes (ver notas)."
+    },
+    {
+      "codigo": "DER-374",
+      "nombre": "DERECHO LABORAL Y SINDICAL",
+      "creditos": 3,
+      "cuatrimestre": 7,
+      "prerequisitos": [],
+      "observaciones": "Fila sin texto en el layer de texto del PDF (clave/nombre ausentes); recuperada por OCR de píxeles con bounding boxes (ver notas)."
+    },
+    {
+      "codigo": "CON-395",
+      "nombre": "FINANZAS PUBLICAS",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": ["CON-386"],
+      "observaciones": "Fila sin texto en el layer de texto del PDF (clave/nombre ausentes); recuperada por OCR de píxeles con bounding boxes (ver notas)."
+    },
+    {
+      "codigo": "CON-398",
+      "nombre": "AUDITORIA II",
+      "creditos": 3,
+      "cuatrimestre": 8,
+      "prerequisitos": ["CON-388"],
+      "observaciones": "Fila sin texto en el layer de texto del PDF (clave/nombre ausentes); recuperada por OCR de píxeles con bounding boxes (ver notas)."
+    },
+    {
+      "codigo": "DER-385",
+      "nombre": "SISTEMAS DE SEGURIDAD SOCIAL",
+      "creditos": 2,
+      "cuatrimestre": 8,
+      "prerequisitos": [],
+      "observaciones": "El layer de texto solo trae el nombre (sin clave); la clave DER-385 se recuperó por OCR de píxeles (ver notas)."
+    },
+    {
+      "codigo": "CON-392",
+      "nombre": "AUDITORIA INTERNA",
+      "creditos": 3,
+      "cuatrimestre": 9,
+      "prerequisitos": []
+    }
+  ],
+  "sobreescribir": [
+    { "codigo": "ADM-123", "campo": "nombre", "valor": "ADMINISTRACION DE EMPRESA S II" },
+    { "codigo": "CON-128", "campo": "nombre", "valor": "CONTABILIDAD II" },
+    { "codigo": "LET-121", "campo": "nombre", "valor": "LETRA II" },
+    { "codigo": "MAT-122", "campo": "nombre", "valor": "MATEMATICA S II" },
+    { "codigo": "CON-138", "campo": "nombre", "valor": "CONTABILIDAD III" },
+    { "codigo": "MAT-242", "campo": "nombre", "valor": "MATEMATICA S FINANCIERAS II" },
+    { "codigo": "CON-140", "campo": "nombre", "valor": "LABORATORIO DE CONTABILIDAD II" },
+    { "codigo": "EST-259", "campo": "nombre", "valor": "ESTADISTICAS II" },
+    { "codigo": "ADM-263", "campo": "nombre", "valor": "ADMINISTRACION FINANCIERA II" },
+    { "codigo": "CON-168", "campo": "nombre", "valor": "CANTABILIDAD COMPUTARIZADA (DAC-EASY)" },
+    { "codigo": "DER-268", "campo": "nombre", "valor": "DEECHO COMERCIAL Y TRIBUTARIO" },
+    { "codigo": "CON-386", "campo": "nombre", "valor": "PRESUPUETO EMPRESARIAL" },
+    { "codigo": "CON-426", "campo": "nombre", "valor": "CONTABILIDAD AVANZADA" },
+    { "codigo": "CON-436", "campo": "nombre", "valor": "TRIBUTACION CORPORATIVA (IMPOSITIVA)" },
+    { "codigo": "CON-396", "campo": "nombre", "valor": "CONTABILIDAD Y PRESUPUESTO GUBERNAMENTAL" },
+    { "codigo": "CON-408", "campo": "nombre", "valor": "ANALISIS E INTERPRETACION DE ESTADOS FINANCIEROS" },
+    { "codigo": "CON-388", "campo": "prerequisitos", "valor": ["CON-248"] },
+    { "codigo": "CON-185", "campo": "prerequisitos", "valor": ["CON-248"] },
+    { "codigo": "CON-426", "campo": "prerequisitos", "valor": ["CON-248"] },
+    { "codigo": "ECN-399", "campo": "prerequisitos", "valor": [] },
+    { "codigo": "CON-392", "campo": "codigo", "valor": "CON-392F" }
+  ]
+}

@@ -25,6 +25,11 @@ export function fmt(n: number): string {
   return Number.isFinite(n) ? n.toFixed(2) : "—"
 }
 
+/** Nombre del periodo con mayúscula inicial: "periodo" → "Periodo". */
+export function nombrePeriodo(t: string): string {
+  return t.charAt(0).toUpperCase() + t.slice(1)
+}
+
 /** Limpia un contenedor y devuelve lo mismo (para reconstruir vistas). */
 export function vaciar(nodo: HTMLElement): HTMLElement {
   nodo.replaceChildren()

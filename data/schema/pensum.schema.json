@@ -37,7 +37,7 @@
       "required": ["periodos", "tipoPeriodo"],
       "properties": {
         "periodos": { "type": "integer", "minimum": 1 },
-        "tipoPeriodo": { "enum": ["cuatrimestre", "semestre", "trimestre"] }
+        "tipoPeriodo": { "enum": ["cuatrimestre", "semestre", "trimestre", "periodo"] }
       }
     },
     "totales": {

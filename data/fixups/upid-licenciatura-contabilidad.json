@@ -1,0 +1,30 @@
+{
+  "carrera": "upid/licenciatura-contabilidad",
+  "fuente": "pensum-grado-contabilidad.pdf",
+  "pendientes": [
+    {
+      "materia": "CON-378 / DER-374 / CON-395 / CON-398 / DER-385 / prereqs P7-P8",
+      "campo": "materias/codigo/nombre/prerequisitos",
+      "problema": "El layer de texto del PDF (pdfjs Y pdfminer coinciden) NO contiene: la clave y el nombre de 4 filas de los periodos 7-8 (CON-378 COSTOS II, DER-374 DERECHO LABORAL Y SINDICAL, CON-395 FINANZAS PUBLICAS, CON-398 AUDITORIA II), el prerrequisito de CON-388/CON-185/CON-426 (CON-248) y de CON-378 (CON-268), ni la clave de SISTEMAS DE SEGURIDAD SOCIAL. Las filas solo mostraban columnas CR/HT/HP (y prereq) en texto.",
+      "aplicado": "Recuperadas por OCR de pixeles: render de la pagina 2 a 300-400dpi con pdfplumber.to_image, OCR con Windows.Media.Ocr (Windows 10/11) con bounding boxes por palabra, alineados por coordenadas a las filas del PDF (claves CON-378, DER-374, CON-395, CON-398, DER-385; prereqs CON-268 y 3x CON-248). Metodo reproducible; valores coinciden con la aritmetica del PDF (56 materias / 172 creditos / suma exacta)."
+    },
+    {
+      "materia": "CON-392 / CON-392 (AUDITORIA FORENSE)",
+      "campo": "codigo",
+      "problema": "El PDF imprime el codigo CON-392 para AUDITORIA INTERNA (P9) y AUDITORIA FORENSE (P10): codigo duplicado en la fuente (errata), y el gate exige codigos unicos (verify:data).",
+      "aplicado": "AUDITORIA FORENSE guarda codigo impreso CON-392 en observaciones y usa el identificador unico documentado CON-392F en el JSON; ninguna referencia del pensum apunta a CON-392."
+    },
+    {
+      "materia": "ECN-399",
+      "campo": "prerequisitos",
+      "problema": "El PDF lista el prerrequisito como ECN-389, codigo inexistente entre las materias del pensum (errata de la fuente, probablemente ECN-239 ECONOMIA INTERNACIONAL, pero es inferencia).",
+      "aplicado": "Resolucion inicial: prerequisitos = [ECN-389] tal como lo imprime la fuente. RESUELTO 2026-10-07: el gate falla si un prerrequisito no existe en la carrera (verify-data.mjs, sin allowlist), asi que el JSON curado va con prerequisitos = [] y la errata documentada en observaciones (precedente UTESA SOC-118). Queda PENDIENTE de confirmar contra una version corregida o con UPID."
+    },
+    {
+      "materia": "reglas.escala",
+      "campo": "reglas",
+      "problema": "La escala no esta en el pensum; se extrajo del Reglamento de Evaluacion de los Aprendizajes (Res. 2/2019, p.10-11): literales A-F sobre 0-100, minimo para aprobar 70, indice base 4 ponderado por creditos.",
+      "aplicado": "reglas.escala = { base: 4, minimo: 0, maximo: 100, aprobacion: 70, formaIndice: 'ponderado-por-creditos' } con fuente del reglamento. Honores: sin articulo encontrado en los reglamentos disponibles; array vacio, NO VERIFICADO."
+    }
+  ]
+}

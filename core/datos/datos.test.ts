@@ -190,7 +190,12 @@ describe("validarPensum: fuente", () => {
 describe("validarPensum: duración y totales de raíz", () => {
   it("rechaza tipoPeriodo fuera del enum", () => {
     const base = { ...pensumBase(), duracion: { periodos: 8, tipoPeriodo: "bimestre" } }
-    expect(erroresDe(validarPensum(base))).toContain('pensum.duracion.tipoPeriodo debe ser "cuatrimestre", "semestre" o "trimestre"')
+    expect(erroresDe(validarPensum(base))).toContain('pensum.duracion.tipoPeriodo debe ser "cuatrimestre", "semestre", "trimestre" o "periodo"')
+  })
+
+  it("acepta tipoPeriodo 'periodo' (UPID lista PERIODO 1..N)", () => {
+    const base = { ...pensumBase(), duracion: { periodos: 11, tipoPeriodo: "periodo" } }
+    expect(pensumDe(validarPensum(base as Pensum)).duracion.tipoPeriodo).toBe("periodo")
   })
 
   it("rechaza periodos no enteros", () => {

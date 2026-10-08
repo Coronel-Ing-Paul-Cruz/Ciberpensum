@@ -51,7 +51,7 @@ export interface Pensum {
   version: string
   vigente: boolean
   universidad: { id: string; nombre: string }
-  duracion: { periodos: number; tipoPeriodo: "cuatrimestre" | "semestre" | "trimestre" }
+  duracion: { periodos: number; tipoPeriodo: "cuatrimestre" | "semestre" | "trimestre" | "periodo" }
   totales: { asignaturas: number; creditos: number }
   materias: Asignatura[]
   reglas: {
@@ -70,7 +70,7 @@ export interface Pensum {
   notas?: string[]
 }
 
-type TipoPeriodo = "cuatrimestre" | "semestre" | "trimestre"
+type TipoPeriodo = "cuatrimestre" | "semestre" | "trimestre" | "periodo"
 type GradoPrograma = "grado" | "postgrado"
 type FormaIndice = "ponderado-por-creditos" | "simple" | "no-verificado"
 type GradoHonor = "cum-laude" | "magna-cum-laude" | "summa-cum-laude" | "cuadro-de-honor" | "otros"
@@ -95,7 +95,7 @@ const esNumero = (x: unknown): x is number => typeof x === "number"
 const esBooleano = (x: unknown): x is boolean => typeof x === "boolean"
 const esGrado = (x: unknown): x is GradoPrograma => x === "grado" || x === "postgrado"
 const esTipoPeriodo = (x: unknown): x is TipoPeriodo =>
-  x === "cuatrimestre" || x === "semestre" || x === "trimestre"
+  x === "cuatrimestre" || x === "semestre" || x === "trimestre" || x === "periodo"
 const esFormaIndice = (x: unknown): x is FormaIndice =>
   x === "ponderado-por-creditos" || x === "simple" || x === "no-verificado"
 const esGradoHonor = (x: unknown): x is GradoHonor =>
@@ -314,7 +314,7 @@ function validarDuracion(d: unknown, errores: string[]): { periodos: number; tip
   const tpV = d["tipoPeriodo"]
   if (tpV === undefined) errores.push(`${ruta}.tipoPeriodo es obligatorio`)
   else if (!esTipoPeriodo(tpV)) {
-    errores.push(`${ruta}.tipoPeriodo debe ser "cuatrimestre", "semestre" o "trimestre"`)
+    errores.push(`${ruta}.tipoPeriodo debe ser "cuatrimestre", "semestre", "trimestre" o "periodo"`)
   } else tipoPeriodo = tpV
 
   if (errores.length > antes) return null

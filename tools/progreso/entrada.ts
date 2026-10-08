@@ -24,7 +24,7 @@ import {
   guardarProgreso,
   leerProgreso,
 } from "../_comun/progreso.js"
-import { $, fmt, vaciar } from "../_comun/dom.js"
+import { $, fmt, nombrePeriodo, vaciar } from "../_comun/dom.js"
 import { resumenProgreso, type Progreso } from "../../core/portabilidad/portabilidad.js"
 import {
   materiasDisponibles,
@@ -244,7 +244,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         const th = document.createElement("th")
         th.scope = "rowgroup"
         th.colSpan = 8
-        th.textContent = `Cuatrimestre ${cuatActual} — ${creditos} créditos`
+        th.textContent = `${nombrePeriodo(pensum.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos`
         cabecera.appendChild(th)
         tbody.appendChild(cabecera)
       }
