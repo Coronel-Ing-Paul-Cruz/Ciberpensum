@@ -174,7 +174,7 @@ export function metaFuente(fuente, etiqueta = "Fuente oficial") {
   <h2>${esc(etiqueta)}</h2>
   <p class="meta-fuente">Documento oficial (<code>${esc(fuente.archivo ?? "")}</code>) descargado el <time datetime="${esc(fuente.verificadoEn)}">${esc(fuente.verificadoEn)}</time>.<br>
   sha256: <code>${esc(fuente.sha256)}</code></p>
-  <p><a href="${esc(fuente.url)}" ref="noreferrer">${esc(fuente.url)}</a></p>
+  <p><a href="${esc(fuente.url)}" rel="noreferrer">${esc(fuente.url)}</a></p>
 </div>`
 }
 
@@ -192,15 +192,26 @@ export function tablaMaterias(carrera) {
     .map((x) => x.m)
   const etiquetaPeriodo = (t) => t.charAt(0).toUpperCase() + t.slice(1)
   const cuatrimestres = Math.max(...porCuatrimestre.map((m) => m.cuatrimestre), 0)
-  let filas = ""
+  // Un <tbody> por periodo: la estructura agrupa cada bloque con sus filas
+  // (hallazgo axe th-has-data-cells del revisor-a11y; antes: un solo tbody
+  // para todas las cabeceras de periodo).
+  let bloques = []
+  let filasBloque = ""
   let cuatActual = 0
+  const cerrarBloque = () => {
+    if (filasBloque) {
+      bloques.push(filasBloque)
+      filasBloque = ""
+    }
+  }
   for (const m of porCuatrimestre) {
     if (m.cuatrimestre !== cuatActual) {
+      cerrarBloque()
       cuatActual = m.cuatrimestre
       const creditos = porCuatrimestre
         .filter((o) => o.cuatrimestre === cuatActual)
         .reduce((a, o) => a + (o.creditos ?? 0), 0)
-      filas += `    <tr class="fila-cuat"><th scope="rowgroup" colspan="5">${etiquetaPeriodo(carrera.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos</th></tr>\n`
+      filasBloque += `    <tr class="fila-cuat"><td colspan="5">${etiquetaPeriodo(carrera.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos</td></tr>\n`
     }
     // El codigo identifica la materia y es lo que referencian los
     // prerrequisitos. En pantalla va SOLO el codigo, como en la columna
@@ -212,7 +223,7 @@ export function tablaMaterias(carrera) {
     if (m.desdeCuatrimestre) extra.push(`desde cuat. ${m.desdeCuatrimestre}`)
     if (m.requiereTodas) extra.push("exige TODAS las anteriores")
     const extraHtml = extra.length ? `<br><span class="meta-fuente">${esc(extra.join(" · "))}</span>` : ""
-    filas += `    <tr>
+    filasBloque += `    <tr>
       <td class="numerico">${m.cuatrimestre}</td>
       <td><code>${esc(m.codigo)}</code></td>
       <td>${esc(m.nombre)}${extraHtml}</td>
@@ -220,16 +231,18 @@ export function tablaMaterias(carrera) {
       <td>${pre}</td>
     </tr>\n`
   }
+  cerrarBloque()
+  const tbodies = bloques
+    .map((b) => `    <tbody>\n${b}    </tbody>`)
+    .join("\n")
   return `<p class="barra-estadisticas">${esc(carrera.carrera)} — ${carrera.totales.asignaturas} asignaturas · ${carrera.totales.creditos} créditos · ${cuatrimestres} cuatrimestres</p>
-  <div class="tabla-contenedor">
+  <div class="tabla-contenedor" tabindex="0" role="region" aria-label="Malla curricular, se desplaza horizontalmente">
   <table>
     <caption>Malla curricular completa — ${esc(carrera.carrera)} (${carrera.totales.asignaturas} asignaturas, ${carrera.totales.creditos} créditos)</caption>
     <thead>
       <tr><th scope="col">Cuat.</th><th scope="col">Código</th><th scope="col">Asignatura</th><th scope="col" class="numerico">Cr</th><th scope="col">Prerrequisitos</th></tr>
     </thead>
-    <tbody>
-${filas}
-    </tbody>
+${tbodies}
   </table>
 </div>`
 }

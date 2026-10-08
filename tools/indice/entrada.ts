@@ -52,7 +52,12 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     cifra.style.fontWeight = "700"
     cifra.style.margin = "0"
     cifra.textContent = resumen.creditos === 0 ? "—" : fmt(indiceRedondo)
-    cifra.setAttribute("aria-label", `Índice académico ${fmt(indiceRedondo)}`)
+    // aria-label sobre <p> es aria-prohibited-attr (hallazgo revisor-a11y):
+    // la etiqueta va en un span sr-only visible para el lector de pantalla.
+    const etiquetaCifra = document.createElement("span")
+    etiquetaCifra.className = "sr-only"
+    etiquetaCifra.textContent = "Índice académico: "
+    cifra.prepend(etiquetaCifra)
 
     const meta = document.createElement("p")
     meta.textContent =
@@ -69,6 +74,11 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
     const bandas = document.createElement("div")
     bandas.className = "tabla-contenedor"
+    // Contenedor desplazable enfocable por teclado (hallazgo ALTA
+    // scrollable-region-focusable del revisor-a11y: 0 tabindex en todo dist/).
+    bandas.tabIndex = 0
+    bandas.setAttribute("role", "region")
+    bandas.setAttribute("aria-label", "Distinciones del reglamento y tu posición, se desplaza horizontalmente")
     const tabla = document.createElement("table")
     tabla.innerHTML =
       "<caption>Distinciones del reglamento y tu posición</caption>" +
@@ -98,6 +108,9 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
     const lista = document.createElement("div")
     lista.className = "tabla-contenedor"
+    lista.tabIndex = 0
+    lista.setAttribute("role", "region")
+    lista.setAttribute("aria-label", "Detalle del cálculo, se desplaza horizontalmente")
     const t2 = document.createElement("table")
     t2.innerHTML =
       "<caption>Detalle del cálculo</caption>" +

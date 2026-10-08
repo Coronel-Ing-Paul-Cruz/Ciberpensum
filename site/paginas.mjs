@@ -216,7 +216,7 @@ export function renderCarrera(c) {
   const noVerificado = c.notas?.length
     ? `<section>
   <h2>Advertencias de la fuente</h2>
-${c.notas.map((n) => `<p class="aviso-no-verificado">${esc(n)}</p>`).join("\n")}
+${c.notas.map((n) => avisoNoVerificado(n)).join("\n")}
   </section>`
     : ""
   const reglasTxt = []

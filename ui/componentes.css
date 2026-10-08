@@ -13,7 +13,10 @@ html {
   scroll-behavior: smooth;
   /* el desplazamiento por foco/lista no queda oculto bajo la barra sticky
      de estadisticas del cuaderno (WCAG 2.4.11 no es AA pero evitarlo es gratis) */
-  scroll-padding-top: 3.5rem;
+  /* La barra de estadisticas es sticky (82px a 375px, 39px a 1280px) y los
+     anclas saltan bajo ella: reserva 96px (hallazgo revisor-a11y 2.4.11:
+     3.5rem era menor que la barra real en movil). */
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -303,8 +306,11 @@ tbody tr:hover {
 }
 
 /* separador visual de cuatrimestres (malla y cuaderno): fila cabecera de
-   bloque, igual que el pensum agrupa por cuatrimestre. */
-.fila-cuat th {
+   bloque, igual que el pensum agrupa por cuatrimestre. Va como td y no th:
+   un th en una fila sin celdas de datos deja th-has-data-cells en incomplete
+   (medido con axe 4.10.3: solo th->td pasa la regla; el periodo ya viaja en
+   la primera celda de cada fila y en el tbody del grupo). */
+.fila-cuat td {
   background: var(--accent-claro);
   color: var(--tinta);
   font-size: var(--t-chico);

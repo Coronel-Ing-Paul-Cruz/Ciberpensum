@@ -347,6 +347,28 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   `TIC-215`, cuatrimestre 0) que se descartaron contra el PDF (26/957 → 24/57).
   Hallazgo para corrección posterior en Próximos pasos #11.
 
+- **2026-10-08** — **Ronda a11y previa a la publicación: ALTA y MEDIA del
+  revisor-a11y cerradas en el generador, no en dist.** (a) ALTA
+  `scrollable-region-focusable`: los contenedores `.tabla-contenedor` de la
+  malla y de las tablas del índice llevan ahora `tabindex="0" role="region"`
+  + `aria-label` (antes: 0 tabindex en todo dist/; el scroll por teclado
+  funcionaba solo en Chromium); (b) `aria-prohibited-attr`: la cifra del
+  índice ya no usa `aria-label` sobre `<p>`, sino `<span class="sr-only">
+  Índice académico: </span>`; (c) avisos: cada nota de la fuente se renderiza
+  con `<strong>NO VERIFICADO</strong>` visible (regla 8 + 1.4.1) vía el
+  helper `avisoNoVerificado`; (d) `scroll-padding-top` 3.5rem → 6rem (barra
+  sticky mide 82px a 375px > 56px previo; 2.4.11); (e) la malla (estática y
+  cuaderno por JS) emite UN `<tbody>` por periodo y la fila separadora va como
+  `<td colspan>` y no `<th scope="rowgroup">` — experimento en memoria con axe
+  4.10.3: `colspan=1` y quitar `scope` no sacan el incomplete, solo `th→td`
+  pasa la regla (`0 inc | 1 pass`); el periodo ya viaja en la primera celda
+  de cada fila y en el agrupamiento de tbody (3 páginas medidas, 0
+  violaciones); (f) typo `ref=` → `rel="noreferrer"`. El
+  enlace a la URL de la fuente sigue mostrando la URL cruda como texto
+  (decisión: la fuente visible es parte del ethos del sitio y 2.4.4 pasa con
+  el párrafo previo); las 2 mejoras sin criterio incumplido (indicador de
+  scroll, th sticky) van a Próximos pasos.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -435,3 +457,12 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     ("Sólo en los títulos de Grado se asentarán…"), criterio que habría que
     confirmar para grado.
     - corregido 2026-10-08 (curador-pensum): reglas.fuente movida a Reglamento Académico (58f12077…, URL 2023/01/6-REGLAMENTO-ACADEMICO.pdf, verificadoEn 2026-10-07); notas actualizadas citando Arts. 14-15 (escala e índice ponderado) y Arts. 21/22.H (honores), manteniendo honores=[] NO VERIFICADO.
+
+12. **Indicador visual de scroll horizontal en `.tabla-contenedor`** (mejora
+    del revisor-a11y, 2026-10-08; sin criterio WCAG incumplido — 1.4.10 exime
+    tablas de datos): sombra degradada en el borde derecho o un texto "Desliza
+    para ver más columnas" cuando la tabla desborda.
+13. **Cabeceras sticky de la malla al desplazar** (mejora del revisor-a11y,
+    2026-10-08; sin criterio incumplido): `position: sticky; left: 0` en la
+    primera columna o en `thead th` para no perder la referencia de columna
+    con el scroll horizontal.

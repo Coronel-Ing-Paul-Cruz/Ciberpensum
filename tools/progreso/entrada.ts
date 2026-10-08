@@ -133,7 +133,8 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     '<th scope="col" class="numerico">Nota</th>' +
     '<th scope="col">En curso</th>' +
     "</tr></thead>"
-  const tbody = tabla.createTBody()
+  // Los tbody se crean por periodo en construirFilas() (vease hallazgo axe
+  // th-has-data-cells, revisor-a11y).
 
   // Por codigo de materia: controles de su fila (para el bloqueo por prerequisitos).
   const controles = new Map<
@@ -242,27 +243,34 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
    *  una fila cabecera de bloque, como el PDF. */
   const construirFilas = (): void => {
     controles.clear()
-    tbody.replaceChildren()
+    // Un <tbody> por periodo: la estructura agrupa cada bloque con sus filas
+    // (hallazgo axe th-has-data-cells, revisor-a11y).
+    tabla.querySelectorAll("tbody").forEach((t) => t.remove())
     const materias = [...plan]
       .map((m, i) => ({ m, i }))
       .sort((a, b) => a.m.cuatrimestre - b.m.cuatrimestre || a.i - b.i)
       .map((x) => x.m)
     let cuatActual = 0
+    let tbody: HTMLTableSectionElement | null = null
     for (const m of materias) {
       if (m.cuatrimestre !== cuatActual) {
         cuatActual = m.cuatrimestre
+        tbody = tabla.createTBody()
         const creditos = materias
           .filter((o) => o.cuatrimestre === cuatActual)
           .reduce((a, o) => a + o.creditos, 0)
         const cabecera = document.createElement("tr")
         cabecera.className = "fila-cuat"
-        const th = document.createElement("th")
-        th.scope = "rowgroup"
-        th.colSpan = 8
-        th.textContent = `${nombrePeriodo(pensum.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos`
-        cabecera.appendChild(th)
+        // td y no th: un th en fila sin celdas de datos deja axe
+        // th-has-data-cells en incomplete (medido: solo th->td pasa; ver
+        // comentario de .fila-cuat td en ui/componentes.css).
+        const celdaPeriodo = document.createElement("td")
+        celdaPeriodo.colSpan = 8
+        celdaPeriodo.textContent = `${nombrePeriodo(pensum.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos`
+        cabecera.appendChild(celdaPeriodo)
         tbody.appendChild(cabecera)
       }
+      if (!tbody) tbody = tabla.createTBody()
       const fila = document.createElement("tr")
       const celda = (texto: string, numerica = false): HTMLTableCellElement => {
         const td = document.createElement("td")
@@ -435,7 +443,6 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
   construirFilas()
   aplicarBloqueos()
-  tabla.append(tbody)
   contenedor.appendChild(tabla)
   vaciar(app)
   app.append(encabezado, resumen, contenedor, reset)
