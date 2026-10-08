@@ -22,10 +22,12 @@ export function cargarPensum(): Pensum | null {
 /** Registra el service worker (offline). Fallar no rompe nada. */
 export function registrarServiceWorker(): void {
   if ("serviceWorker" in navigator) {
-    // Relativo al ORIGEN, no a la pagina: ../sw.js desde una herramienta
-    // resolvia a /herramientas/sw.js (404). El SW vive en la raiz (/sw.js)
-    // con scope raiz, para que el offline cubra todo el sitio.
-    navigator.serviceWorker.register("/sw.js").catch(() => {
+    // Relativo al MODULO, no al origen ni a la pagina: los bundles viven en
+    // <base>/assets/js/, el SW en <base>/sw.js con scope <base>/. Funciona en
+    // la raiz (local, Cloudflare) y bajo un subpath de hosting (GitHub Pages
+    // /Ciberpensum/). "/sw.js" absoluto al origen rompia el registro fuera de
+    // la raiz, y "../sw.js" desde una herramienta resolvia a /herramientas/sw.js.
+    navigator.serviceWorker.register(new URL("../../sw.js", import.meta.url)).catch(() => {
       /* offline no disponible: el sitio sigue funcionando en linea */
     })
   }

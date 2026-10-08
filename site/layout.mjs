@@ -29,12 +29,19 @@ export function rutaAssets(profundidad) {
  * @param {string} [o.seccion]      seccion activa del nav: inicio|universidades|herramientas|guias
  * @param {string} [o.canonical]    URL canonica absoluta (genera <link rel="canonical"> + OG). Omitir = sin canonical.
  * @param {"noindex"} [o.robots]    "noindex" emite <meta name="robots" content="noindex, nofollow">
+ * @param {string} [o.pensumId]     "uni/slug" de la carrera de esta pagina. El widget
+ *                                  global lee este dato para cargar el progreso DE ESTA
+ *                                  carrera (bug 2026-10-08: sin el atributo mostraba
+ *                                  siempre la primera del indice, unicaribe, hasta en
+ *                                  las paginas de UPID/UTESA). Paginas sin carrera
+ *                                  (home, universidades, guias) lo omiten.
  */
-export function pagina({ titulo, descripcion, contenido, rutaAssets, jsonLd, migas, seccion, canonical, robots }) {
+export function pagina({ titulo, descripcion, contenido, rutaAssets, jsonLd, migas, seccion, canonical, robots, pensumId }) {
   // El nav y el pie viven a nivel de documento, no de pagina: hay que prefijar
   // con la misma profundidad que los assets ("../" x nivel) o los enlaces de
   // una pagina a profundidad 2 apuntan a rutas que no existen.
   const baseNav = rutaAssets === "assets" ? "" : rutaAssets.slice(0, -"assets".length)
+  const dataPensum = pensumId ? ` data-pensum="${esc(pensumId)}"` : ""
 
   // SEO: canonical unico por pagina (sin el no existe forma canonica de la URL,
   // porque la misma pagina se sirve en /ruta/ y /ruta/index.html). OG/Twitter
@@ -118,7 +125,7 @@ ${contenido}
   </footer>
   <div class="barra-global" role="region" aria-label="Progreso y guardado">
     <div class="contenedor">
-      <p id="progreso-global" aria-live="polite">Tu progreso vive en este navegador (sin cuentas) y puedes <a href="${baseNav}herramientas/progreso/index.html">guardarlo o restaurarlo desde aquí</a>.</p>
+      <p id="progreso-global" aria-live="polite"${dataPensum}>Tu progreso vive en este navegador (sin cuentas) y puedes <a href="${baseNav}herramientas/progreso/index.html">guardarlo o restaurarlo desde aquí</a>.</p>
       <div class="botones">
         <a class="boton" href="${baseNav}herramientas/progreso/index.html">Cuaderno</a>
       </div>
@@ -183,6 +190,7 @@ export function tablaMaterias(carrera) {
     .map((m, i) => ({ m, i }))
     .sort((a, b) => a.m.cuatrimestre - b.m.cuatrimestre || a.i - b.i)
     .map((x) => x.m)
+  const etiquetaPeriodo = (t) => t.charAt(0).toUpperCase() + t.slice(1)
   const cuatrimestres = Math.max(...porCuatrimestre.map((m) => m.cuatrimestre), 0)
   let filas = ""
   let cuatActual = 0
@@ -192,7 +200,7 @@ export function tablaMaterias(carrera) {
       const creditos = porCuatrimestre
         .filter((o) => o.cuatrimestre === cuatActual)
         .reduce((a, o) => a + (o.creditos ?? 0), 0)
-      filas += `    <tr class="fila-cuat"><th scope="rowgroup" colspan="5">Cuatrimestre ${cuatActual} — ${creditos} créditos</th></tr>\n`
+      filas += `    <tr class="fila-cuat"><th scope="rowgroup" colspan="5">${etiquetaPeriodo(carrera.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos</th></tr>\n`
     }
     // El codigo identifica la materia y es lo que referencian los
     // prerrequisitos. En pantalla va SOLO el codigo, como en la columna

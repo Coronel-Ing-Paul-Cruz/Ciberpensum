@@ -2,11 +2,19 @@
 const VERSION = "__VERSION__"
 const PRECACHE = __PRECACHE__
 
+// El SW se publica en <base>/sw.js y su scope es <base>/ (la raiz real del
+// sitio): da igual si esa base es "/" (local, Cloudflare) o un subpath
+// (GitHub Pages "/Ciberpensum/"). El precache se resuelve contra ese scope;
+// una lista con "/" inicial solo funcionaria en la raiz (bug 2026-10-07,
+// ver APRENDIZAJES.md).
+const BASE = self.registration.scope
+const precache = PRECACHE.map((p) => new URL(p.startsWith("/") ? p.slice(1) : p, BASE).href)
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(VERSION)
-      .then((c) => c.addAll(PRECACHE))
+      .then((c) => c.addAll(precache))
       .then(() => self.skipWaiting())
   )
 })
@@ -42,7 +50,7 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() =>
           req.mode === "navigate"
-            ? caches.match("/404.html")
+            ? caches.match(new URL("404.html", BASE).href)
             : new Response("", { status: 503, statusText: "Offline" })
         )
     })

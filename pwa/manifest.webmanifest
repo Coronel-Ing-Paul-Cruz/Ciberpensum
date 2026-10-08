@@ -3,14 +3,14 @@
   "short_name": "Ciberpensum",
   "description": "Planificador académico para universidades dominicanas con datos de fuentes oficiales.",
   "lang": "es-DO",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "../",
+  "scope": "../",
   "display": "standalone",
   "background_color": "#f7f4ec",
   "theme_color": "#0e6f6a",
   "icons": [
     {
-      "src": "/assets/icono.svg",
+      "src": "icono.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

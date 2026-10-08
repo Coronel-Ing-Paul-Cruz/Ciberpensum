@@ -7,6 +7,12 @@ import { fileURLToPath } from "node:url"
 
 const ROOT = join(new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"), "dist")
 const PUERTO = Number(process.env.PORT ?? 4173)
+// --base /Ciberpensum/ : emula un deploy bajo subpath (GitHub Pages). Sirve
+// dist/ bajo esa base para verificar que las rutas relativas funcionan igual
+// que en produccion.
+const indiceBase = process.argv.indexOf("--base")
+const BASE = indiceBase !== -1 ? (process.argv[indiceBase + 1] ?? "") : ""
+const baseNormalizada = BASE ? "/" + BASE.replace(/^\/+|\/+$/g, "") + "/" : ""
 
 const MIMES = {
   ".html": "text/html; charset=utf-8",
@@ -30,7 +36,22 @@ function rutaSegura(p) {
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost")
-  let ruta = rutaSegura(url.pathname)
+  let p = url.pathname
+  if (baseNormalizada) {
+    if (!p.startsWith(baseNormalizada)) {
+      try {
+        const noEncontrado = await readFile(join(ROOT, "404.html"))
+        res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" })
+        res.end(noEncontrado)
+      } catch {
+        res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" })
+        res.end("404")
+      }
+      return
+    }
+    p = p.slice(baseNormalizada.length) || "/"
+  }
+  let ruta = rutaSegura(p)
 
   try {
     const st = await stat(ruta)
@@ -57,5 +78,5 @@ const server = createServer(async (req, res) => {
 })
 
 server.listen(PUERTO, () => {
-  console.log(`Ciberpensum servido en http://localhost:${PUERTO}/ (dist/)`)
+  console.log(`Ciberpensum servido en http://localhost:${PUERTO}${baseNormalizada || "/"} (dist/)`)
 })

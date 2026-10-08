@@ -57,21 +57,33 @@ if (zona && botones) {
   }
 
   /**
-   * Carga la primera carrera curada (hoy hay una sola; cuando la oferta crezca,
-   * index.json traera la lista y aqui nace el selector de carrera). Si no hay
-   * red aun (offline antes de instalar el SW), el widget queda en su estado
-   * estatico: sigue siendo util (enlace al cuaderno).
+   * Carga el progreso de la carrera de ESTA pagina. El build escribe en la
+   * zona del widget `data-pensum="uni/slug"` (layout.mjs), asi que aqui no se
+   * adivina nada desde la URL y no hace falta index.json. Los datos curados
+   * de cada carrera estan precacheados en el SW, asi el widget funciona
+   * offline. Paginas SIN carrera (home, universidades, guias, 404) no llevan
+   * el atributo y la barra queda en su estado estatico: mostrar el progreso
+   * de la PRIMERA carrera en todas las paginas era el bug 2026-10-08 (en la
+   * pagina de UPID el widget decia "10 de 55" de unicaribe y Guardar/Importar
+   * operaban la clave equivocada).
    */
   const cargar = async (): Promise<void> => {
     try {
-      const respuesta = await fetch("/datos/index.json")
+      const quien = zona.dataset.pensum?.trim()
+      if (!quien) return
+      const [universidadId, slug] = quien.split("/")
+      if (!universidadId || !slug) return
+      // Rutas RELATIVAS al modulo, no al origen: este bundle vive siempre en
+      // <base>/assets/js/, asi que "../../datos/" resuelve a la raiz del sitio
+      // da igual bajo que base se publique (local en "/", GitHub Pages en
+      // "/Ciberpensum/", Cloudflare en la raiz). Las rutas absolutas al
+      // origen (fetch("/datos/index.json")) y el ascenso incompleto ("../")
+      // rompian el widget fuera de la raiz: 404 -> return -> sin botones
+      // Guardar/Importar (bug 2026-10-07, ver APRENDIZAJES.md).
+      const baseDatos = new URL("../../datos/", import.meta.url)
+      const respuesta = await fetch(new URL(`${universidadId}/${slug}.json`, baseDatos))
       if (!respuesta.ok) return
-      const indice: Array<{ universidadId: string; slug: string }> = await respuesta.json()
-      const primera = indice[0]
-      if (!primera) return
-      const datos = await fetch(`/datos/${primera.universidadId}/${primera.slug}.json`)
-      if (!datos.ok) return
-      const parse = parsearPensum(JSON.stringify(await datos.json()))
+      const parse = parsearPensum(JSON.stringify(await respuesta.json()))
       if (!parse.ok) return
       pensum = parse.pensum
       progreso = leerProgreso(pensum)

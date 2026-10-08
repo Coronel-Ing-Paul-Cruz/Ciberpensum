@@ -272,6 +272,7 @@ ${noVerificado}`
     contenido,
     rutaAssets: rutaAssets(3),
     seccion: "universidades",
+    pensumId: `${c.universidad.id}/${c.slug}`,
     canonical: SITIO_URL + `/carreras/${c.universidad.id}/${c.slug}/`,
     migas,
     jsonLd: {
@@ -463,6 +464,7 @@ ${sinJs}
     contenido,
     rutaAssets: assets,
     seccion: "herramientas",
+    pensumId: `${carrera.universidad.id}/${carrera.slug}`,
     canonical: SITIO_URL + `/herramientas/${rutaHerramientaCarrera(h, carrera).replace(/\/index\.html$/, "/")}`,
     migas: [
       ["Inicio", base + "index.html"],

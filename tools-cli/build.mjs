@@ -101,6 +101,10 @@ for (const h of HERRAMIENTAS) {
 const pGlobal = join(dirsJs, "global.js")
 bundles.push(pGlobal)
 hash.update(readFileSync(pGlobal, "utf8"))
+// El manifest y el icono van en el precache y se sirven cache-first: si su
+// contenido cambia sin bump de version, el SW serviria el viejo para siempre.
+hash.update(readFileSync(join(dirAssets, "manifest.webmanifest"), "utf8"))
+hash.update(readFileSync(join(dirAssets, "icono.svg"), "utf8"))
 const VERSION = hash.digest("hex").slice(0, 10)
 
 // Precache por filesystem: assets completos (bundles + chunks + css + icono +
