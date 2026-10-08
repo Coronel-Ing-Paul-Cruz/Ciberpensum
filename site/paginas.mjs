@@ -389,7 +389,11 @@ export function rutaHerramientaCarrera(h, c) {
  * esa herramienta. /herramientas/<slug>/index.html
  */
 export function renderIndiceHerramienta(h, carreras) {
-  const tarjetas = carreras.map((c) => `<a class="tarjeta" href="${esc(rutaHerramientaCarrera(h, c))}">
+  // OJO: esta pagina vive en /herramientas/<slug>/index.html, asi que el
+  // enlace a la carrera va SIN el prefijo del slug (rutaHerramientaCarrera
+  // es la ruta desde /herramientas/, no desde aqui). Con el prefijo se
+  // duplicaba: /herramientas/progreso/progreso/<uni>-<carrera>/ -> 404.
+  const tarjetas = carreras.map((c) => `<a class="tarjeta" href="${esc(c.universidad.id)}-${esc(c.slug)}/index.html">
     <h3>${esc(c.carrera)}</h3>
     <p>${esc(c.universidad.nombre)} · ${c.totales.asignaturas} materias · ${c.totales.creditos} créditos</p>
   </a>`).join("\n")
@@ -652,7 +656,7 @@ export function renderPrivacidad() {
 
   <h2>Datos académicos</h2>
   <p>Las materias, créditos y reglas académicas mostradas provienen de documentos oficiales de cada
-  universidad, citados con su URL y <code>sha256</code> (ver <a href="../carreras/index.html">carreras</a>).
+  universidad, citados con su URL y <code>sha256</code> (ver <a href="../universidades/index.html">universidades</a>).
   Todo dato no confirmado contra su fuente oficial aparece marcado como <strong>NO VERIFICADO</strong> en
   pantalla. La información pertenece a cada universidad; este sitio solo la cita y la organiza.</p>
 
@@ -665,7 +669,7 @@ export function renderPrivacidad() {
     titulo: "Política de privacidad",
     descripcion: "Ciberpensum no usa cookies ni recopila datos personales: tu progreso vive en el navegador.",
     contenido,
-    rutaAssets: rutaAssets(0),
+    rutaAssets: rutaAssets(1),
     migas: [
       ["Inicio", "../index.html"],
       ["Privacidad", "./index.html"],
@@ -730,7 +734,7 @@ export function renderTerminos() {
     titulo: "Términos y condiciones",
     descripcion: "Términos de uso de Ciberpensum: sitio informativo sin cuentas, datos con fuente oficial y sin garantías académicas.",
     contenido,
-    rutaAssets: rutaAssets(0),
+    rutaAssets: rutaAssets(1),
     migas: [
       ["Inicio", "../index.html"],
       ["Términos", "./index.html"],

@@ -6,6 +6,7 @@ import { createHash } from "node:crypto"
 import {
   copyFileSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, rmSync,
 } from "node:fs"
+import { enlacesRotos } from "./check-links.mjs"
 import { join, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 import { build } from "esbuild"
@@ -203,3 +204,13 @@ const totalArchivos = (() => {
 })()
 console.log(`build ok: ${carreras.length} carrera(s), ${HERRAMIENTAS.length} herramientas, ${GUIAS.length} guías, ${urls.split("\n").length} URLs en sitemap, ${totalArchivos} archivos en dist/`)
 console.log(`service worker versión ${VERSION} con ${precache.length} rutas precacheadas`)
+
+// Ningun enlace interno roto sale por la puerta: mejor fallar el build (y el
+// deploy de Pages) que publicar un 404. Hallazgo 2026-10-08.
+const rotos = enlacesRotos(DIST)
+if (rotos.length) {
+  console.error(`ENLACES ROTOS (${rotos.length}):`)
+  for (const r of rotos.slice(0, 20)) console.error("  " + r)
+  process.exit(1)
+}
+console.log("enlaces internos: 0 rotos")
