@@ -147,8 +147,13 @@ describe("validarPensum: raíz", () => {
   })
 
   it("rechaza grado fuera del enum", () => {
+    const base = { ...pensumBase(), grado: "certificado" }
+    expect(erroresDe(validarPensum(base))).toContain('pensum.grado debe ser "grado", "postgrado" o "tecnico"')
+  })
+
+  it("acepta grado tecnico (Tecnico Superior)", () => {
     const base = { ...pensumBase(), grado: "tecnico" }
-    expect(erroresDe(validarPensum(base))).toContain('pensum.grado debe ser "grado" o "postgrado"')
+    expect(validarPensum(base).ok).toBe(true)
   })
 
   it("rechaza vigente que no sea booleano", () => {

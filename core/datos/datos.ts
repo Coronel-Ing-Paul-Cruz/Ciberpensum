@@ -47,7 +47,7 @@ export interface Fuente {
 export interface Pensum {
   carrera: string
   slug: string
-  grado: "grado" | "postgrado"
+  grado: "grado" | "postgrado" | "tecnico"
   version: string
   vigente: boolean
   universidad: { id: string; nombre: string }
@@ -71,7 +71,7 @@ export interface Pensum {
 }
 
 type TipoPeriodo = "cuatrimestre" | "semestre" | "trimestre" | "periodo"
-type GradoPrograma = "grado" | "postgrado"
+type GradoPrograma = "grado" | "postgrado" | "tecnico"
 type FormaIndice = "ponderado-por-creditos" | "simple" | "no-verificado"
 type GradoHonor = "cum-laude" | "magna-cum-laude" | "summa-cum-laude" | "cuadro-de-honor" | "otros"
 type ReglasPensum = {
@@ -93,7 +93,7 @@ const esObjeto = (x: unknown): x is Record<string, unknown> =>
 const esString = (x: unknown): x is string => typeof x === "string"
 const esNumero = (x: unknown): x is number => typeof x === "number"
 const esBooleano = (x: unknown): x is boolean => typeof x === "boolean"
-const esGrado = (x: unknown): x is GradoPrograma => x === "grado" || x === "postgrado"
+const esGrado = (x: unknown): x is GradoPrograma => x === "grado" || x === "postgrado" || x === "tecnico"
 const esTipoPeriodo = (x: unknown): x is TipoPeriodo =>
   x === "cuatrimestre" || x === "semestre" || x === "trimestre" || x === "periodo"
 const esFormaIndice = (x: unknown): x is FormaIndice =>
@@ -574,7 +574,7 @@ export function validarPensum(dato: unknown): { ok: true; pensum: Pensum } | { o
   let grado: GradoPrograma = "grado"
   const gradoV = dato["grado"]
   if (gradoV === undefined) errores.push("pensum.grado es obligatorio")
-  else if (!esGrado(gradoV)) errores.push('pensum.grado debe ser "grado" o "postgrado"')
+  else if (!esGrado(gradoV)) errores.push('pensum.grado debe ser "grado", "postgrado" o "tecnico"')
   else grado = gradoV
 
   let version = ""

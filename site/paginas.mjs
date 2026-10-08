@@ -286,7 +286,7 @@ ${noVerificado}`
         {
           "@type": "EducationalOccupationalCredential",
           name: c.carrera,
-          credentialCategory: c.grado === "grado" ? "licenciatura" : "posgrado",
+          credentialCategory: c.grado === "grado" ? "licenciatura" : c.grado === "tecnico" ? "tecnico" : "posgrado",
           description: `Pensum de ${c.carrera}: ${c.totales.asignaturas} asignaturas y ${c.totales.creditos} créditos en ${c.duracion.periodos} ${c.duracion.tipoPeriodo}s, según documento oficial de ${c.universidad.nombre}.`,
           url: SITIO_URL + `/carreras/${c.universidad.id}/${c.slug}/`,
           provider: { "@id": SITIO_URL + `/universidades/${c.universidad.id}/#uni` },

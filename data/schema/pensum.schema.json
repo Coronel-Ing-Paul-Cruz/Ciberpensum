@@ -24,8 +24,8 @@
       }
     },
     "grado": {
-      "enum": ["grado", "postgrado"],
-      "description": "grado = licenciatura/ingenieria; postgrado = maestria/especialidad."
+      "enum": ["grado", "postgrado", "tecnico"],
+      "description": "grado = licenciatura/ingenieria; postgrado = maestria/especialidad; tecnico = tecnico superior."
     },
     "version": {
       "type": "string",
