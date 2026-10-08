@@ -57,6 +57,7 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 |---|---|---|---|---|
 | Universidad del Caribe | Ingeniería en Ciberseguridad | 2024-11 | 2026-10-06 | PASS |
 | UTESA | Ingeniería en Sistemas Computacionales | 2023 | 2026-10-07 | PASS |
+| UPID | Licenciatura en Contabilidad (`licenciatura-contabilidad`) | 2018 | 2026-10-07 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -288,6 +289,42 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   y 7 topics (education, static-site, typescript, pwa, accesibilidad,
   dominican-republic, portfolio).
 
+- **2026-10-07** — **Guardar/Importar no funcionaban en producción: bug de rutas
+  absolutas bajo subpath.** El widget global hacía `fetch("/datos/index.json")`
+  y el SW `register("/sw.js")`, ambos absolutos al origen; el manifest llevaba
+  `start_url/scope/icons` con "/" inicial. En local (raíz "/") funcionaban, pero
+  en GitHub Pages (subpath `/Ciberpensum/`) daban 404 y el widget nunca pintaba
+  los botones. Fix: todas las rutas se resuelven contra `import.meta.url` del
+  bundle (siempre en `<base>/assets/js/`), el SW resuelve el precache contra
+  `self.registration.scope`, y el manifest usa rutas relativas a su ubicación.
+  `serve.mjs` ganó `--base` (emula subpath) y la verificación navegador ahora
+  corre bajo `/Ciberpensum/`. Verificado con Playwright: Guardar descarga el
+  JSON canónico, Importar restaura localStorage, SW activo, 0 errores de
+  consola. Lección completa en APRENDIZAJES.md (2026-10-08).
+
+- **2026-10-08** — **El ensamblador determinista queda validado con datos
+  reales (UPID Contabilidad).** `tools-cli/ensamblar-curaduria.mjs` llevaba
+  meses sin ejecutarse; la primera corrida real destapó 4 bugs propios (arg()
+  `----x`, JSON de --escala comido por PS 5.1 → `--escala-file`, claves
+  fantasma del nombre tragando códigos reales, fusión de fila partida
+  corrompiendo la errata CON-392 y filas degeneradas pisando las completas).
+  Tras corregirlos: 56 materias / 172 créditos, 0 DIVERGENCIAS y diff campo a
+  campo contra el JSON curado = 0 diferencias. `data/interim/
+  upid-contabilidad-adiciones.json` documenta las 6 materias ausentes del
+  layer de texto (5 recuperadas por OCR + CON-392 INTERNA) y las
+  sobreescrituras (nombres, prereqs OCR, errata ECN-399, rename CON-392F).
+  Lección en APRENDIZAJES.md (2026-10-08). El draft es derivado (no se
+  commitea); la verdad sigue en `data/curated/`.
+- **2026-10-08** — **El widget global de progreso es por página, no "la primera
+  carrera".** Al crecer la oferta (3 carreras), el widget cargaba siempre
+  `indice[0]` (unicaribe): la página UPID mostraba "10 de 55" (totales de
+  unicaribe) y Guardar/Importar operaban la clave equivocada. Fix: el build
+  emite `data-pensum="uni/slug"` en la zona del widget (layout.mjs,
+  renderCarrera, renderHerramienta) y `global.ts` carga `datos/<uni>/<slug>`.
+  Páginas sin carrera (home, universidades, guías) quedan en estado estático.
+  Verificado con Playwright en las 3 situaciones (UPID 0/56, unicaribe 0/55,
+  home estática; 0 errores de consola). Lección en APRENDIZAJES.md.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -307,3 +344,13 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
    universidades, que se descartó en v1; queda como evolución posterior).
    (Las mejoras de frontend/CSS con skills quedaron hechas el 2026-10-07;
    la re-auditoría de esa ronda se relanza arriba.)
+7. **Cuaderno: clic en la materia alterna 3 estados** (pedido del usuario): clic
+   en cualquier parte de la fila (solo si está habilitada — prerequisitos +
+   no bloqueada) alterna sin estado → en curso → aprobada → sin estado; al
+   aprobar sin nota registrada, `escala.aprobacion` por defecto; en curso quita
+   la nota. TDD en `core/progresion` (función pura) + wiring accesible
+   (tabindex + Enter/Espacio) en `tools/progreso/entrada.ts`.
+8. Verificar guardado/importación en navegador real — **hecho el 2026-10-07**:
+   destapó el bug de rutas absolutas bajo subpath (ver Decisiones); corregido y
+   verificado con Playwright bajo `/Ciberpensum/` (export + import + SW + 0
+   errores de consola).
