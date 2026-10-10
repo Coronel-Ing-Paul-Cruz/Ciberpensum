@@ -1,0 +1,181 @@
+{
+  "carrera": "Especialidad en Habilitación Docente: Matemáticas para el Nivel Secundario",
+  "slug": "especialidad-matematicas-secundaria",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2024-11",
+  "vigente": true,
+  "duracion": {
+    "periodos": 3,
+    "tipoPeriodo": "periodo"
+  },
+  "totales": {
+    "asignaturas": 10,
+    "creditos": 32
+  },
+  "materias": [
+    {
+      "codigo": "EHD-111",
+      "cuatrimestre": 1,
+      "nombre": "IDENTIDAD Y ÉTICA DEL PROFESIONAL DOCENTE",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHDM-112",
+      "cuatrimestre": 1,
+      "nombre": "FUNDAMENTOS Y CARACTERÍSTICAS DEL CURRÍCULO DE MATEMÁTICAS PARA EL NIVEL SECUNDARIO",
+      "creditos": 4,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHD-113",
+      "cuatrimestre": 1,
+      "nombre": "PSICOLOGÍA DEL DESARROLLO ADOLESCENTE",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHD-214",
+      "cuatrimestre": 2,
+      "nombre": "PROCESO DE ENSEÑANZA APRENDIZAJE",
+      "creditos": 4,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHD-221",
+      "cuatrimestre": 2,
+      "nombre": "EVALUACIÓN DE LOS APRENDIZAJES",
+      "creditos": 3,
+      "prerequisitos": [
+        "EHDM-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHD-222",
+      "cuatrimestre": 2,
+      "nombre": "MEDIOS Y RECURSOS PARA EL APRENDIZAJE",
+      "creditos": 3,
+      "prerequisitos": [
+        "EHDM-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHDM-223",
+      "cuatrimestre": 2,
+      "nombre": "DIDÁCTICA ESPECIAL DE LAS MATEMÁTICAS Y PRÁCTICA DOCENTE I",
+      "creditos": 4,
+      "prerequisitos": [
+        "EHDM-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHDM-332",
+      "cuatrimestre": 3,
+      "nombre": "DIDÁCTICA ESPECIAL DE LAS MATEMÁTICAS Y PRÁCTICA DOCENTE II",
+      "creditos": 4,
+      "prerequisitos": [
+        "EHDM-223"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHD-331",
+      "cuatrimestre": 3,
+      "nombre": "PSICOLOGÍA EDUCATIVA",
+      "creditos": 2,
+      "prerequisitos": [
+        "EHD-113"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EHDM-333",
+      "cuatrimestre": 3,
+      "nombre": "PROYECTO PEDAGÓGICO APLICADO A MATEMÁTICAS",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "El PDF del pensum (pagina 3) no imprime fila de totales: los totales declarados (10 asignaturas, 32 creditos) son la suma directa de las filas de los tres periodos.",
+    "La fila EHDM-333 (PROYECTO PEDAGOGICO APLICADO A MATEMATICAS, 3 creditos, PRE-REQ 'TODAS') es la ultima de la tabla; el generador de borradores la habia descartado al absorber el pie de pagina ('REQUISITOS DE ADMISION'). Se recupera literal de la extraccion por coordenadas (data/interim/unicaribe-especialidad-matematicas-secundaria.rows.json); con ella la suma cierra 10/32. Arreglo de datos en data/fixups/unicaribe-especialidades-habilitacion.json.",
+    "Errata del PDF: la columna PRE-REQ de EHD-221 y EHD-222 imprime 'EHDL-112', codigo de la Especialidad en Lengua Espanola que NO existe en esta carrera. El unico curso 'Fundamentos y caracteristicas del curriculo' de esta especialidad es EHDM-112, y es el que las especialidades hermanas usan como prerrequisito (biologia EHDB-112, ciencias EHDS-112, lengua EHDL-112, orientacion EHDO-112). Se corrige a EHDM-112 como arreglo de datos (data/fixups/unicaribe-especialidades-habilitacion.json); sin la correccion el gate falla por prerequisito inexistente.",
+    "Honores academicos (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) y escala (base 100, aprobacion 70) copiados de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no los menciona y su aplicabilidad a este nivel de postgrado es NO VERIFICADO."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/V20200814-Especialidad-en-Habilitacion-Docente-Matematicas-para-el-Nivel-Secundario-SM.pdf",
+    "sha256": "8fefa3024ec1ebc8c0b39201b862ea3ac6a0fd29281a034a490038894faf350e",
+    "verificadoEn": "2026-10-08",
+    "archivo": "V20200814-Especialidad-en-Habilitacion-Docente-Matematicas-para-el-Nivel-Secundario-SM.pdf"
+  }
+}

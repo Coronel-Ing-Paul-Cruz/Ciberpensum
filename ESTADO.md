@@ -64,6 +64,11 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | UNICARIBE | Maestría en Educación Inicial (`maestria-educacion-inicial`, postgrado) | 2024-10 | 2026-10-08 | PASS |
 | UNICARIBE | Maestría en Gestión Humana y Desarrollo Organizacional (`maestria-gestion-humana-desarrollo-organizacional`, postgrado) | 2025-09 | 2026-10-08 | PASS |
 | UNICARIBE | Maestría en Gestión Municipal (`maestria-gestion-municipal`, postgrado) | 2024-11 | 2026-10-08 | PASS |
+| UNICARIBE | Especialidad en Habilitación Docente: Ciencias Sociales para el Nivel Secundario (`especialidad-ciencias-sociales-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
+| UNICARIBE | Especialidad en Habilitación Docente: Lengua Española para el Nivel Secundario (`especialidad-lengua-espanola-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
+| UNICARIBE | Especialidad en Habilitación Docente: Matemáticas para el Nivel Secundario (`especialidad-matematicas-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
+| UNICARIBE | Especialidad en Habilitación Docente: Orientación para el Nivel Secundario (`especialidad-orientacion-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
+| UNICARIBE | Especialidad en Protección Radiológica (`especialidad-proteccion-radiologica`, postgrado) | 2025-09 | 2026-10-10 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -412,6 +417,40 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   PDF del pensum no menciona honores y su aplicabilidad a estos niveles de
   postgrado queda **NO VERIFICADO** (consta en `notas[]` de cada JSON).
   (curador-pensum)
+
+- **2026-10-10** — **Curaduría UNICARIBE — lote de 5 especialidades (batch 2) entra
+  al gate.** `curador-pensum` curó cinco programas de `grado: postgrado` con el
+  pipeline draft→validación. Las 5 compartían el mismo defecto de pipeline: la
+  ÚLTIMA fila de la tabla (`...-333` / `EPR-303`) cierra con PRE-REQ **'TODAS'**;
+  el `parseResto` del generador de borradores no reconoció esa cola (cifra +
+  'TODAS' sin código) y descartó la fila, absorbiendo el pie de página
+  ('REQUISITOS DE ADMISIÓN' / 'TOTAL DE ASIGNATURAS'), dejando 9/29 en vez de
+  10/32. Se recuperan literalmente de la extracción por coordenadas (`rows.json`,
+  que sí las trae limpias) y se documentan como datos en
+  `data/fixups/unicaribe-especialidades-habilitacion.json`. Detalle:
+  - `especialidad-ciencias-sociales-secundaria` — 10/32, 3 periodos. PDF no
+    imprime totales. URL /2024/11/V20200814-...-Ciencias-Sociales-..., sha256
+    `d24e8ba0…` (recalculado con Get-FileHash, coincide).
+  - `especialidad-lengua-espanola-secundaria` — 10/32, 3 periodos. URL
+    /2024/11/V20200821-...-Lengua-Espanola-..., sha256 `80f012bd…`.
+  - `especialidad-matematicas-secundaria` — 10/32, 3 periodos. **Errata del PDF**:
+    PRE-REQ de EHD-221/EHD-222 imprime `EHDL-112` (código de la especialidad
+    hermana de Lengua, inexistente aquí); se corrige a `EHDM-112` (el curso de
+    currículo de esta carrera, que las demás especialidades usan como prerreq),
+    sin la corrección el gate falla por prerrequisito inexistente. URL
+    /2024/11/V20200814-...-Matematicas-...-SM.pdf, sha256 `8fefa302…`.
+  - `especialidad-orientacion-secundaria` — 10/32, 3 periodos. El PDF trunca el
+    nombre de EHDO-112 ('...NIVEL SEC.'); se deja como la fuente. URL
+    /2024/11/V20200821-...-Orientacion-..., sha256 `ca199462…`.
+  - `especialidad-proteccion-radiologica` — 10/32, 3 cuatrimestres. El PDF SÍ
+    imprime 'TOTAL DE ASIGNATURAS 10' y 'TOTAL GENERAL DE CRÉDITOS 32'
+    (coinciden). URL /2025/09/ES_Pensum_Especialidad_en_Proteccion_Radiologica-1.pdf,
+    sha256 `34dde3db…`.
+  Reglas: escala (base 100, aprobación 70) y honores se copian de la plantilla
+  institucional de UNICARIBE (Reglamento Estudiantil, sha256 `25be4df4…`); el PDF
+  del pensum no menciona honores y su aplicabilidad a estos niveles de postgrado
+  queda **NO VERIFICADO** (consta en `notas[]` de cada JSON).
+  `node tools-cli/check-pensum.mjs` = PASS en los 5. (curador-pensum)
 
 ## Próximos pasos
 

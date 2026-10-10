@@ -1,0 +1,78 @@
+{
+  "notas": [
+    "Curaduria del lote de 5 especialidades de UNICARIBE (4 de Habilitacion Docente para el Nivel Secundario + Proteccion Radiologica). En las 5, la ULTIMA fila de la tabla (codigo EHDS/EHDL/EHDM/EHDO-333 o EPR-303) cierra con PRE-REQ 'TODAS' en la columna de prerrequisito; el generador de borradores (parseResto) no reconocio esa cola de una sola cifra seguida de 'TODAS' y descarto la fila, absorbiendo luego el pie de pagina ('REQUISITOS DE ADMISION' / 'TOTAL DE ASIGNATURAS'). El extractor por coordenadas (data/interim/unicaribe-<slug>.rows.json) SI trae la fila limpia y completa: por eso se recupera desde ahi, sin alterar el texto del PDF.",
+    "Sin esas filas el pensum quedaba en 9 asignaturas / 29 creditos, cuando el patron hermano (especialidad-biologia-secundaria, curada y en PASS) tiene 10/32. Con las filas recuperadas la suma cierra en 10 asignaturas / 32 creditos en las 5.",
+    "Proteccion Radiologica ademas imprime fila de totales (pagina 3): 'TOTAL DE ASIGNATURAS 10' y 'TOTAL GENERAL DE CREDITOS 32'. El PDF gana: 10/32. Las 4 especialidades de Habilitacion no imprimen fila de totales; sus totales son la suma directa de las filas.",
+    "Errata del PDF de Matematicas: la columna PRE-REQ de EHD-221 y EHD-222 imprime 'EHDL-112' (codigo de la Especialidad en Lengua Espanola, que no existe en esta carrera). El unico curso 'Fundamentos y caracteristicas del curriculo' de esta especialidad es EHDM-112, y es el que las demas especialidades hermanas usan como prerrequisito de EHD-221/EHD-222 (ciencias: EHDS-112; lengua: EHDL-112; orientacion: EHDO-112; biologia: EHDB-112). Se corrige a EHDM-112 para que el grafo resuelva; sin la correccion el gate falla por prerequisito inexistente."
+  ],
+  "adiciones": [
+    {
+      "slug": "especialidad-ciencias-sociales-secundaria",
+      "codigo": "EHDS-333",
+      "nombre": "PROYECTO PEDAGÓGICO APLICADO A LAS CIENCIAS SOCIALES",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    },
+    {
+      "slug": "especialidad-lengua-espanola-secundaria",
+      "codigo": "EHDL-333",
+      "nombre": "PROYECTO PEDAGÓGICO APLICADO A LA LENGUA ESPAÑOLA",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    },
+    {
+      "slug": "especialidad-matematicas-secundaria",
+      "codigo": "EHDM-333",
+      "nombre": "PROYECTO PEDAGÓGICO APLICADO A MATEMÁTICAS",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    },
+    {
+      "slug": "especialidad-orientacion-secundaria",
+      "codigo": "EHDO-333",
+      "nombre": "PROYECTO PEDAGÓGICO DE ORIENTACIÓN ESCOLAR PARA EL NIVEL SECUNDARIO",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    },
+    {
+      "slug": "especialidad-proteccion-radiologica",
+      "codigo": "EPR-303",
+      "nombre": "TRABAJO PRÁCTICO - SEMINARIOS",
+      "creditos": 3,
+      "cuatrimestre": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "correcciones": [
+    {
+      "slug": "especialidad-matematicas-secundaria",
+      "codigo": "EHD-221",
+      "campo": "prerequisitos",
+      "de": ["EHDL-112"],
+      "a": ["EHDM-112"],
+      "motivo": "El PDF imprime 'EHDL-112' (errata: codigo de la especialidad hermana de Lengua). EHDM-112 es el curso de curriculo de esta carrera."
+    },
+    {
+      "slug": "especialidad-matematicas-secundaria",
+      "codigo": "EHD-222",
+      "campo": "prerequisitos",
+      "de": ["EHDL-112"],
+      "a": ["EHDM-112"],
+      "motivo": "Misma errata del PDF que EHD-221."
+    }
+  ]
+}

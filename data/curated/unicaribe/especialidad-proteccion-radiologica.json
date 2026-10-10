@@ -1,0 +1,178 @@
+{
+  "carrera": "Especialidad en Protección Radiológica",
+  "slug": "especialidad-proteccion-radiologica",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2025-09",
+  "vigente": true,
+  "duracion": {
+    "periodos": 3,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 10,
+    "creditos": 32
+  },
+  "materias": [
+    {
+      "codigo": "EPR-101",
+      "cuatrimestre": 1,
+      "nombre": "CIENCIAS BÁSICAS",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-102",
+      "cuatrimestre": 1,
+      "nombre": "FÍSICA DE LAS RADIACIONES",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-103",
+      "cuatrimestre": 1,
+      "nombre": "DETECCIÓN Y MEDICIÓN DE LAS RADIACIONES",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-104",
+      "cuatrimestre": 1,
+      "nombre": "EFECTOS BIOLÓGICOS DE LA RADIACIÓN",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-201",
+      "cuatrimestre": 2,
+      "nombre": "USO DE LAS RADIACIONES",
+      "creditos": 3,
+      "prerequisitos": [
+        "EPR-101"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-202",
+      "cuatrimestre": 2,
+      "nombre": "FUNDAMENTOS DE PROTECCIÓN RADIOLÓGICA",
+      "creditos": 4,
+      "prerequisitos": [
+        "EPR-104"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-203",
+      "cuatrimestre": 2,
+      "nombre": "ASPECTOS TECNOLÓGICOS DE LA PROTECCIÓN RADIOLÓGICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "EPR-103"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-301",
+      "cuatrimestre": 3,
+      "nombre": "ASPECTOS OPERACIONALES DE LA PROTECCIÓN RADIOLÓGICA",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-302",
+      "cuatrimestre": 3,
+      "nombre": "PROTECCIÓN RADIOLÓGICA EN MEDICINA, INDUSTRIA E INVESTIGACIÓN",
+      "creditos": 4,
+      "prerequisitos": [
+        "EPR-202"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EPR-303",
+      "cuatrimestre": 3,
+      "nombre": "TRABAJO PRÁCTICO - SEMINARIOS",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "El PDF imprime en la pagina 3 'TOTAL DE ASIGNATURAS 10' y 'TOTAL GENERAL DE CREDITOS 32'; coinciden con la suma directa de las 10 filas de los tres cuatrimestres.",
+    "La fila EPR-303 (TRABAJO PRACTICO - SEMINARIOS, 3 creditos, PRE-REQ 'TODAS') es la ultima de la tabla, justo antes de la linea de totales; el generador de borradores la habia descartado (dejaba 9 asignaturas / 29 creditos). Se recupera literal de la extraccion por coordenadas (data/interim/unicaribe-especialidad-proteccion-radiologica.rows.json); con ella la suma cierra 10/32. Arreglo de datos en data/fixups/unicaribe-especialidades-habilitacion.json.",
+    "Honores academicos (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) y escala (base 100, aprobacion 70) copiados de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no los menciona y su aplicabilidad a este nivel de postgrado es NO VERIFICADO."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2025/09/ES_Pensum_Especialidad_en_Proteccion_Radiologica-1.pdf",
+    "sha256": "34dde3db71091a73fe19035fc53558549468d7a693b8c6d4f96625430c9ae251",
+    "verificadoEn": "2026-10-08",
+    "archivo": "ES_Pensum_Especialidad_en_Proteccion_Radiologica-1.pdf"
+  }
+}
