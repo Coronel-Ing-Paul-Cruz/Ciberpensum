@@ -535,6 +535,26 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   (sesión nueva + su continuación) terminaron sin texto; una sesión nueva
   posterior entregó el informe completo — incidencia del arnés, no del repo.
 
+- **2026-10-10 — Evaluación de skills, agentes, MCP y herramientas** (pedido del
+  usuario: “evalúa si … pueden ser mejorados con upgrades o alternativas
+  mejores”; buscar en skills.sh, foros e internet). Informe completo en
+  `EVALUACION-HERRAMIENTAS.md`. Evidencia medida: `npx skills list` (las 20
+  skills están en `skills-lock.json` con origen registrado) y comparación
+  `git blob` SHA1 por archivo contra `raw.githubusercontent.com/<repo>/HEAD/…`.
+  Resultado: **19/20 `SKILL.md` idénticos al upstream actual**; único drift real
+  `subagent-driven-development/scripts/sdd-workspace` (local más viejo: le
+  faltan los arreglos de rutas Git Bash/Windows y el `.gitignore` create-only de
+  Superpowers v6.4.1+/v7.0.0); `table-extractor/SKILL.md` difiere solo porque
+  nosotros tenemos una descripción útil y el upstream un placeholder roto
+  (`">"`) → es mejora local, no atraso. **Cautela**: un `npx skills update`
+  global revertiría esa descripción. Agentes: ninguno fija `model` (heredan el
+  de la sesión); el gate **exige exactamente 7** (`verify.mjs` L72,
+  `verify-config.mjs` L113). MCP: solo Playwright (última `0.0.83`), correcto y
+  de mínimo privilegio. Herramientas: CLI sin dependencias; faltan validación
+  de HTML, enlaces externos y automatizar a11y/CWV. No hay skill upstream que
+  audite la lógica de navegación. Recomendaciones accionadas a `## Próximos
+  pasos` (#19). Registro en `APRENDIZAJES.md` no aplica: no hubo bug.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -691,3 +711,17 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     a ciegas.
     — actualizado 2026-10-10: tras fusionar nota-minima el sitemap emite **150**
     URLs (no 170+), con 5 herramientas.
+19. **Subir de nivel la caja de herramientas (skills/agentes/MCP/CLI)** (pedido
+    del usuario, 2026-10-10): evaluación entregada ese día en
+    `EVALUACION-HERRAMIENTAS.md`. Acciones propuestas, por prioridad y todas
+    reversibles — (a) fijar `model` por agente (barato) en los mecánicos sin
+    cambiar el conteo de 7; (b) instalar `find-skills` (vercel-labs); (c)
+    sincronizar solo `subagent-driven-development/scripts/sdd-workspace` con el
+    upstream (arreglo Windows), re-aplicando la descripción en español de
+    `table-extractor` si se usa `npx skills update`; (d) añadir a la biblioteca
+    `brainstorming`, `writing-plans`, `systematic-debugging` (obra) y
+    `diagnosing-bugs` (mattpocock) según necesidad; (e) evaluar incorporar
+    `html-validate` y `@axe-core/playwright` al gate; (f) opcional, probar
+    `chrome-devtools-mcp` para trazas de CWV de `auditor-seo`. No se aplicó
+    ningún cambio de skills/MCP todavía: primero la evaluación.
+    — hecho el 2026-10-10: informe entregado; changes de tooling sin aplicar.
