@@ -1,0 +1,24 @@
+{
+  "notas": [
+    "Curaduria Maestria en Educacion Inicial (UNICARIBE). El PDF imprime la tabla del pensum en dos columnas: la primera con las filas del pensum y la segunda con el texto de 'Perfil profesional' y los requisitos. En dos lineas de la pagina 2 el texto de la segunda columna quedo INTERCALADO con las filas de la tabla, de modo que el extractor por coordenadas no las reconocio como filas y el ensamblador produjo 15 materias en vez de 17.",
+    "Filas recuperadas aqui (evidencia literal del texto de la pagina 2, que si las contiene): 'Perfil profesional MEI-132 DESARROLLO DEL PENSAMIENTO LOGICO MATEMATICO 15 30 0 2 MEI-123' y '... MEI-213 FAMILIA Y COMUNIDAD EN LA EDUCACION INICIAL 30 0 0 2 MEI-131'.",
+    "Sin estas dos filas el pensum queda internamente roto: MEI-221, MEI-222 y MEI-223 declaran el prerrequisito MEI-213, que no existiria en la carrera. Se anaden por esta via de datos (no se parchea el codigo).",
+    "El total impreso por el PDF es TOTAL DE CREDITOS 46 (pagina 2, cierre de la tabla). Con las 17 filas la suma es 8+9+8+7+6+8 = 46: coincide."
+  ],
+  "adiciones": [
+    {
+      "codigo": "MEI-132",
+      "nombre": "DESARROLLO DEL PENSAMIENTO LÓGICO MATEMÁTICO",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": ["MEI-123"]
+    },
+    {
+      "codigo": "MEI-213",
+      "nombre": "FAMILIA Y COMUNIDAD EN LA EDUCACIÓN INICIAL",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": ["MEI-131"]
+    }
+  ]
+}

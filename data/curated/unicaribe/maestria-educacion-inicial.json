@@ -1,0 +1,253 @@
+{
+  "carrera": "Maestría en Educación Inicial",
+  "slug": "maestria-educacion-inicial",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2024-10",
+  "vigente": true,
+  "duracion": {
+    "periodos": 6,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 17,
+    "creditos": 46
+  },
+  "materias": [
+    {
+      "codigo": "MEI-111",
+      "cuatrimestre": 1,
+      "nombre": "FUNDAMENTO Y PERSPECTIVA HISTÓRICA DE LA ED. INICIAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-112",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-113",
+      "cuatrimestre": 1,
+      "nombre": "DESARROLLO DEL NIÑO DE 0-6 AÑOS",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-121",
+      "cuatrimestre": 2,
+      "nombre": "FUNDAMENTO Y ESTRUCTURA DEL CURRÍCULO DEL NI",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-122",
+      "cuatrimestre": 2,
+      "nombre": "DESARROLLO DEL LENGUAJE Y COMUNICACIÓN",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-113"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-123",
+      "cuatrimestre": 2,
+      "nombre": "EVALUACIÓN EN LA EDUCACIÓN INICIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-131",
+      "cuatrimestre": 3,
+      "nombre": "PROCESOS PEDAGÓGICOS EN EL NIVEL INICIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-132",
+      "cuatrimestre": 3,
+      "nombre": "DESARROLLO DEL PENSAMIENTO LÓGICO MATEMÁTICO",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-133",
+      "cuatrimestre": 3,
+      "nombre": "LA EXPRESIÓN ARTÍSTICA Y EL JUEGO EN LA ED. INICIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-211",
+      "cuatrimestre": 4,
+      "nombre": "RECURSOS DIDÁCTICOS Y TECNOLÓGICOS EN LA ED. INICIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MEI-133"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-212",
+      "cuatrimestre": 4,
+      "nombre": "SEMINARIO DE INVESTIGACIÓN EDUCATIVA I",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-213",
+      "cuatrimestre": 4,
+      "nombre": "FAMILIA Y COMUNIDAD EN LA EDUCACIÓN INICIAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-131"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-221",
+      "cuatrimestre": 5,
+      "nombre": "ETICA Y RESPONSABILIDAD SOCIAL.",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-213"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-222",
+      "cuatrimestre": 5,
+      "nombre": "POLÍTICAS EDUCATIVAS E INCLUSIÓN PARA EL NIVEL INICIAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-213"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-223",
+      "cuatrimestre": 5,
+      "nombre": "GESTIÓN DE CENTROS DE EDUCACIÓN INICIAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-213"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-231",
+      "cuatrimestre": 6,
+      "nombre": "SEMINARIO DE INVESTIGACIÓN EDUCATIVA II",
+      "creditos": 2,
+      "prerequisitos": [
+        "MEI-212"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MEI-232",
+      "cuatrimestre": 6,
+      "nombre": "TESIS",
+      "creditos": 6,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "El pie de pagina (texto del perfil en la segunda columna) quedo intercalado en dos filas de la tabla: la extraccion por coordenadas omitio MEI-132 (Desarrollo del Pensamiento Logico Matematico, 2 cr, 3er cuatrimestre, pre-req MEI-123) y MEI-213 (Familia y Comunidad en la Educacion Inicial, 2 cr, 4to cuatrimestre, pre-req MEI-131). Se recuperan del texto del PDF y se documentan en data/fixups/unicaribe-maestria-educacion-inicial-adiciones.json.",
+    "Sin MEI-213, las materias MEI-221, MEI-222 y MEI-223 quedaban con un prerrequisito inexistente; con la fila recuperada el grafo resuelve.",
+    "El PDF declara TOTAL DE CREDITOS 46 (pagina 2); coincide con la suma de las 17 filas. El numero de asignaturas no se imprime en la fuente.",
+    "Honores academicos (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) y escala (base 100, aprobacion 70) copiados de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no los menciona y su aplicabilidad a este nivel de postgrado es NO VERIFICADO."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2024/10/Maestria-Educacion-inicial_compressed.pdf",
+    "sha256": "bf64577d36f8cad56a5c7752bdc18aa045078a22549842643bcc87a3df8b5183",
+    "verificadoEn": "2026-10-08",
+    "archivo": "Maestria-Educacion-inicial_compressed.pdf"
+  }
+}

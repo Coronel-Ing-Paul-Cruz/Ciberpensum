@@ -1,0 +1,269 @@
+{
+  "carrera": "Maestría en Gestión Humana y Desarrollo Organizacional",
+  "slug": "maestria-gestion-humana-desarrollo-organizacional",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2025-09",
+  "vigente": true,
+  "duracion": {
+    "periodos": 5,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 19,
+    "creditos": 57
+  },
+  "materias": [
+    {
+      "codigo": "GHDO-111",
+      "cuatrimestre": 1,
+      "nombre": "LIDERAZGO Y DESARROLLO DE HABILIDADES GERENCIALES",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-112",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-113",
+      "cuatrimestre": 1,
+      "nombre": "RESPONSABILIDAD SOCIAL Y ÉTICA EMPRESARIAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-114",
+      "cuatrimestre": 1,
+      "nombre": "LEGISLACIÓN LABORAL Y MERCADO DE TRABAJO EN REPÚBLICA DOMINICANA",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-121",
+      "cuatrimestre": 2,
+      "nombre": "TECNOLOGÍA DE LA INFORMACIÓN APLICADA A LA GESTIÓN HUMANA",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-122",
+      "cuatrimestre": 2,
+      "nombre": "DIAGNÓSTICO Y DESARROLLO ORGANIZACIONAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-123",
+      "cuatrimestre": 2,
+      "nombre": "COMPORTAMIENTO Y CULTURA ORGANIZACIONAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "GHDO-113"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-124",
+      "cuatrimestre": 2,
+      "nombre": "GESTIÓN ESTRATÉGICA DEL TALENTO HUMANO",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-114"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-131",
+      "cuatrimestre": 3,
+      "nombre": "DESCRIPCIÓN Y VALORACIÓN DE PUESTOS",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-122"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-132",
+      "cuatrimestre": 3,
+      "nombre": "TENDENCIAS ESTRATÉGICAS APLICADAS A LA GESTIÓN HUMANA",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-124"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-133",
+      "cuatrimestre": 3,
+      "nombre": "SEGURIDAD SOCIAL, HIGIENE Y SALUD OCUPACIONAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-114"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-134",
+      "cuatrimestre": 3,
+      "nombre": "PRACTICA I: FORMULACIÓN DE PROYECTOS",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-141",
+      "cuatrimestre": 4,
+      "nombre": "GESTIÓN DE LAS COMPENSACIONES",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-131"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-142",
+      "cuatrimestre": 4,
+      "nombre": "SELECCIÓN Y CONTRATACIÓN DE CAPITAL HUMANO",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-132"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-143",
+      "cuatrimestre": 4,
+      "nombre": "PRACTICA II:EVALUACIÓN DEL DESEMPEÑO LABORAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-134"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-144",
+      "cuatrimestre": 4,
+      "nombre": "GESTIÓN HUMANA EN LA ADMINISTRACIÓN PÚBLICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-124"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-151",
+      "cuatrimestre": 5,
+      "nombre": "GESTIÓN DE LA CALIDAD Y AUDITORIA DEL CAPITAL HUMANO",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-143"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-152",
+      "cuatrimestre": 5,
+      "nombre": "GESTIÓN INTERNACIONAL DEL CAPITAL HUMANO",
+      "creditos": 3,
+      "prerequisitos": [
+        "GHDO-124"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "GHDO-153",
+      "cuatrimestre": 5,
+      "nombre": "TRABAJO FINAL DEL MÁSTER",
+      "creditos": 6,
+      "prerequisitos": [],
+      "requiereTodas": false
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "El PDF declara TOTAL DE ASIGNATURAS 19 y TOTAL GENERAL DE CREDITOS 57 (pagina 3); ambos coinciden con las filas extraidas.",
+    "GHDO-153 (TRABAJO FINAL DEL MASTER) figura con '-' en la columna PRE-REQ. de la fuente: sin prerrequisito.",
+    "Honores academicos (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) y escala (base 100, aprobacion 70) copiados de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no los menciona y su aplicabilidad a este nivel de postgrado es NO VERIFICADO."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2025/09/ES_Pensum_Maestria_en_Gestion_Humana_y_Desarrollo_Organizacional.pdf",
+    "sha256": "934e2f03a7fd8903b5a0474f61db95a16762a74ea848fa675c23e409ad1df45c",
+    "verificadoEn": "2026-10-08",
+    "archivo": "ES_Pensum_Maestria_en_Gestion_Humana_y_Desarrollo_Organizacional.pdf"
+  }
+}

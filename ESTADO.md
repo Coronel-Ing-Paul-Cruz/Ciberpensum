@@ -59,6 +59,11 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | UTESA | Ingeniería en Sistemas Computacionales | 2023 | 2026-10-07 | PASS |
 | UPID | Licenciatura en Contabilidad (`licenciatura-contabilidad`) | 2018 | 2026-10-07 | PASS |
 | UPID | Maestría en Gestión de Recursos Humanos (`maestria-gestion-recursos-humanos`) | 2018 | 2026-10-07 | PASS |
+| UNICARIBE | Especialidad en Habilitación Docente: Biología para el Nivel Secundario (`especialidad-biologia-secundaria`, postgrado) | 2024-11 | 2026-10-08 | PASS |
+| UNICARIBE | Maestría en Ciberseguridad (`maestria-ciberseguridad`, postgrado) | 2024-10 | 2026-10-08 | PASS |
+| UNICARIBE | Maestría en Educación Inicial (`maestria-educacion-inicial`, postgrado) | 2024-10 | 2026-10-08 | PASS |
+| UNICARIBE | Maestría en Gestión Humana y Desarrollo Organizacional (`maestria-gestion-humana-desarrollo-organizacional`, postgrado) | 2025-09 | 2026-10-08 | PASS |
+| UNICARIBE | Maestría en Gestión Municipal (`maestria-gestion-municipal`, postgrado) | 2024-11 | 2026-10-08 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -368,6 +373,45 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   (decisión: la fuente visible es parte del ethos del sitio y 2.4.4 pasa con
   el párrafo previo); las 2 mejoras sin criterio incumplido (indicador de
   scroll, th sticky) van a Próximos pasos.
+
+- **2026-10-08** — **Curaduría UNICARIBE — lote de postgrado/especialidad (5
+  carreras) entra al gate.** `curador-pensum` curó cinco programas con el mismo
+  pipeline draft→validación, grado `postgrado`. Fuente (URL) y sha256 viven en
+  el `fuente` de cada JSON (verificadoEn 2026-10-08); la tabla de arriba solo
+  registra universidad/carrera/slug y la fecha. Detalle:
+  - `especialidad-biologia-secundaria` — Especialidad en Habilitación Docente:
+    Biología para el Nivel Secundario. 10 asignaturas / 32 créditos / 3 periodos
+    (`tipoPeriodo: "periodo"`). El PDF no imprime fila de totales: los totales
+    son la suma de las filas. URL
+    https://unicaribe.edu.do/wp-content/uploads/2024/11/V20200814-Especialidad-en-Habilitacion-Docente-Biologia-para-el-Nivel-Secundario.pdf,
+    sha256 `504718d7b2094d2192e075c07005449231d90b074c06047a3d0c691ad00086d3`.
+  - `maestria-ciberseguridad` — 19 asignaturas / 55 créditos / 5 cuatrimestres.
+    TOTAL DE CRÉDITOS 55 impreso = suma de las filas. URL
+    https://unicaribe.edu.do/wp-content/uploads/2024/10/Ciberseguridad_Brochure_.pdf,
+    sha256 `1ecd8f6870853604e32f1738e40a321161b90285be20850c295eb2e2099ff5d0`.
+  - `maestria-educacion-inicial` — 17 asignaturas / 46 créditos / 6
+    cuatrimestres. El extractor por coordenadas omitió MEI-132 y MEI-213 porque
+    el texto del perfil (2ª columna) se intercaló con dos filas de la tabla; se
+    recuperan del texto del PDF y se documentan en
+    `data/fixups/unicaribe-maestria-educacion-inicial-adiciones.json`. Sin
+    MEI-213, el prerrequisito de MEI-221/222/223 apuntaba a un código
+    inexistente. TOTAL DE CRÉDITOS 46 impreso = suma. URL
+    https://unicaribe.edu.do/wp-content/uploads/2024/10/Maestria-Educacion-inicial_compressed.pdf,
+    sha256 `bf64577d36f8cad56a5c7752bdc18aa045078a22549842643bcc87a3df8b5183`.
+  - `maestria-gestion-humana-desarrollo-organizacional` — 19 asignaturas / 57
+    créditos / 5 cuatrimestres. TOTAL DE ASIGNATURAS 19 y TOTAL GENERAL DE
+    CRÉDITOS 57 impresos = suma. URL
+    https://unicaribe.edu.do/wp-content/uploads/2025/09/ES_Pensum_Maestria_en_Gestion_Humana_y_Desarrollo_Organizacional.pdf,
+    sha256 `934e2f03a7fd8903b5a0474f61db95a16762a74ea848fa675c23e409ad1df45c`.
+  - `maestria-gestion-municipal` — 21 asignaturas / 45 créditos / 5
+    cuatrimestres. TOTAL DE CRÉDITOS 45 impreso = suma. URL
+    https://unicaribe.edu.do/wp-content/uploads/2024/11/PENSUM-MAESTRIA-EN-GESTION-MUNICIPAL-1.pdf,
+    sha256 `7eb4f00f2f8dc54566340cf336731a380a7f31a79ccd77b4fb2abfa867f3425b`.
+  Reglas: escala (base 100, aprobación 70) y honores se copian de la plantilla
+  institucional de UNICARIBE (Reglamento Estudiantil, sha256 `25be4df4…`); el
+  PDF del pensum no menciona honores y su aplicabilidad a estos niveles de
+  postgrado queda **NO VERIFICADO** (consta en `notas[]` de cada JSON).
+  (curador-pensum)
 
 ## Próximos pasos
 

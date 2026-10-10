@@ -1,0 +1,278 @@
+{
+  "carrera": "Maestría en Gestión Municipal",
+  "slug": "maestria-gestion-municipal",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2024-11",
+  "vigente": true,
+  "duracion": {
+    "periodos": 5,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 21,
+    "creditos": 45
+  },
+  "materias": [
+    {
+      "codigo": "MGM-201",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGIA DE LA INVESTIGACION",
+      "creditos": 1,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-202",
+      "cuatrimestre": 1,
+      "nombre": "HABILIDADES DIRECTIVAS",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-203",
+      "cuatrimestre": 1,
+      "nombre": "ECONOMÍA MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-204",
+      "cuatrimestre": 1,
+      "nombre": "LEGISLACIÓN MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-205",
+      "cuatrimestre": 2,
+      "nombre": "POLÍTICAS PÚBLICAS",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-206",
+      "cuatrimestre": 2,
+      "nombre": "GLOBALIZACIÓN, DESCENTRALIZACIÓN Y DESARROLLO MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-207",
+      "cuatrimestre": 2,
+      "nombre": "ENTORNO DEL GOBIERNO MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-208",
+      "cuatrimestre": 2,
+      "nombre": "SEMINARIO DE INVESTIGACION",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-209",
+      "cuatrimestre": 3,
+      "nombre": "LOGISTICA MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-206"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-210",
+      "cuatrimestre": 3,
+      "nombre": "PLANEACIÓN ESTRATEGICA MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-207"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-211",
+      "cuatrimestre": 3,
+      "nombre": "FINANZAS PÚBLICAS MUNICIPALES",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-212",
+      "cuatrimestre": 3,
+      "nombre": "TECNOLOGIA APLICADA A LA GESTION MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-213",
+      "cuatrimestre": 4,
+      "nombre": "FISCALIZACIÓN DE CUENTAS PUBLICAS MUNICIPALES",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-211"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-214",
+      "cuatrimestre": 4,
+      "nombre": "FORMULACIÓN Y EVALUACIÓN DE PROYECTOS MUNICIPALES",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-208"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-215",
+      "cuatrimestre": 4,
+      "nombre": "GESTIÓN DE DESARROLLO MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-210"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-216",
+      "cuatrimestre": 4,
+      "nombre": "CONTRALORÍA SOCIAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-211"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-217",
+      "cuatrimestre": 4,
+      "nombre": "DESARROLLO TERRITORIAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-215"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-218",
+      "cuatrimestre": 5,
+      "nombre": "TRASPARENCIA Y RENDICIÓN DE CUENTAS",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-216"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-219",
+      "cuatrimestre": 5,
+      "nombre": "GESTIÓN DE SERVICIOS PÚBLICOS",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-215"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-220",
+      "cuatrimestre": 5,
+      "nombre": "SEMINARIO DE GESTION MUNICIPAL",
+      "creditos": 2,
+      "prerequisitos": [
+        "MGM-208"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MGM-221",
+      "cuatrimestre": 5,
+      "nombre": "TESIS",
+      "creditos": 6,
+      "prerequisitos": [
+        "MGM-220"
+      ],
+      "requiereTodas": false
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "El PDF declara TOTAL DE CREDITOS 45 (pagina 3); coincide con la suma de las 21 filas. El numero de asignaturas no se imprime en la fuente.",
+    "Honores academicos (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) y escala (base 100, aprobacion 70) copiados de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no los menciona y su aplicabilidad a este nivel de postgrado es NO VERIFICADO."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/PENSUM-MAESTRIA-EN-GESTION-MUNICIPAL-1.pdf",
+    "sha256": "7eb4f00f2f8dc54566340cf336731a380a7f31a79ccd77b4fb2abfa867f3425b",
+    "verificadoEn": "2026-10-08",
+    "archivo": "PENSUM-MAESTRIA-EN-GESTION-MUNICIPAL-1.pdf"
+  }
+}
