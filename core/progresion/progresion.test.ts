@@ -259,72 +259,75 @@ describe("cuatrimestresRestantes", () => {
 })
 
 describe("siguienteEstadoAlClic", () => {
-  it("1) Hay nota registrada: la quita aunque no este habilitada", () => {
+  // Ciclo acordado 2026-10-10: sin estado -> aprobada -> en curso -> sin estado.
+  // Lo ya registrado (aprobada o en curso) SIEMPRE se puede corregir con un
+  // clic mas, aunque la materia este bloqueada (`habilitada = false`).
+  it("1) Aprobada (presente en aprobadas) con clic: pasa a en curso y pierde la nota, aunque no este habilitada", () => {
     const estado: EstadoClic = {
-      aprobadas: { MAT101: { nota: 90 } },
-      enCurso: ["FIS101"],
+      aprobadas: { MAT101: { nota: 90 }, FIS101: { nota: 80 } },
+      enCurso: [],
     }
     const res = siguienteEstadoAlClic(estado, "MAT101", false, 70)
     expect(res.aprobadas.MAT101).toBeUndefined()
-    expect(res.enCurso).toEqual(["FIS101"])
-    expect(Object.is(res.enCurso, estado.enCurso)).toBe(true)
+    expect(res.aprobadas.FIS101).toEqual({ nota: 80 }) // el resto se conserva
+    expect(res.enCurso).toEqual(["MAT101"])
   })
 
-  it("1b) Hay nota registrada (reprobada): la quita", () => {
-    const estado: EstadoClic = {
-      aprobadas: { MAT101: { nota: 60 } },
-      enCurso: [],
-    }
+  it("1b) Aprobada con nota debajo de la aprobacion: el clic tambien la pasa a en curso", () => {
+    const estado: EstadoClic = { aprobadas: { MAT101: { nota: 60 } }, enCurso: [] }
     const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
     expect(res.aprobadas).toEqual({})
+    expect(res.enCurso).toEqual(["MAT101"])
   })
 
-  it("2) Esta en curso sin nota: si habilitada, aprueba con notaPorDefecto", () => {
-    const estado: EstadoClic = { aprobadas: {}, enCurso: ["MAT101"] }
+  it("1c) Aprobada que ademas figura en enCurso (dato corrupto): pasa a en curso sin duplicar", () => {
+    const estado: EstadoClic = { aprobadas: { MAT101: { nota: 80 } }, enCurso: ["MAT101"] }
     const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
-    expect(res.enCurso).toEqual([])
-    expect(res.aprobadas.MAT101).toEqual({ nota: 70 })
+    expect(res.aprobadas.MAT101).toBeUndefined()
+    expect(res.enCurso).toEqual(["MAT101"])
+    expect(Object.is(res.enCurso, estado.enCurso)).toBe(true) // misma lista, sin duplicado
   })
 
-  it("2b) Esta en curso: si no habilitada, devuelve el mismo estado", () => {
-    const estado: EstadoClic = { aprobadas: { FIS201: { nota: 80 } }, enCurso: ["MAT101"] }
+  it("2) En curso con clic: vuelve a sin estado, aunque no este habilitada", () => {
+    const estado: EstadoClic = { aprobadas: {}, enCurso: ["MAT101", "FIS101"] }
     const res = siguienteEstadoAlClic(estado, "MAT101", false, 70)
-    expect(Object.is(res, estado)).toBe(true)
-  })
-
-  it("3) Sin estado: si habilitada, pone en curso", () => {
-    const estado: EstadoClic = { aprobadas: {}, enCurso: ["FIS101"] }
-    const res = siguienteEstadoAlClic(estado, "HUM101", true, 70)
+    expect(res.enCurso).toEqual(["FIS101"]) // solo se quita la del clic
     expect(res.aprobadas).toEqual({})
-    expect(res.enCurso).toContain("HUM101")
-    expect(res.enCurso.length).toBe(2)
   })
 
-  it("3b) Sin estado: si no habilitada, devuelve el mismo estado", () => {
+  it("3) Sin estado + habilitada: queda aprobada con la nota por defecto", () => {
+    const estado: EstadoClic = { aprobadas: {}, enCurso: ["FIS101"] }
+    const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
+    expect(res.aprobadas.MAT101).toEqual({ nota: 70 })
+    expect(res.enCurso).toEqual(["FIS101"]) // el resto de en curso se conserva
+  })
+
+  it("3b) Sin estado + no habilitada: no cambia (devuelve el mismo objeto)", () => {
     const estado: EstadoClic = { aprobadas: {}, enCurso: [] }
     const res = siguienteEstadoAlClic(estado, "HUM101", false, 70)
     expect(Object.is(res, estado)).toBe(true)
   })
 
-  it("ciclo completo: sin estado->en curso->aprobada->sin estado", () => {
+  it("ciclo completo: sin estado -> aprobada -> en curso -> sin estado", () => {
     let estado: EstadoClic = { aprobadas: {}, enCurso: [] }
     estado = siguienteEstadoAlClic(estado, "MAT101", true, 70)
-    expect(estado.enCurso).toContain("MAT101")
-    estado = siguienteEstadoAlClic(estado, "MAT101", true, 70)
     expect(estado.aprobadas.MAT101).toEqual({ nota: 70 })
-    expect(estado.enCurso).not.toContain("MAT101")
-    estado = siguienteEstadoAlClic(estado, "MAT101", false, 70)
+    expect(estado.enCurso).toEqual([])
+    estado = siguienteEstadoAlClic(estado, "MAT101", true, 70)
     expect(estado.aprobadas.MAT101).toBeUndefined()
+    expect(estado.enCurso).toEqual(["MAT101"])
+    estado = siguienteEstadoAlClic(estado, "MAT101", false, 70)
+    expect(estado.aprobadas).toEqual({})
     expect(estado.enCurso).toEqual([])
   })
 
-  it("no muta las entradas", () => {
-    const aprobadasOrig = { MAT101: { nota: 85 } }
+  it("no muta las entradas: devuelve objetos nuevos y el original queda intacto", () => {
+    const aprobadasOrig: Record<string, { nota: number }> = { MAT101: { nota: 85 } }
     const enCursoOrig = ["FIS101"]
     const estado: EstadoClic = { aprobadas: aprobadasOrig, enCurso: enCursoOrig }
     const res = siguienteEstadoAlClic(estado, "MAT101", true, 70)
     expect(Object.is(res.aprobadas, aprobadasOrig)).toBe(false)
-    expect(Object.is(res.enCurso, enCursoOrig)).toBe(true)
+    expect(Object.is(res.enCurso, enCursoOrig)).toBe(false)
     expect(aprobadasOrig.MAT101).toEqual({ nota: 85 })
     expect(enCursoOrig).toEqual(["FIS101"])
   })

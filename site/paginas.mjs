@@ -327,7 +327,7 @@ ${tarjetas}
 /** Contenido estatico (sin JS) que aterriza cada herramienta. */
 const CONTENIDO_SIN_JS = {
   progreso: (c) => `
-    <p>Marca las materias aprobadas con su nota (escala ${c.reglas.escala.minimo}–${c.reglas.escala.maximo}, se aprueba con ${c.reglas.escala.aprobacion}) o en curso. El resto de herramientas lee este cuaderno. Tu avance queda en este navegador.</p>
+    <p>Marca cada materia como aprobada (con su nota) o en curso: el clic alterna sin estado → aprobada → en curso → sin estado. El resto de herramientas lee este cuaderno. Tu avance queda en este navegador.</p>
     <h2>Malla para marcar</h2>
     ${tablaMaterias(c)}`,
   indice: (c) => `

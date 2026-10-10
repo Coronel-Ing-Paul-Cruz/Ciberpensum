@@ -211,7 +211,7 @@ export function tablaMaterias(carrera) {
       const creditos = porCuatrimestre
         .filter((o) => o.cuatrimestre === cuatActual)
         .reduce((a, o) => a + (o.creditos ?? 0), 0)
-      filasBloque += `    <tr class="fila-cuat"><td colspan="5">${etiquetaPeriodo(carrera.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos</td></tr>\n`
+      filasBloque += `    <tr class="fila-cuat"><td colspan="4">${etiquetaPeriodo(carrera.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos</td></tr>\n`
     }
     // El codigo identifica la materia y es lo que referencian los
     // prerrequisitos. En pantalla va SOLO el codigo, como en la columna
@@ -224,7 +224,6 @@ export function tablaMaterias(carrera) {
     if (m.requiereTodas) extra.push("exige TODAS las anteriores")
     const extraHtml = extra.length ? `<br><span class="meta-fuente">${esc(extra.join(" · "))}</span>` : ""
     filasBloque += `    <tr>
-      <td class="numerico">${m.cuatrimestre}</td>
       <td><code>${esc(m.codigo)}</code></td>
       <td>${esc(m.nombre)}${extraHtml}</td>
       <td class="numerico">${m.creditos}</td>
@@ -240,7 +239,7 @@ export function tablaMaterias(carrera) {
   <table>
     <caption>Malla curricular completa — ${esc(carrera.carrera)} (${carrera.totales.asignaturas} asignaturas, ${carrera.totales.creditos} créditos)</caption>
     <thead>
-      <tr><th scope="col">Cuat.</th><th scope="col">Código</th><th scope="col">Asignatura</th><th scope="col" class="numerico">Cr</th><th scope="col">Prerrequisitos</th></tr>
+      <tr><th scope="col">Código</th><th scope="col">Asignatura</th><th scope="col" class="numerico">Cr</th><th scope="col">Prerrequisitos</th></tr>
     </thead>
 ${tbodies}
   </table>

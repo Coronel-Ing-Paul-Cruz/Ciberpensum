@@ -176,12 +176,17 @@ export function cuatrimestresRestantes(
 }
 
 /**
- * Maquina de 3 estados por materia al hacer clic en la fila:
- * 1. Hay nota registrada (aprobadas[codigo] !== undefined) → quita la nota.
- *    Esto SIEMPRE se permite, aunque no esté habilitada.
- * 2. Está en curso (en enCurso sin nota) → aprueba solo si habilitada:
- *    saca de enCurso y añade aprobadas[codigo] = { nota: notaPorDefecto }.
- * 3. Sin estado → pone en curso solo si habilitada: añade a enCurso.
+ * Maquina de 3 estados por materia al hacer clic en la fila (ciclo acordado
+ * 2026-10-10: sin estado → aprobada → en curso → sin estado):
+ * 1. Aprobada (presente en `aprobadas`) → pasa a EN CURSO: se borra de
+ *    `aprobadas` (pierde la nota) y se agrega a `enCurso`. Siempre permitido,
+ *    aunque no esté habilitada: lo ya registrado se puede corregir.
+ * 2. En curso (`enCurso` sin nota) → SIN ESTADO: se quita de `enCurso`.
+ *    Siempre permitido, aunque no esté habilitada.
+ * 3. Sin estado → queda APROBADA solo si habilitada: se agrega a `aprobadas`
+ *    con `{ nota: notaPorDefecto }` y se quita de `enCurso` si estuviera
+ *    (defensa ante datos corruptos; en datos sanos la rama 2 ya captura los
+ *    codigos en curso). Sin estado y `!habilitada` → no cambia.
  *
  * 100% pura: no muta ninguna entrada, devuelve objetos nuevos.
  */
@@ -191,46 +196,40 @@ export function siguienteEstadoAlClic(
   habilitada: boolean,
   notaPorDefecto: number,
 ): EstadoClic {
-  // Caso 1: Hay nota registrada → siempre se permite quitarla
+  // Caso 1: Aprobada → en curso (lo registrado siempre se corrige)
   if (estado.aprobadas[codigo] !== undefined) {
     const nuevasAprobadas: Record<string, { nota: number }> = {}
-    for (const key of Object.keys(estado.aprobadas)) {
-      if (key !== codigo) {
-        nuevasAprobadas[key] = estado.aprobadas[key]!
-      }
+    for (const [key, reg] of Object.entries(estado.aprobadas)) {
+      if (key !== codigo) nuevasAprobadas[key] = reg
     }
-    return {
-      aprobadas: nuevasAprobadas,
-      enCurso: estado.enCurso,
-    }
-  }
-
-  // Caso 2: Está en curso (sin nota) → aprueba si habilitada
-  if (estado.enCurso.includes(codigo)) {
-    if (!habilitada) {
-      return estado
-    }
-    const nuevasAprobadas: Record<string, { nota: number }> = {}
-    for (const key of Object.keys(estado.aprobadas)) {
-      nuevasAprobadas[key] = estado.aprobadas[key]!
-    }
-    nuevasAprobadas[codigo] = { nota: notaPorDefecto }
-    const nuevoEnCurso = estado.enCurso.filter((c) => c !== codigo)
+    // Si ya figuraba en enCurso (dato corrupto), no se duplica la lista.
+    const nuevoEnCurso = estado.enCurso.includes(codigo)
+      ? estado.enCurso
+      : [...estado.enCurso, codigo]
     return {
       aprobadas: nuevasAprobadas,
       enCurso: nuevoEnCurso,
     }
   }
 
-  // Caso 3: Sin estado → pone en curso si habilitada
+  // Caso 2: En curso → sin estado (lo registrado siempre se corrige)
+  if (estado.enCurso.includes(codigo)) {
+    return {
+      aprobadas: estado.aprobadas,
+      enCurso: estado.enCurso.filter((c) => c !== codigo),
+    }
+  }
+
+  // Caso 3: Sin estado → aprobada solo si habilitada
   if (!habilitada) {
     return estado
   }
-  const nuevoEnCurso = [...estado.enCurso, codigo]
   const nuevasAprobadas: Record<string, { nota: number }> = {}
-  for (const key of Object.keys(estado.aprobadas)) {
-    nuevasAprobadas[key] = estado.aprobadas[key]!
+  for (const [key, reg] of Object.entries(estado.aprobadas)) {
+    nuevasAprobadas[key] = reg
   }
+  nuevasAprobadas[codigo] = { nota: notaPorDefecto }
+  const nuevoEnCurso = estado.enCurso.filter((c) => c !== codigo)
   return {
     aprobadas: nuevasAprobadas,
     enCurso: nuevoEnCurso,

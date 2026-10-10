@@ -124,14 +124,12 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
   tabla.innerHTML =
     '<caption>Materias en el orden del pensum — marca aprobada con nota y en curso</caption>' +
     "<thead><tr>" +
-    '<th scope="col" class="numerico">Cuat.</th>' +
     '<th scope="col">Código</th>' +
     '<th scope="col">Asignatura</th>' +
     '<th scope="col" class="numerico">Cr</th>' +
     '<th scope="col">PRE-REQ</th>' +
-    '<th scope="col">Aprobada</th>' +
+    '<th scope="col">Estatus</th>' +
     '<th scope="col" class="numerico">Nota</th>' +
-    '<th scope="col">En curso</th>' +
     "</tr></thead>"
   // Los tbody se crean por periodo en construirFilas() (vease hallazgo axe
   // th-has-data-cells, revisor-a11y).
@@ -141,9 +139,8 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     string,
     {
       fila: HTMLTableRowElement
-      chkAprobada: HTMLInputElement
+      estatus: HTMLTableCellElement
       nota: HTMLInputElement
-      chkCurso: HTMLInputElement
       motivo: HTMLSpanElement
       botonFila: HTMLButtonElement
     }
@@ -155,8 +152,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
     resumen.textContent =
       `${aprobadas} de ${pensum.materias.length} aprobadas · ` +
       `${r.creditos} créditos · índice ${fmt(r.indice)} · ` +
-      `${progreso.enCurso?.length ?? 0} en curso · ` +
-      `escala ${escala.minimo}–${escala.maximo} (aprueba desde ${escala.aprobacion})`
+      `${progreso.enCurso?.length ?? 0} en curso`
   }
 
   /**
@@ -179,34 +175,31 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       const reg = progreso.aprobadas[m.codigo]
       const aprobada = reg !== undefined && reg.nota >= escala.aprobacion
       const enCurso = (progreso.enCurso ?? []).includes(m.codigo)
+      const tieneNota = reg !== undefined
       const bloqueada = !aprobada && !disponibles.has(m.codigo)
 
-      // Estado de los controles (el dato es la verdad; el control lo refleja).
-      c.chkAprobada.checked = aprobada
-      c.chkCurso.checked = enCurso
-      c.nota.value = reg !== undefined ? String(reg.nota) : ""
+      // Columna unica "Estatus" (acuerdo 2026-10-10): el estado se dice en
+      // letra; la nota es un dato de la materia aprobada, no un estado mas.
+      // Una nota menor que la aprobacion no cambia el estado (sigue siendo
+      // "Aprobada" y corregible); solo tine la fila (abajo).
+      c.estatus.textContent = tieneNota ? "Aprobada" : enCurso ? "En curso" : ""
+      c.nota.value = tieneNota ? String(reg.nota) : ""
 
       // Gris + bloqueo de seleccion nueva; lo existente queda corregible.
       c.fila.classList.toggle("fila-bloqueada", bloqueada)
       const titulo = bloqueada ? textoBloqueo(m, motivosBloqueo(m, aprobadas, Number.POSITIVE_INFINITY)) : ""
-      c.chkAprobada.disabled = bloqueada && !aprobada
-      c.chkCurso.disabled = bloqueada && !enCurso
-      c.nota.disabled = bloqueada && reg === undefined
-      c.chkAprobada.title = titulo
-      c.chkCurso.title = titulo
+      // El input de nota se habilita solo cuando el estado es "Aprobada":
+      // en curso y sin estado no hay nota que editar.
+      c.nota.disabled = !tieneNota
       c.nota.title = titulo
 
       // El motivo tambien viaja en aria-describedby (el tooltip title solo no
       // llega a lectores de pantalla, revision a11y): texto sr-only + referencia
-      // en los controles; sin bloqueo, sin descripcion.
+      // en el control de nota; sin bloqueo, sin descripcion.
       c.motivo.textContent = bloqueada ? `Bloqueada: ${titulo}` : ""
       if (bloqueada) {
-        c.chkAprobada.setAttribute("aria-describedby", c.motivo.id)
-        c.chkCurso.setAttribute("aria-describedby", c.motivo.id)
         c.nota.setAttribute("aria-describedby", c.motivo.id)
       } else {
-        c.chkAprobada.removeAttribute("aria-describedby")
-        c.chkCurso.removeAttribute("aria-describedby")
         c.nota.removeAttribute("aria-describedby")
       }
 
@@ -218,15 +211,10 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
             ? "var(--peligro-fondo)"
             : ""
 
-      // Actualizar boton de fila accesible
-      const tieneNota = reg !== undefined
-      let estadoTexto = "Sin estado"
-      if (tieneNota && reg.nota >= escala.aprobacion) estadoTexto = "Aprobada"
-      else if (tieneNota && reg.nota < escala.aprobacion) estadoTexto = "Reprobada"
-      else if (enCurso) estadoTexto = "En curso"
-      else estadoTexto = "Sin estado"
+      // Boton de fila accesible: el estado en letra y el ciclo nuevo.
+      const estadoLeyenda = tieneNota ? "Aprobada" : enCurso ? "En curso" : "Sin estado"
       const habilitada = !bloqueada || tieneNota // lo registrado se puede corregir
-      c.botonFila.setAttribute("aria-label", `${m.codigo} ${m.nombre}. ${estadoTexto}. Clic o Enter alterna: sin estado → en curso → aprobada → sin estado.`)
+      c.botonFila.setAttribute("aria-label", `${m.codigo} ${m.nombre}. ${estadoLeyenda}. Clic o Enter alterna: sin estado → aprobada → en curso → sin estado.`)
       c.botonFila.disabled = !habilitada
       c.botonFila.setAttribute("aria-disabled", (!habilitada).toString())
     }
@@ -265,7 +253,7 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         // th-has-data-cells en incomplete (medido: solo th->td pasa; ver
         // comentario de .fila-cuat td en ui/componentes.css).
         const celdaPeriodo = document.createElement("td")
-        celdaPeriodo.colSpan = 8
+        celdaPeriodo.colSpan = 6
         celdaPeriodo.textContent = `${nombrePeriodo(pensum.duracion.tipoPeriodo)} ${cuatActual} — ${creditos} créditos`
         cabecera.appendChild(celdaPeriodo)
         tbody.appendChild(cabecera)
@@ -279,10 +267,6 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         return td
       }
 
-      const chkAprobada = document.createElement("input")
-      chkAprobada.type = "checkbox"
-      chkAprobada.setAttribute("aria-label", `Marcar ${m.codigo} como aprobada`)
-
       const inputNota = document.createElement("input")
       inputNota.type = "number"
       inputNota.min = "0"
@@ -290,10 +274,6 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
       inputNota.step = "1"
       inputNota.setAttribute("aria-label", `Nota de ${m.codigo}`)
       inputNota.style.maxWidth = "6rem"
-
-      const chkCurso = document.createElement("input")
-      chkCurso.type = "checkbox"
-      chkCurso.setAttribute("aria-label", `Marcar ${m.codigo} como en curso`)
 
       const notaActual = (): number | null => {
         const v = Number(inputNota.value)
@@ -306,36 +286,6 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         if (nota === null) delete otras[m.codigo]
         else otras[m.codigo] = { nota, creditos: m.creditos, cuatrimestre: m.cuatrimestre }
         guardar({ ...progreso, aprobadas: otras })
-      })
-
-      chkAprobada.addEventListener("change", () => {
-        const otras = { ...progreso.aprobadas }
-        if (chkAprobada.checked) {
-          const nota = notaActual() ?? escala.aprobacion // marcar aprobada sin nota = nota de aprobacion (editable)
-          otras[m.codigo] = { nota, creditos: m.creditos, cuatrimestre: m.cuatrimestre }
-          inputNota.value = String(nota)
-        } else {
-          delete otras[m.codigo]
-        }
-        const sinCurso = (progreso.enCurso ?? []).filter((c) => c !== m.codigo)
-        guardar({ ...progreso, aprobadas: otras, enCurso: sinCurso })
-      })
-
-      chkCurso.addEventListener("change", () => {
-        const lista = new Set(progreso.enCurso ?? [])
-        const otras = { ...progreso.aprobadas }
-        if (chkCurso.checked) {
-          lista.add(m.codigo)
-          delete otras[m.codigo] // en curso = sin nota final
-          inputNota.value = ""
-        } else {
-          lista.delete(m.codigo)
-        }
-        guardar({
-          ...progreso,
-          aprobadas: otras,
-          enCurso: lista.size > 0 ? [...lista] : [],
-        })
       })
 
       // Boton accesible en la celda del nombre
@@ -359,19 +309,28 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
         if (nuevo === estadoClic) {
           return // sin estado registrado y bloqueada: no hay nada que alternar
         }
+        // La maquina de core solo conoce `{ nota }`; el contrato del cuaderno
+        // (Progreso) pide ademas creditos y cuatrimestre. Se conserva el
+        // registro previo cuando la nota no cambio (ya trae sus metadatos) y
+        // se rellena desde el plan cuando la nota es nueva.
+        const aprobadasCompletas: Progreso["aprobadas"] = {}
+        for (const [cod, reg] of Object.entries(nuevo.aprobadas)) {
+          const previo = progreso.aprobadas[cod]
+          if (previo !== undefined && previo.nota === reg.nota) {
+            aprobadasCompletas[cod] = previo
+          } else {
+            const materia = plan.find((p) => p.codigo === cod)
+            aprobadasCompletas[cod] = {
+              nota: reg.nota,
+              creditos: materia !== undefined ? materia.creditos : 0,
+              cuatrimestre: materia !== undefined ? materia.cuatrimestre : 0,
+            }
+          }
+        }
         const nuevoProgreso: Progreso = {
           ...progreso,
-          aprobadas: nuevo.aprobadas as Progreso["aprobadas"],
+          aprobadas: aprobadasCompletas,
           enCurso: nuevo.enCurso.length > 0 ? [...nuevo.enCurso] : [],
-        }
-        // Cuando pasa a aprobada con nota por defecto, añadir metadatos
-        const regNuevo = nuevoProgreso.aprobadas[m.codigo]
-        if (regNuevo !== undefined && (regActual === undefined || regActual.nota !== regNuevo.nota)) {
-          nuevoProgreso.aprobadas[m.codigo] = {
-            nota: regNuevo.nota,
-            creditos: m.creditos,
-            cuatrimestre: m.cuatrimestre,
-          }
         }
         guardar(nuevoProgreso)
       }
@@ -406,17 +365,16 @@ function iniciar(app: HTMLElement, pensum: Pensum): void {
 
       const tdNombre = celda("")
       tdNombre.appendChild(botonFila)
+      const tdEstatus = celda("")
       fila.append(
-        celda(String(m.cuatrimestre), true),
         celda(m.codigo),
         tdNombre,
         celda(String(m.creditos), true),
         tdPre,
-        (() => { const td = celda(""); td.appendChild(chkAprobada); return td })(),
+        tdEstatus,
         (() => { const td = celda(""); td.appendChild(inputNota); td.appendChild(motivo); return td })(),
-        (() => { const td = celda(""); td.appendChild(chkCurso); return td })(),
       )
-      controles.set(m.codigo, { fila, chkAprobada, nota: inputNota, chkCurso, motivo, botonFila })
+      controles.set(m.codigo, { fila, estatus: tdEstatus, nota: inputNota, motivo, botonFila })
 
       // Clic en cualquier parte de la fila (conveniencia de raton; el pedido
       // n. 7 dice "clic en cualquier parte de la fila"). El boton ya frena su
