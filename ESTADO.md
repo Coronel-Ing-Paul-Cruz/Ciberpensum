@@ -480,6 +480,24 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   `MMT-203`, código inexistente en la malla (errata de la fuente; sin inventar
   la corrección, el gate la rechazaría). (curador-pensum)
 
+- **2026-10-10** — **Verificación de la importación del progreso (pedido del
+  usuario), en navegador real contra `dist/` reconstruido.** PASS en los 3
+  puntos de entrada: (1) herramienta portabilidad, import por texto:
+  "Progreso importado y guardado." y la zona de exportar refleja el progreso
+  nuevo; (2) guardia de carrera: import de otra carrera → "Este progreso es de
+  otra carrera (…): no se importa."; (3) widget global, import por archivo:
+  restaura FGC-101/102 (notas 90/85) + enCurso FGC-103, y el widget repinta
+  solo ("2 de 55 aprobadas · 4 créditos · índice 87.50 · 1 en curso",
+  `actualizadoEn` de hoy). Rechazos con mensaje claro y SIN tocar el estado:
+  JSON roto ("el texto no es JSON válido…") y schema incorrecto ("schema
+  incorrecto: se esperaba ciberpensum/progreso…") → el progreso previo queda
+  intacto. Contratos revisados en `core/portabilidad`: validación en el borde
+  (`deserializarProgreso`/`migrarProgreso`), cadena de migraciones vacía hoy
+  pero con rechazo explícito de versiones futuras ("no se migra hacia atrás"),
+  serialización canónica excluye `actualizadoEn` (checksum estable), guardia de
+  carrera en los 3 puntos de entrada. 62 tests de portabilidad en verde.
+  (flujo E2E con Playwright sobre serve local, salida real pegada)
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -587,3 +605,25 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     pensums de grado descargados (Decisiones 2026-10-07) y una carrera
     curada; OYM y UASD quedaron "en curso" ahí: antes de relanzar al
     investigador, revisar qué hay ya en `data/raw/` de cada una.
+15. **Rediseño/simplificación del cuaderno y la web** (pedido del usuario,
+    2026-10-10, análisis entregado ese mismo día; implementar al aprobar):
+    (a) quitar la columna "Cuat." del cuaderno (la fila separadora ya indica el
+    periodo); (b) fusionar "Aprobada" y "En curso" en una sola columna
+    "Estatus" que en letra indique aprobada/en curso, con el ciclo de clic
+    reordenado a **sin estado → aprobada → en curso → sin estado** (hoy es
+    en curso → aprobada; `siguienteEstadoAlClic` en `core/progresion`); (c)
+    quitar del resumen el texto "escala 70–100 (aprueba desde 70)". Propuestas
+    adicionales del análisis: eliminar `dist/datos/index.json` (muerto: el
+    widget carga por `data-pensum`); revisar solapamiento índice/nota-minima;
+    indicador de scroll horizontal y cabeceras sticky (ver #12/#13).
+16. **Agregar el pensum de Derecho a la oferta de UPID** (pedido del usuario,
+    2026-10-10; el PDF llegó por enlace de Google Drive).
+    **Restricción del usuario: ese enlace de Drive NO se expone al público** —
+    el repo y el sitio son públicos, así que el enlace de Drive no va como
+    `fuente.url` (ni en el JSON, ni en notas, ni en pantalla). Plan:
+    `investigador-datos` descarga el PDF a `data/raw/upid/`, calcula sha256 y
+    busca la **URL pública oficial** del mismo pensum en `upid.edu.do`
+    (patrón /wp-content/uploads/…); si esa URL no existe, se documenta el
+    origen Drive en `notas[]` sin la URL y se decide la `fuente.url` con el
+    usuario (nunca el enlace de Drive). Luego `curador-pensum` secuencial.
+    — Añadir como "UPID — Derecho" a la tabla de carreras al curar.
