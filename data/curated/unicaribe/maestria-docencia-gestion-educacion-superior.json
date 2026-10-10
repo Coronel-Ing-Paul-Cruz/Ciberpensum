@@ -1,0 +1,266 @@
+{
+  "carrera": "Maestría en Docencia y Gestión de la Educación Superior",
+  "slug": "maestria-docencia-gestion-educacion-superior",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2026-07",
+  "vigente": true,
+  "duracion": {
+    "periodos": 6,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 20,
+    "creditos": 58
+  },
+  "materias": [
+    {
+      "codigo": "MDGE-111",
+      "cuatrimestre": 1,
+      "nombre": "REALIDAD Y PERSPECTIVA DE LA EDUCACIÓN SUPERIOR",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-112",
+      "cuatrimestre": 1,
+      "nombre": "NEUROCIENCIA Y APRENDIZAJE",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-113",
+      "cuatrimestre": 1,
+      "nombre": "TECNOLOGÍA EDUCATIVA Y HERRAMIENTAS DIGITALES",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-114",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN EDUCATIVA",
+      "creditos": 4,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-121",
+      "cuatrimestre": 2,
+      "nombre": "DIDÁCTICA UNIVERSITARIA",
+      "creditos": 4,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-122",
+      "cuatrimestre": 2,
+      "nombre": "LIDERAZGO Y PRINCIPIOS ÉTICOS DEL DOCENTE UNIVERSITARIO",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-123",
+      "cuatrimestre": 2,
+      "nombre": "GERENCIA UNIVERSITARIA",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-124",
+      "cuatrimestre": 2,
+      "nombre": "METODOLOGÍA DE LA ENSEÑANZA EN EDUCACIÓN SUPERIOR",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-131",
+      "cuatrimestre": 3,
+      "nombre": "EVALUACIÓN Y MEDICIÓN DEL APRENDIZAJE",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-132",
+      "cuatrimestre": 3,
+      "nombre": "GESTIÓN DEL TALENTO HUMANO EN INSTITUCIONES EDUCATIVAS",
+      "creditos": 2,
+      "prerequisitos": [
+        "MDGE-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-133",
+      "cuatrimestre": 3,
+      "nombre": "GESTIÓN CURRICULAR",
+      "creditos": 3,
+      "prerequisitos": [
+        "MDGE-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-241",
+      "cuatrimestre": 4,
+      "nombre": "SUPERVISIÓN UNIVERSITARIA",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-242",
+      "cuatrimestre": 4,
+      "nombre": "EVALUACIÓN INSTITUCIONAL Y ACREDITACIÓN",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-243",
+      "cuatrimestre": 4,
+      "nombre": "PLANIFICACIÓN EDUCATIVA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MDGE-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-244",
+      "cuatrimestre": 4,
+      "nombre": "ESTADÍSTICA DESCRIPTIVA E INFERIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MDGE-114"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-251",
+      "cuatrimestre": 5,
+      "nombre": "INTERNACIONALIZACIÓN DE LA EDUCACIÓN SUPERIOR",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-252",
+      "cuatrimestre": 5,
+      "nombre": "GESTIÓN DE PROYECTOS EDUCATIVOS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MDGE-242"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-253",
+      "cuatrimestre": 5,
+      "nombre": "SEMINARIO TALLER",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-261",
+      "cuatrimestre": 6,
+      "nombre": "SEMINARIO INCLUSIÓN EN LA EDUCACIÓN SUPERIOR: ESTRATEGIAS Y PRÁCTICAS",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MDGE-262",
+      "cuatrimestre": 6,
+      "nombre": "TRABAJO FINAL DE INVESTIGACIÓN",
+      "creditos": 6,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "Curaduria del lote de maestrias de UNICARIBE (batch 3, 2026-10-10). Se curan 5 de las 6 carreras; la sexta (maestria-mercadeo-turistico) queda PENDIENTE por una errata de la fuente que no se puede resolver sin inventar (ver 'pendientes').",
+    "Reglas de postgrado: escala (base 100, aprobacion 70) y honores (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) se copian de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no menciona honores y su aplicabilidad a este nivel de postgrado queda NO VERIFICADO (honores = NO VERIFICADO).",
+    "Los PDF de estas maestrias traen columnas de horas (HT/HP/HI; maestria-comunicacion-politica-marketing-digital ademas HRS) que el schema actual no almacena; el valor guardado es el credito (CR).",
+    "Ninguno de estos PDF declara fecha ni version interna: el campo 'version' de cada JSON proviene de la ruta de la URL oficial (UNVERIFIABLE).",
+    "El PDF declara TOTAL DE ASIGNATURAS 20 y TOTAL GENERAL DE CREDITOS 58 (pagina 3); ambos coinciden con la suma de las 20 filas.",
+    "La descripcion de la pagina 2 menciona 'organizado en 56 creditos' (texto desactualizado del propio PDF); la tabla y su fila de TOTALES dicen 58. El PDF (tabla de totales) gana: 58.",
+    "MDGE-261 y MDGE-262 (sexto cuatrimestre) no fueron detectadas por el generador de borradores: MDGE-262 cierra con PRE-REQ 'TODAS' y el parser absorbio el pie de pagina. Se recuperan del texto de la p.3.",
+    "MDGE-261 trae el nombre partido en dos lineas del PDF ('SEMINARIO INCLUSION EN LA EDUCACION SUPERIOR:' + 'ESTRATEGIAS Y PRACTICAS'); se reconstruye de ambas.",
+    "MDGE-244 transcribe 'ESTADISTICA DESCRIPTIVA E INFERIAL' (errata de la fuente, se conserva literal)."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2026/07/2026_COD_00_MAESTRIA-EN-DOCENCIA-Y-GESTION-DE-LA-EDUCACION-SUPERIOR-1.pdf",
+    "sha256": "53b573475e167ca893cb11c175c62ecda696e9493b82ed5697d5b5d4c087e0c0",
+    "verificadoEn": "2026-10-08",
+    "archivo": "2026_COD_00_MAESTRIA-EN-DOCENCIA-Y-GESTION-DE-LA-EDUCACION-SUPERIOR-1.pdf"
+  }
+}

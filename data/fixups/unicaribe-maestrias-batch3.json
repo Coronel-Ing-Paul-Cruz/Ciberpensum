@@ -1,0 +1,114 @@
+{
+  "notas": [
+    "Curaduria del lote de maestrias de UNICARIBE (batch 3, 2026-10-10). Se curan 5 de las 6 carreras; la sexta (maestria-mercadeo-turistico) queda PENDIENTE por una errata de la fuente que no se puede resolver sin inventar (ver 'pendientes').",
+    "Reglas de postgrado: escala (base 100, aprobacion 70) y honores (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) se copian de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no menciona honores y su aplicabilidad a este nivel de postgrado queda NO VERIFICADO (honores = NO VERIFICADO).",
+    "Los PDF de estas maestrias traen columnas de horas (HT/HP/HI; maestria-comunicacion-politica-marketing-digital ademas HRS) que el schema actual no almacena; el valor guardado es el credito (CR).",
+    "Ninguno de estos PDF declara fecha ni version interna: el campo 'version' de cada JSON proviene de la ruta de la URL oficial (UNVERIFIABLE)."
+  ],
+  "carreras": [
+    {
+      "slug": "maestria-comunicacion-politica-marketing-digital",
+      "periodos": 5,
+      "tipoPeriodo": "cuatrimestre",
+      "totales": { "asignaturas": 17, "creditos": 54 },
+      "reemplazarMaterias": [
+        { "codigo": "MCP-111", "cuatrimestre": 1, "nombre": "EL CONTEXTO DE LA SOCIEDAD DE LA INFORMACIÓN", "creditos": 3, "prerequisitos": [], "requiereTodas": false },
+        { "codigo": "MCP-112", "cuatrimestre": 1, "nombre": "INFLUENCIA DE LOS MEDIOS EN LA COMUNICACIÓN POLÍTICA", "creditos": 3, "prerequisitos": ["MCP-111"], "requiereTodas": false },
+        { "codigo": "MCP-113", "cuatrimestre": 1, "nombre": "CIENCIAS POLÍTICAS", "creditos": 3, "prerequisitos": ["MCP-112"], "requiereTodas": false },
+        { "codigo": "MCP-114", "cuatrimestre": 1, "nombre": "LIDERAZGO Y CONDUCCIÓN POLÍTICA", "creditos": 3, "prerequisitos": ["MCP-113"], "requiereTodas": false },
+        { "codigo": "MCP-115", "cuatrimestre": 2, "nombre": "EL DISCURSO POLÍTICO: ANÁLISIS Y TÉCNICAS DISCURSIVAS", "creditos": 3, "prerequisitos": ["MCP-112"], "requiereTodas": false },
+        { "codigo": "MCP-116", "cuatrimestre": 2, "nombre": "DISEÑO DEL PLAN DE COMUNICACIÓN Y GESTIÓN DE CRISIS", "creditos": 3, "prerequisitos": ["MCP-112"], "requiereTodas": false },
+        { "codigo": "MCP-117", "cuatrimestre": 2, "nombre": "FUNDAMENTOS DE MARKETING, ORGANIZACIÓN Y PLANIFICACIÓN DIGITAL", "creditos": 3, "prerequisitos": [], "requiereTodas": false },
+        { "codigo": "MCP-118", "cuatrimestre": 2, "nombre": "ESTRATEGIA Y DISEÑO DEL PLAN DE MARKETING DIGITAL", "creditos": 3, "prerequisitos": [], "requiereTodas": false },
+        { "codigo": "MCP-119", "cuatrimestre": 3, "nombre": "FUNDAMENTOS DE CAMPAÑAS DIGITALES Y SEM", "creditos": 3, "prerequisitos": ["MCP-118"], "requiereTodas": false },
+        { "codigo": "MCP-120", "cuatrimestre": 3, "nombre": "TALLERES DE GOOGLE ADWORDS Y GOOGLE ANALYTICS", "creditos": 3, "prerequisitos": ["MCP-118"], "requiereTodas": false },
+        { "codigo": "MCP-121", "cuatrimestre": 3, "nombre": "REDES Y PODER: ACTORES POLÍTICOS, SOCIEDAD CIVIL Y OPINIÓN PÚBLICA", "creditos": 3, "prerequisitos": ["MCP-112"], "requiereTodas": false },
+        { "codigo": "MCP-122", "cuatrimestre": 3, "nombre": "PLANIFICACIÓN Y GESTIÓN DE CAMPAÑAS", "creditos": 3, "prerequisitos": ["MCP-112"], "requiereTodas": false },
+        { "codigo": "MCP-123", "cuatrimestre": 4, "nombre": "DIRECCIÓN DE COMUNICACIÓN ESTRATEGICA", "creditos": 3, "prerequisitos": ["MCP-118"], "requiereTodas": false },
+        { "codigo": "MCP-124", "cuatrimestre": 4, "nombre": "ORGANIZACIÓN DE EVENTOS POLÍTICOS Y DEBATES ELECTORALES", "creditos": 3, "prerequisitos": ["MCP-121"], "requiereTodas": false },
+        { "codigo": "MCP-125", "cuatrimestre": 4, "nombre": "CONSULTORÍA POLÍTICA Y HABILIDADES DE COMUNICACIÓN PARA PORTAVOCES", "creditos": 3, "prerequisitos": ["MCP-121"], "requiereTodas": false },
+        { "codigo": "MCP-126", "cuatrimestre": 4, "nombre": "TECNICAS DE INVESTIGACION", "creditos": 3, "prerequisitos": [], "requiereTodas": false },
+        { "codigo": "TFM-400", "cuatrimestre": 5, "nombre": "TRABAJO DE FIN DE MÁSTER", "creditos": 6, "prerequisitos": [], "requiereTodas": true, "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)" }
+      ],
+      "notas": [
+        "El extractor por coordenadas devolvio 0 filas para este PDF (la tabla del pensum no se reconocio como filas); los 17 renglones se leen del TEXTO de la pagina 3, bajo el encabezado 'NO. CLAVE NOMBRE CR HT HP HI HRS PRE-REQ.'. Los codigos MCP- y TFM-400 se reconstruyen de ahi (el borrador preliminar traia creditos absurdos de 60 y 90).",
+        "El PDF no imprime fila de TOTALES: 17 asignaturas / 54 creditos es la suma directa de las filas (16 materias de 3 CR + TFM-400 de 6 CR; el PDF imprime 'TFM-400 ... CR 6 0 0 270 270 TODAS').",
+        "MCP-117, MCP-121, MCP-124 y MCP-125 traen el nombre partido en dos lineas del PDF; se reconstruye de ambas.",
+        "La portada declara 'Duracion: 18 meses'; los 5 cuatrimestres son los bloques de la tabla, no una declaracion del PDF."
+      ]
+    },
+    {
+      "slug": "maestria-derecho-procesal",
+      "periodos": 6,
+      "tipoPeriodo": "cuatrimestre",
+      "totales": { "asignaturas": 23, "creditos": 53 },
+      "correcciones": [
+        { "codigo": "MPP-211", "campo": "cuatrimestre", "valor": 4 },
+        { "codigo": "MPP-213", "campo": "cuatrimestre", "valor": 4 },
+        { "codigo": "MPP-215", "campo": "cuatrimestre", "valor": 4 }
+      ],
+      "adiciones": [
+        { "codigo": "MPP-132", "cuatrimestre": 3, "nombre": "LA PRUEBA EN EL PROCESO PENAL", "creditos": 2, "prerequisitos": ["MPP-122"], "requiereTodas": false, "_despuesDe": "MPP-131" },
+        { "codigo": "MPP-214", "cuatrimestre": 4, "nombre": "DERECHO PENAL ECONÓMICO", "creditos": 2, "prerequisitos": ["MPP-113"], "requiereTodas": false, "_despuesDe": "MPP-213" },
+        { "codigo": "MPP-223", "cuatrimestre": 6, "nombre": "LA EJECUCIÓN PENAL", "creditos": 2, "prerequisitos": ["MPP-132"], "requiereTodas": false, "_despuesDe": "MPP-222" }
+      ],
+      "notas": [
+        "El PDF declara TOTAL DE CREDITOS 53 (pagina 2, cierre de la tabla): coincide con la suma de las 23 filas. El numero de asignaturas no se imprime; 23 es la cuenta de las filas.",
+        "MPP-132, MPP-214 y MPP-223 no fueron detectadas por el extractor por coordenadas: sus lineas van intercaladas con el texto lateral 'Perfil profesional' de la p.2. Se recuperan del texto de la pagina y cuadran con el TOTAL DE CREDITOS 53 (47 + 2 + 2 + 2 = 53). Sin MPP-132, el prerrequisito de MPP-222 (LOS RECURSOS) apuntaba a un codigo inexistente.",
+        "El generador de borradores asigno el cuatrimestre 3 a MPP-211, MPP-213 y MPP-215: la cabecera 'CUARTO CUATRIMESTRE' de la p.2 viene pegada al texto lateral ('Perfil profesional') y no se detecto como bloque. Se corrigen a cuatrimestre 4 (asi lo agrupa la tabla del PDF) para que el orden cuatrimestral sea el del pensum.",
+        "Las columnas del PDF son CLAVE ASIGNATURA HT HP HI CR PRERREQUISTO (horas antes que creditos): el credito es la CUARTA cifra tras el nombre."
+      ]
+    },
+    {
+      "slug": "maestria-docencia-gestion-educacion-superior",
+      "periodos": 6,
+      "tipoPeriodo": "cuatrimestre",
+      "totales": { "asignaturas": 20, "creditos": 58 },
+      "adiciones": [
+        { "codigo": "MDGE-261", "cuatrimestre": 6, "nombre": "SEMINARIO INCLUSIÓN EN LA EDUCACIÓN SUPERIOR: ESTRATEGIAS Y PRÁCTICAS", "creditos": 2, "prerequisitos": [], "requiereTodas": false, "_despuesDe": "MDGE-253" },
+        { "codigo": "MDGE-262", "cuatrimestre": 6, "nombre": "TRABAJO FINAL DE INVESTIGACIÓN", "creditos": 6, "prerequisitos": [], "requiereTodas": true, "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)", "_despuesDe": "MDGE-261" }
+      ],
+      "notas": [
+        "El PDF declara TOTAL DE ASIGNATURAS 20 y TOTAL GENERAL DE CREDITOS 58 (pagina 3); ambos coinciden con la suma de las 20 filas.",
+        "La descripcion de la pagina 2 menciona 'organizado en 56 creditos' (texto desactualizado del propio PDF); la tabla y su fila de TOTALES dicen 58. El PDF (tabla de totales) gana: 58.",
+        "MDGE-261 y MDGE-262 (sexto cuatrimestre) no fueron detectadas por el generador de borradores: MDGE-262 cierra con PRE-REQ 'TODAS' y el parser absorbio el pie de pagina. Se recuperan del texto de la p.3.",
+        "MDGE-261 trae el nombre partido en dos lineas del PDF ('SEMINARIO INCLUSION EN LA EDUCACION SUPERIOR:' + 'ESTRATEGIAS Y PRACTICAS'); se reconstruye de ambas.",
+        "MDGE-244 transcribe 'ESTADISTICA DESCRIPTIVA E INFERIAL' (errata de la fuente, se conserva literal)."
+      ]
+    },
+    {
+      "slug": "maestria-educacion-a-distancia",
+      "periodos": 5,
+      "tipoPeriodo": "cuatrimestre",
+      "totales": { "asignaturas": 17, "creditos": 49 },
+      "adiciones": [
+        { "codigo": "EDV-112", "cuatrimestre": 4, "nombre": "PRÁCTICA III: PLANIFICACIÓN Y GESTIÓN CURRICULAR EN EDUCACIÓN A DISTANCIA", "creditos": 3, "prerequisitos": ["EDV-106"], "requiereTodas": false, "_despuesDe": "EDV-111" },
+        { "codigo": "EDV-117", "cuatrimestre": 5, "nombre": "TESIS DE GRADO", "creditos": 3, "prerequisitos": [], "requiereTodas": true, "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)", "_despuesDe": "EDV-116" }
+      ],
+      "notas": [
+        "El PDF declara TOTAL DE ASIGNATURAS 17 y TOTAL GENERAL DE CREDITOS 49 (pagina 3); ambos coinciden con la suma de las 17 filas.",
+        "EDV-112 y EDV-117 no fueron detectadas por el generador de borradores: EDV-112 trae el nombre partido en dos lineas y EDV-117 cierra la tabla con PRE-REQ 'TODAS' (el parser absorbio el pie de pagina). Se recuperan del texto de la p.3; sin ellas el pensum quedaba en 15/43."
+      ]
+    },
+    {
+      "slug": "maestria-educacion-digital",
+      "periodos": 5,
+      "tipoPeriodo": "cuatrimestre",
+      "totales": { "asignaturas": 19, "creditos": 52 },
+      "adiciones": [
+        { "codigo": "TFM-400", "cuatrimestre": 5, "nombre": "TRABAJO DE FIN DE MÁSTER", "creditos": 6, "prerequisitos": [], "requiereTodas": true, "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)", "_despuesDe": "MED-222" }
+      ],
+      "notas": [
+        "El PDF declara TOTAL DE ASIGNATURAS 19 y TOTAL GENERAL DE CREDITOS 52 (pagina 3); ambos coinciden con la suma de las 19 filas.",
+        "TFM-400 (quinto cuatrimestre, 6 CR, PRE-REQ 'TODAS') es la ultima fila de la tabla y no fue detectada por el generador de borradores. Se recupera del texto de la p.3; sin ella el pensum quedaba en 18/46."
+      ]
+    }
+  ],
+  "pendientes": [
+    {
+      "slug": "maestria-mercadeo-turistico",
+      "motivo": "El PDF (pagina 3) imprime en la columna PRE-REQ de MMT-223 (RRPP, COMUNICACION Y PROMOCION TURISTICA, 5to cuatrimestre) el codigo 'MMT-203', que NO existe en la carrera. Confirmado en los dos layers de extraccion (por coordenadas y por texto). El resto del pensum cierra: 16 asignaturas / 51 creditos, igual que los TOTALES impresos. No se cura todavia para no inventar el prerrequisito: el codigo mas proximo posible seria MMT-213 (Gestion de la experiencia del turista), pero la fuente no lo confirma. Requiere confirmacion de la universidad (postgrado@unicaribe.edu.do).",
+      "codigos_implicados": ["MMT-223", "MMT-203"]
+    }
+  ]
+}

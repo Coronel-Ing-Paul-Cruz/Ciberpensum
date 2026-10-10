@@ -69,6 +69,11 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | UNICARIBE | Especialidad en Habilitación Docente: Matemáticas para el Nivel Secundario (`especialidad-matematicas-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
 | UNICARIBE | Especialidad en Habilitación Docente: Orientación para el Nivel Secundario (`especialidad-orientacion-secundaria`, postgrado) | 2024-11 | 2026-10-10 | PASS |
 | UNICARIBE | Especialidad en Protección Radiológica (`especialidad-proteccion-radiologica`, postgrado) | 2025-09 | 2026-10-10 | PASS |
+| UNICARIBE | Maestría en Comunicación Política y Marketing Digital (`maestria-comunicacion-politica-marketing-digital`, postgrado) | 2024-10 | 2026-10-10 | PASS |
+| UNICARIBE | Maestría en Derecho Procesal (`maestria-derecho-procesal`, postgrado) | 2024-10 | 2026-10-10 | PASS |
+| UNICARIBE | Maestría en Docencia y Gestión de la Educación Superior (`maestria-docencia-gestion-educacion-superior`, postgrado) | 2026-07 | 2026-10-10 | PASS |
+| UNICARIBE | Maestría en Educación a Distancia (`maestria-educacion-a-distancia`, postgrado) | 2026-07 | 2026-10-10 | PASS |
+| UNICARIBE | Maestría en Educación Digital (`maestria-educacion-digital`, postgrado) | 2025-09 | 2026-10-10 | PASS |
 
 Vacía = ninguna carrera publicada todavía. Si añades un JSON a
 `data/curated/<uni>/<slug>.json`, esta tabla tiene que crecer o el gate falla.
@@ -451,6 +456,29 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   del pensum no menciona honores y su aplicabilidad a estos niveles de postgrado
   queda **NO VERIFICADO** (consta en `notas[]` de cada JSON).
   `node tools-cli/check-pensum.mjs` = PASS en los 5. (curador-pensum)
+
+- **2026-10-10** — **Curaduría UNICARIBE — lote de 5 maestrías (batch 3) entra al
+  gate.** `curador-pensum` curó cinco programas de `grado: postgrado` con el
+  pipeline draft→validación. Detalle:
+  - `maestria-comunicacion-politica-marketing-digital` — 17/54, 5 cuatrimestres.
+    URL /2024/10/25_01_2023_master-en-comunicacion.pdf, sha256 en el JSON.
+  - `maestria-derecho-procesal` — 23/53, 6 cuatrimestres. URL
+    /2024/10/Maestria-derecho-procesal_compressed.pdf, sha256 `cab41073…`.
+  - `maestria-docencia-gestion-educacion-superior` — 20/58, 6 cuatrimestres.
+    URL /2026/07/2026_COD_00_MAESTRIA-EN-DOCENCIA-Y-GESTION-DE-LA-EDUCACION-SUPERIOR-1.pdf.
+  - `maestria-educacion-a-distancia` — 17/49, 5 cuatrimestres. URL
+    /2026/07/2026_COD_MAESTRIA_EN_EDUCACION_A_DISTANCIA-1-1.pdf.
+  - `maestria-educacion-digital` — 19/52, 5 cuatrimestres. URL
+    /2025/09/ES_Pensum_Maestria_en_Educacion_Digital-1.pdf.
+  Notas comunes (en `data/fixups/unicaribe-maestrias-batch3.json`): escala y
+  honores de la plantilla institucional (Reglamento Estudiantil, sha256
+  `25be4df4…`) con honores **NO VERIFICADO** para postgrado (el PDF del pensum
+  no los menciona); los PDF traen columnas HT/HP/HI (y HRS en una) que el schema
+  actual no almacena (solo CR); ninguno declara versión interna → `version`
+  proviene de la ruta de la URL oficial (**UNVERIFIABLE**). Sexta maestría del
+  lote (`maestria-mercadeo-turistico`) **NO se cura**: el PDF imprime PREREQ
+  `MMT-203`, código inexistente en la malla (errata de la fuente; sin inventar
+  la corrección, el gate la rechazaría). (curador-pensum)
 
 ## Próximos pasos
 

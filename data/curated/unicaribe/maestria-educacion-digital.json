@@ -1,0 +1,273 @@
+{
+  "carrera": "Maestría en Educación Digital",
+  "slug": "maestria-educacion-digital",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2025-09",
+  "vigente": true,
+  "duracion": {
+    "periodos": 5,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 19,
+    "creditos": 52
+  },
+  "materias": [
+    {
+      "codigo": "MED-111",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-112",
+      "cuatrimestre": 1,
+      "nombre": "FUNDAMENTOS DE EDUCACIÓN DIGITAL",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-113",
+      "cuatrimestre": 1,
+      "nombre": "GESTIÓN DE PROYECTOS EN TECNOLOGÍA EDUCATIVA",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-114",
+      "cuatrimestre": 1,
+      "nombre": "TECNOLOGÍA DIGITAL PARA LA EVALUACIÓN DEL APRENDIZAJE",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-121",
+      "cuatrimestre": 2,
+      "nombre": "PEDAGOGIA Y LAS TICS",
+      "creditos": 2,
+      "prerequisitos": [
+        "MED-114"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-122",
+      "cuatrimestre": 2,
+      "nombre": "COMPETENCIAS DIGITALES PARA DOCENTES",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-123",
+      "cuatrimestre": 2,
+      "nombre": "PRUEBAS Y MEDICIONES",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-124",
+      "cuatrimestre": 2,
+      "nombre": "PRACTICA I: DISEÑO Y DESARROLLO DE RECURSOS EDUCATIVOS DIGITALES",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-131",
+      "cuatrimestre": 3,
+      "nombre": "BIG DATA EN EDUCACIÓN",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-132",
+      "cuatrimestre": 3,
+      "nombre": "TENDENCIAS EN LA TECNOLOGÍA EDUCATIVA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-133",
+      "cuatrimestre": 3,
+      "nombre": "INTRODUCCIÓN A LA INTELIGENCIA ARTIFICIAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-134",
+      "cuatrimestre": 3,
+      "nombre": "PRACTICA II: APLICACIONES DE LA INTELIGENCIA ARTIFICIAL EN LA EDUCACIÓN",
+      "creditos": 2,
+      "prerequisitos": [
+        "MED-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-211",
+      "cuatrimestre": 4,
+      "nombre": "DIRECCIÓN DE PROYECTOS TIC",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-212",
+      "cuatrimestre": 4,
+      "nombre": "TEORIA CURRICULAR",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-213",
+      "cuatrimestre": 4,
+      "nombre": "DISEÑO DE ENTORNOS DE APRENDIZAJE DIGITALES",
+      "creditos": 2,
+      "prerequisitos": [
+        "MED-114"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-214",
+      "cuatrimestre": 4,
+      "nombre": "PRACTICA III: TRANSFORMACIÓN DIGITAL",
+      "creditos": 3,
+      "prerequisitos": [
+        "MED-131"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-221",
+      "cuatrimestre": 5,
+      "nombre": "ADMINISTRACIÓN Y LIDERAZGO EN TECNOLOGÍA EDUCATIVA",
+      "creditos": 2,
+      "prerequisitos": [
+        "MED-123"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MED-222",
+      "cuatrimestre": 5,
+      "nombre": "TENDENCIAS GLOBALES EN TECNOLOGÍA",
+      "creditos": 2,
+      "prerequisitos": [
+        "MED-214"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "TFM-400",
+      "cuatrimestre": 5,
+      "nombre": "TRABAJO DE FIN DE MÁSTER",
+      "creditos": 6,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "Curaduria del lote de maestrias de UNICARIBE (batch 3, 2026-10-10). Se curan 5 de las 6 carreras; la sexta (maestria-mercadeo-turistico) queda PENDIENTE por una errata de la fuente que no se puede resolver sin inventar (ver 'pendientes').",
+    "Reglas de postgrado: escala (base 100, aprobacion 70) y honores (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) se copian de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no menciona honores y su aplicabilidad a este nivel de postgrado queda NO VERIFICADO (honores = NO VERIFICADO).",
+    "Los PDF de estas maestrias traen columnas de horas (HT/HP/HI; maestria-comunicacion-politica-marketing-digital ademas HRS) que el schema actual no almacena; el valor guardado es el credito (CR).",
+    "Ninguno de estos PDF declara fecha ni version interna: el campo 'version' de cada JSON proviene de la ruta de la URL oficial (UNVERIFIABLE).",
+    "El PDF declara TOTAL DE ASIGNATURAS 19 y TOTAL GENERAL DE CREDITOS 52 (pagina 3); ambos coinciden con la suma de las 19 filas.",
+    "TFM-400 (quinto cuatrimestre, 6 CR, PRE-REQ 'TODAS') es la ultima fila de la tabla y no fue detectada por el generador de borradores. Se recupera del texto de la p.3; sin ella el pensum quedaba en 18/46."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2025/09/ES_Pensum_Maestria_en_Educacion_Digital-1.pdf",
+    "sha256": "4c590749989cf2ef9c65756da74641022c99542c40f6c3bff5f0af8117fc5860",
+    "verificadoEn": "2026-10-08",
+    "archivo": "ES_Pensum_Maestria_en_Educacion_Digital-1.pdf"
+  }
+}

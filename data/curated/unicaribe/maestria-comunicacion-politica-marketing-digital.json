@@ -1,0 +1,255 @@
+{
+  "carrera": "Maestría en Comunicación Política y Marketing Digital",
+  "slug": "maestria-comunicacion-politica-marketing-digital",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2024-10",
+  "vigente": true,
+  "duracion": {
+    "periodos": 5,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 17,
+    "creditos": 54
+  },
+  "materias": [
+    {
+      "codigo": "MCP-111",
+      "cuatrimestre": 1,
+      "nombre": "EL CONTEXTO DE LA SOCIEDAD DE LA INFORMACIÓN",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-112",
+      "cuatrimestre": 1,
+      "nombre": "INFLUENCIA DE LOS MEDIOS EN LA COMUNICACIÓN POLÍTICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-111"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-113",
+      "cuatrimestre": 1,
+      "nombre": "CIENCIAS POLÍTICAS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-114",
+      "cuatrimestre": 1,
+      "nombre": "LIDERAZGO Y CONDUCCIÓN POLÍTICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-113"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-115",
+      "cuatrimestre": 2,
+      "nombre": "EL DISCURSO POLÍTICO: ANÁLISIS Y TÉCNICAS DISCURSIVAS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-116",
+      "cuatrimestre": 2,
+      "nombre": "DISEÑO DEL PLAN DE COMUNICACIÓN Y GESTIÓN DE CRISIS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-117",
+      "cuatrimestre": 2,
+      "nombre": "FUNDAMENTOS DE MARKETING, ORGANIZACIÓN Y PLANIFICACIÓN DIGITAL",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-118",
+      "cuatrimestre": 2,
+      "nombre": "ESTRATEGIA Y DISEÑO DEL PLAN DE MARKETING DIGITAL",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-119",
+      "cuatrimestre": 3,
+      "nombre": "FUNDAMENTOS DE CAMPAÑAS DIGITALES Y SEM",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-118"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-120",
+      "cuatrimestre": 3,
+      "nombre": "TALLERES DE GOOGLE ADWORDS Y GOOGLE ANALYTICS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-118"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-121",
+      "cuatrimestre": 3,
+      "nombre": "REDES Y PODER: ACTORES POLÍTICOS, SOCIEDAD CIVIL Y OPINIÓN PÚBLICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-122",
+      "cuatrimestre": 3,
+      "nombre": "PLANIFICACIÓN Y GESTIÓN DE CAMPAÑAS",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-112"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-123",
+      "cuatrimestre": 4,
+      "nombre": "DIRECCIÓN DE COMUNICACIÓN ESTRATEGICA",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-118"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-124",
+      "cuatrimestre": 4,
+      "nombre": "ORGANIZACIÓN DE EVENTOS POLÍTICOS Y DEBATES ELECTORALES",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-125",
+      "cuatrimestre": 4,
+      "nombre": "CONSULTORÍA POLÍTICA Y HABILIDADES DE COMUNICACIÓN PARA PORTAVOCES",
+      "creditos": 3,
+      "prerequisitos": [
+        "MCP-121"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "MCP-126",
+      "cuatrimestre": 4,
+      "nombre": "TECNICAS DE INVESTIGACION",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "TFM-400",
+      "cuatrimestre": 5,
+      "nombre": "TRABAJO DE FIN DE MÁSTER",
+      "creditos": 6,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "Curaduria del lote de maestrias de UNICARIBE (batch 3, 2026-10-10). Se curan 5 de las 6 carreras; la sexta (maestria-mercadeo-turistico) queda PENDIENTE por una errata de la fuente que no se puede resolver sin inventar (ver 'pendientes').",
+    "Reglas de postgrado: escala (base 100, aprobacion 70) y honores (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) se copian de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no menciona honores y su aplicabilidad a este nivel de postgrado queda NO VERIFICADO (honores = NO VERIFICADO).",
+    "Los PDF de estas maestrias traen columnas de horas (HT/HP/HI; maestria-comunicacion-politica-marketing-digital ademas HRS) que el schema actual no almacena; el valor guardado es el credito (CR).",
+    "Ninguno de estos PDF declara fecha ni version interna: el campo 'version' de cada JSON proviene de la ruta de la URL oficial (UNVERIFIABLE).",
+    "El extractor por coordenadas devolvio 0 filas para este PDF (la tabla del pensum no se reconocio como filas); los 17 renglones se leen del TEXTO de la pagina 3, bajo el encabezado 'NO. CLAVE NOMBRE CR HT HP HI HRS PRE-REQ.'. Los codigos MCP- y TFM-400 se reconstruyen de ahi (el borrador preliminar traia creditos absurdos de 60 y 90).",
+    "El PDF no imprime fila de TOTALES: 17 asignaturas / 54 creditos es la suma directa de las filas (16 materias de 3 CR + TFM-400 de 6 CR; el PDF imprime 'TFM-400 ... CR 6 0 0 270 270 TODAS').",
+    "MCP-117, MCP-121, MCP-124 y MCP-125 traen el nombre partido en dos lineas del PDF; se reconstruye de ambas.",
+    "La portada declara 'Duracion: 18 meses'; los 5 cuatrimestres son los bloques de la tabla, no una declaracion del PDF."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2024/10/25_01_2023_master-en-comunicacion.pdf",
+    "sha256": "95a7624e31473d386276bb2d0bbc42b4b3938f2f6bf49067f4587f6781c7d388",
+    "verificadoEn": "2026-10-08",
+    "archivo": "25_01_2023_master-en-comunicacion.pdf"
+  }
+}

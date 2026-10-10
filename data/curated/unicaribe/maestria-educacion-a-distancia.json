@@ -1,0 +1,247 @@
+{
+  "carrera": "Maestría en Educación a Distancia",
+  "slug": "maestria-educacion-a-distancia",
+  "universidad": {
+    "id": "unicaribe",
+    "nombre": "Universidad del Caribe"
+  },
+  "grado": "postgrado",
+  "version": "2026-07",
+  "vigente": true,
+  "duracion": {
+    "periodos": 5,
+    "tipoPeriodo": "cuatrimestre"
+  },
+  "totales": {
+    "asignaturas": 17,
+    "creditos": 49
+  },
+  "materias": [
+    {
+      "codigo": "EDV-101",
+      "cuatrimestre": 1,
+      "nombre": "METODOLOGÍA DE LA INVESTIGACIÓN",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-102",
+      "cuatrimestre": 1,
+      "nombre": "EVOLUCIÓN HISTÓRICA DE LA EDUCACIÓN A DISTANCIA",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-103",
+      "cuatrimestre": 1,
+      "nombre": "DIDÁCTICA DE LA EDUCACIÓN A DISTANCIA, RETOS Y DESAFÍOS",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-104",
+      "cuatrimestre": 1,
+      "nombre": "ADMINISTRACIÓN Y GESTIÓN DE LA EDUCACIÓN A DISTANCIA",
+      "creditos": 2,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-105",
+      "cuatrimestre": 2,
+      "nombre": "TRANSFORMACIÓN Y DESARROLLO TECNOLÓGICO",
+      "creditos": 2,
+      "prerequisitos": [
+        "EDV-104"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-106",
+      "cuatrimestre": 2,
+      "nombre": "SISTEMA DE GESTIÓN DE CALIDAD EN EDUCACIÓN A DISTANCIA",
+      "creditos": 4,
+      "prerequisitos": [
+        "EDV-103"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-107",
+      "cuatrimestre": 2,
+      "nombre": "PRÁCTICA I: METODOLOGÍAS EDUCATIVAS EMERGENTES",
+      "creditos": 3,
+      "prerequisitos": [
+        "EDV-102"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-108",
+      "cuatrimestre": 3,
+      "nombre": "LA EVALUACIÓN EDUCATIVA EN LA MODALIDAD A DISTANCIA",
+      "creditos": 3,
+      "prerequisitos": [
+        "EDV-106"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-109",
+      "cuatrimestre": 3,
+      "nombre": "PRÁCTICA II: GESTIÓN DE PLATAFORMAS EDUCATIVAS LMS",
+      "creditos": 2,
+      "prerequisitos": [
+        "EDV-107"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-110",
+      "cuatrimestre": 3,
+      "nombre": "ECONOMÍA Y FINANCIAMIENTO DE LA EDUCACIÓN A DISTANCIA",
+      "creditos": 3,
+      "prerequisitos": [
+        "EDV-107"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-111",
+      "cuatrimestre": 3,
+      "nombre": "INTELIGENCIA ARTIFICIAL",
+      "creditos": 4,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-112",
+      "cuatrimestre": 4,
+      "nombre": "PRÁCTICA III: PLANIFICACIÓN Y GESTIÓN CURRICULAR EN EDUCACIÓN A DISTANCIA",
+      "creditos": 3,
+      "prerequisitos": [
+        "EDV-106"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-113",
+      "cuatrimestre": 4,
+      "nombre": "FUNCIONES DE ENSEÑANZAS VIRTUALES",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-114",
+      "cuatrimestre": 4,
+      "nombre": "EL SISTEMA TUTORIAL",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-115",
+      "cuatrimestre": 4,
+      "nombre": "GESTIÓN ADMINISTRATIVAS EN UN DEPARTAMENTO DE ELEARNING",
+      "creditos": 3,
+      "prerequisitos": [
+        "EDV-110"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-116",
+      "cuatrimestre": 5,
+      "nombre": "SEMINARIO DE TESIS",
+      "creditos": 2,
+      "prerequisitos": [
+        "EDV-101"
+      ],
+      "requiereTodas": false
+    },
+    {
+      "codigo": "EDV-117",
+      "cuatrimestre": 5,
+      "nombre": "TESIS DE GRADO",
+      "creditos": 3,
+      "prerequisitos": [],
+      "requiereTodas": true,
+      "observaciones": "PRE-REQ del PDF: TODAS (todas las asignaturas previas)"
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 100,
+      "minimo": 70,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "no-verificado"
+    },
+    "honores": [
+      {
+        "grado": "cum-laude",
+        "min": 85,
+        "max": 89,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "magna-cum-laude",
+        "min": 90,
+        "max": 94,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      },
+      {
+        "grado": "summa-cum-laude",
+        "min": 95,
+        "max": 100,
+        "fuente": {
+          "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+          "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+          "verificadoEn": "2026-10-05",
+          "archivo": "Reglamento-Estudiantil-1.pdf"
+        }
+      }
+    ],
+    "requisitosHonores": {
+      "sinReprobaciones": true,
+      "exclusiones": [
+        "separacion temporal (Art. 89, excepcion b)",
+        "sancion disciplinaria (Art. 89, excepcion c)"
+      ]
+    },
+    "fuente": {
+      "url": "https://unicaribe.edu.do/wp-content/uploads/2024/11/Reglamento-Estudiantil-1.pdf",
+      "sha256": "25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd",
+      "verificadoEn": "2026-10-05",
+      "archivo": "Reglamento-Estudiantil-1.pdf"
+    }
+  },
+  "notas": [
+    "Curaduria del lote de maestrias de UNICARIBE (batch 3, 2026-10-10). Se curan 5 de las 6 carreras; la sexta (maestria-mercadeo-turistico) queda PENDIENTE por una errata de la fuente que no se puede resolver sin inventar (ver 'pendientes').",
+    "Reglas de postgrado: escala (base 100, aprobacion 70) y honores (cum-laude 85-89, magna-cum-laude 90-94, summa-cum-laude 95-100) se copian de la plantilla institucional de UNICARIBE (Reglamento Estudiantil, sha256 25be4df46cc38f4254844a301c5904b886bcd6e69e2900c507141561aa8410bd); el PDF del pensum no menciona honores y su aplicabilidad a este nivel de postgrado queda NO VERIFICADO (honores = NO VERIFICADO).",
+    "Los PDF de estas maestrias traen columnas de horas (HT/HP/HI; maestria-comunicacion-politica-marketing-digital ademas HRS) que el schema actual no almacena; el valor guardado es el credito (CR).",
+    "Ninguno de estos PDF declara fecha ni version interna: el campo 'version' de cada JSON proviene de la ruta de la URL oficial (UNVERIFIABLE).",
+    "El PDF declara TOTAL DE ASIGNATURAS 17 y TOTAL GENERAL DE CREDITOS 49 (pagina 3); ambos coinciden con la suma de las 17 filas.",
+    "EDV-112 y EDV-117 no fueron detectadas por el generador de borradores: EDV-112 trae el nombre partido en dos lineas y EDV-117 cierra la tabla con PRE-REQ 'TODAS' (el parser absorbio el pie de pagina). Se recuperan del texto de la p.3; sin ellas el pensum quedaba en 15/43."
+  ],
+  "fuente": {
+    "url": "https://unicaribe.edu.do/wp-content/uploads/2026/07/2026_COD_MAESTRIA_EN_EDUCACION_A_DISTANCIA-1-1.pdf",
+    "sha256": "b555a8dd2e213f54a518579f8bb7c319ec560dc735e7059e2bcdb2479e271129",
+    "verificadoEn": "2026-10-08",
+    "archivo": "2026_COD_MAESTRIA_EN_EDUCACION_A_DISTANCIA-1-1.pdf"
+  }
+}
