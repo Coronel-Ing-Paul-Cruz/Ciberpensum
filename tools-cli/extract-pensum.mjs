@@ -87,6 +87,10 @@ const resultado = {
   paginas: paginas.length,
   filas: filas,
   bloquesPorPagina: maxBloquePorPagina,
+  // Texto completo por pagina (y descendente, x ascendente): el curador valida
+  // totales impresos y encabezados de periodo SIN releer el PDF crudo
+  // (leccion de APRENDIZAJES.md: contexto corto, extraction mecanica).
+  textos: paginas.map((p) => ({ pagina: p.pagina, texto: p.texto })),
 }
 
 const salida = out ?? join(ROOT, "data", "interim", basename(pdf).replace(/\.pdf$/i, "") + ".rows.json")
