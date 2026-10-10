@@ -14,7 +14,7 @@ import {
   GUIAS, HERRAMIENTAS, SITIO_URL,
   render404, renderCarrera, renderGuia, renderGuias, renderHerramienta,
   renderIndiceHerramienta, renderHerramientas, renderHome, renderPrivacidad,
-  renderTerminos, renderUniversidad, renderUniversidades,
+  renderRedireccion, renderTerminos, renderUniversidad, renderUniversidades,
   rutasDelSitio,
 } from "../site/paginas.mjs"
 
@@ -65,18 +65,13 @@ await build({
   logLevel: "warning",
 })
 
-// 4.5. Datos para el widget global: indice + una copia por carrera.
+// 4.5. Datos para el widget global: una copia por carrera.
 // Son los mismos JSON curados (sin reordenar) y van precacheados en el SW
-// para que la barra de progreso funcione sin conexion.
+// para que la barra de progreso funcione sin conexion. Cada herramienta carga
+// el suyo por `data-pensum` (no hay indice: un index.json aqui era codigo
+// muerto — nada lo leia; auditoria 2026-10-10).
 const dirDatos = join(DIST, "datos")
 mkdirSync(dirDatos, { recursive: true })
-const indiceDatos = carreras.map((c) => ({
-  universidadId: c.universidad.id,
-  slug: c.slug,
-  carrera: c.carrera,
-  universidad: c.universidad.nombre,
-}))
-writeFileSync(join(dirDatos, "index.json"), JSON.stringify(indiceDatos))
 for (const c of carreras) {
   const d = join(dirDatos, c.universidad.id)
   mkdirSync(d, { recursive: true })
@@ -169,6 +164,46 @@ for (const h of HERRAMIENTAS) {
     const d2 = join(d, `${c.universidad.id}-${c.slug}`)
     mkdirSync(d2, { recursive: true })
     writeFileSync(join(d2, "index.html"), renderHerramienta(h, c, 3))
+  }
+}
+// Herramientas fusionadas (2026-10-10): sus URLs viejas siguen respondiendo con
+// una redireccion estatica al destino. Implementado por slugs retirados para no
+// dejar enlaces muertos en sitemaps viejos ni en enlaces guardados.
+const REDIRECCIONES = {
+  "nota-minima": {
+    destino: "indice",
+    destinoTitulo: "Índice y nota mínima",
+    origenTitulo: "Nota mínima",
+  },
+}
+for (const [slugViejo, r] of Object.entries(REDIRECCIONES)) {
+  const dirViejo = join(DIST, "herramientas", slugViejo)
+  mkdirSync(dirViejo, { recursive: true })
+  // Indice de la herramienta vieja -> indice de la herramienta nueva.
+  writeFileSync(
+    join(dirViejo, "index.html"),
+    renderRedireccion({
+      destinoRel: `../${r.destino}/index.html`,
+      canonical: `${SITIO_URL}/herramientas/${r.destino}/`,
+      rutaAssets: "../../assets",
+      origenTitulo: r.origenTitulo,
+      destinoTitulo: r.destinoTitulo,
+    }),
+  )
+  for (const c of carreras) {
+    const d2 = join(dirViejo, `${c.universidad.id}-${c.slug}`)
+    mkdirSync(d2, { recursive: true })
+    const rel = `../../${r.destino}/${c.universidad.id}-${c.slug}/index.html`
+    writeFileSync(
+      join(d2, "index.html"),
+      renderRedireccion({
+        destinoRel: rel,
+        canonical: `${SITIO_URL}/herramientas/${r.destino}/${c.universidad.id}-${c.slug}/`,
+        rutaAssets: "../../../assets",
+        origenTitulo: r.origenTitulo,
+        destinoTitulo: r.destinoTitulo,
+      }),
+    )
   }
 }
 mkdirSync(join(DIST, "guias"), { recursive: true })

@@ -11,7 +11,7 @@ import {
  * GitHub Pages. Cuando se registre el dominio propio, cambiar aqui y rebuild. */
 export const SITIO_URL = "https://coronel-ing-paul-cruz.github.io/Ciberpensum"
 
-/** Metadatos de las 6 herramientas. El orden es el de la pagina de herramientas. */
+/** Metadatos de las herramientas. El orden es el de la pagina de herramientas. */
 export const HERRAMIENTAS = [
   {
     slug: "progreso",
@@ -22,9 +22,9 @@ export const HERRAMIENTAS = [
   },
   {
     slug: "indice",
-    titulo: "Índice académico",
-    resumen: "Calcula tu índice ponderado por créditos y compáralo con las distinciones del reglamento.",
-    descripcion: "Índice acumulado ponderado por créditos y distinciones académicas con su fuente.",
+    titulo: "Índice y nota mínima",
+    resumen: "Tu índice ponderado por créditos, las distinciones del reglamento y la nota que necesitas para llegar a un objetivo.",
+    descripcion: "Índice acumulado ponderado por créditos, distinciones académicas y nota mínima para alcanzar un índice objetivo.",
     tema: "índice y nota",
   },
   {
@@ -33,13 +33,6 @@ export const HERRAMIENTAS = [
     resumen: "Qué puedes inscribir hoy según tus aprobadas, y por qué algo sigue bloqueado.",
     descripcion: "Materias disponibles por prerrequisitos y motivos de bloqueo uno a uno.",
     tema: "progreso",
-  },
-  {
-    slug: "nota-minima",
-    titulo: "Nota mínima",
-    resumen: "¿Qué nota necesitas en la próxima materia para alcanzar un índice objetivo?",
-    descripcion: "Cálculo de la nota necesaria (ponderada) para llegar a un índice objetivo.",
-    tema: "índice y nota",
   },
   {
     slug: "plan-carga",
@@ -253,7 +246,7 @@ ${c.notas.map((n) => avisoNoVerificado(n)).join("\n")}
     <h2>Prueba las herramientas con esta carrera</h2>
     <div class="rejilla">
       <a class="tarjeta" href="${base}herramientas/progreso/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Cuaderno de progreso</h3><p>Empieza marcando tus materias aprobadas.</p></a>
-      <a class="tarjeta" href="${base}herramientas/indice/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Índice académico</h3><p>Calcula tu índice y compáralo con las distinciones.</p></a>
+      <a class="tarjeta" href="${base}herramientas/indice/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Índice y nota mínima</h3><p>Calcula tu índice, compáralo con las distinciones y mira la nota que te falta.</p></a>
       <a class="tarjeta" href="${base}herramientas/progresion/${esc(c.universidad.id)}-${esc(c.slug)}/index.html"><h3>Progresión</h3><p>Qué puedes inscribir hoy.</p></a>
     </div>
   </section>
@@ -309,13 +302,13 @@ export function renderHerramientas() {
   const contenido = `
   <h1>Herramientas</h1>
   <p>Calculadoras y visores que trabajan sobre el progreso que guardas en tu navegador. Sin cuentas y sin servidor: nada sale de tu equipo salvo lo que tú exportes.</p>
-  <h2>Las seis herramientas</h2>
+  <h2>Las cinco herramientas</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`
   return pagina({
     titulo: "Herramientas",
-    descripcion: "Seis herramientas de planificación académica que funcionan sin cuentas ni servidor.",
+    descripcion: "Cinco herramientas de planificación académica que funcionan sin cuentas ni servidor.",
     contenido,
     rutaAssets: rutaAssets(1),
     seccion: "herramientas",
@@ -333,20 +326,20 @@ const CONTENIDO_SIN_JS = {
   indice: (c) => `
     <p>Índice acumulado = promedio de notas <strong>ponderado por créditos</strong>. Mételo tu nota por materia y el índice se recalcula en vivo.</p>
     <h2>Distinciones (${esc(c.universidad.nombre)})</h2>
-    ${tablaHonores(c.reglas)}
-    ${c.reglas.escala.formaIndice === "no-verificado" ? avisoNoVerificado("La fórmula del índice no está documentada en el reglamento; se usa el promedio ponderado por créditos (estándar) y se marca.") : ""}`,
+    ${(c.reglas.honores ?? []).length
+      ? tablaHonores(c.reglas)
+      : avisoNoVerificado("El reglamento no documenta de forma verificable las bandas de distinción de esta carrera; no se muestran valores concretos (NO VERIFICADO).")}
+    ${c.reglas.escala.formaIndice === "no-verificado" ? avisoNoVerificado("La fórmula del índice no está documentada en el reglamento; se usa el promedio ponderado por créditos (estándar) y se marca.") : ""}
+    <h2>Nota mínima para un objetivo</h2>
+    <p>Dado tu índice actual y los créditos que te faltan, calcula el promedio que necesitas en lo que falta, y la nota exacta de la próxima materia, para alcanzar un índice objetivo.</p>
+    <ul>
+      <li>Escala: ${c.reglas.escala.minimo}–${c.reglas.escala.maximo} · aprobación en ${c.reglas.escala.aprobacion}.</li>
+      <li>${c.totales.creditos} créditos en total.</li>
+    </ul>`,
   progresion: (c) => `
     <p>Con tus aprobadas, esta herramienta lista qué puedes inscribir ahora y los motivos de bloqueo de cada materia que aún no, una por una (prerrequisito pendiente, «desde cuatrimestre», «exige TODAS las anteriores»).</p>
     <h2>Malla con prerrequisitos</h2>
     ${tablaMaterias(c)}`,
-  "nota-minima": (c) => `
-    <p>Dado tu índice actual y los créditos que te faltan, calcula el promedio que necesitas en lo que falta, y la nota exacta de la próxima materia, para alcanzar un índice objetivo.</p>
-    <h2>Datos de la escala</h2>
-    <ul>
-      <li>Escala: ${c.reglas.escala.minimo}–${c.reglas.escala.maximo} · aprobación en ${c.reglas.escala.aprobacion}.</li>
-      <li>${c.totales.creditos} créditos en total.</li>
-    </ul>
-    ${c.reglas.escala.formaIndice === "no-verificado" ? avisoNoVerificado("Cálculo sobre promedio ponderado por créditos; la fórmula exacta no está documentada (NO VERIFICADO).") : ""}`,
   "plan-carga": (c) => `
     <p>Créditos por cuatrimestre del plan, cuántos llevas y qué materias conviene inscribir primero (las que más destraban), ajustado a tu capacidad de créditos.</p>
     <h2>Créditos por cuatrimestre (plan oficial)</h2>
@@ -374,7 +367,6 @@ var FUNCION_POR_SLUG = {
   progreso: (h, c, base) => CONTENIDO_SIN_JS.progreso(c),
   indice: (h, c, base) => CONTENIDO_SIN_JS.indice(c),
   progresion: (h, c, base) => CONTENIDO_SIN_JS.progresion(c),
-  "nota-minima": (h, c, base) => CONTENIDO_SIN_JS["nota-minima"](c),
   "plan-carga": (h, c, base) => CONTENIDO_SIN_JS["plan-carga"](c),
   portabilidad: (h, c, base) => CONTENIDO_SIN_JS.portabilidad(c),
 }
@@ -485,6 +477,34 @@ ${sinJs}
 }
 
 /* ----------------------------------------------------------------- GUIAS */
+/**
+ * Pagina de redireccion estatica (2026-10-10). La herramienta «Nota mínima» se
+ * fusiono en «Índice y nota mínima»: se conservan las URLs viejas
+ * /herramientas/nota-minima/... con un <meta http-equiv="refresh"> (funciona
+ * sin JS). noindex + canonical al destino para que los buscadores consoliden.
+ */
+export function renderRedireccion({ destinoRel, canonical, rutaAssets, origenTitulo, destinoTitulo }) {
+  return `<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redirigiendo — Ciberpensum</title>
+  <meta http-equiv="refresh" content="0; url=${esc(destinoRel)}">
+  <link rel="canonical" href="${esc(canonical)}">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="${esc(rutaAssets)}/css/site.css">
+</head>
+<body>
+<main>
+  <h1>Esta herramienta se movió</h1>
+  <p>«${esc(origenTitulo)}» ahora forma parte de <a href="${esc(destinoRel)}">${esc(destinoTitulo)}</a>.</p>
+</main>
+</body>
+</html>
+`
+}
+
 export const GUIAS = [
   {
     slug: "indice-academico",
@@ -524,7 +544,7 @@ const CUERPO_GUIAS = {
     <p class="al-centro"><code>índice = Σ(nota × créditos) ÷ Σ(créditos)</code></p>
     <p>Una materia de 4 créditos pesa el doble que una de 2, lo que evita que una materia pequeña con nota altísima maquille el promedio.</p>
     ${avisoNoVerificado("La fórmula del índice de UNICARIBE no aparece de forma explícita en el Reglamento Estudiantil (Art. 72 fija la escala 0–100; el Art. 76 menciona una escala 0–4 que choca con la anterior). El sitio usa la ponderación estándar y la marca por todas partes.")}
-    <p>Dónde verlo: herramienta <a href="../herramientas/indice/index.html">Índice académico</a>.</p>`,
+    <p>Dónde verlo: herramienta <a href="../herramientas/indice/index.html">Índice y nota mínima</a>.</p>`,
   "honores-y-distinciones": `
     <p>El Reglamento Estudiantil de UNICARIBE (Art. 89) fija las distinciones por banda de índice, sobre la escala de 100:</p>
     <div class="tabla-contenedor"><table>
@@ -542,7 +562,7 @@ const CUERPO_GUIAS = {
     <p>Caso especial de UNICARIBE en esta carrera: las <strong>electivas</strong> no tienen prerrequisito con código; el PDF dice «7MO. CUAT.» y «9NO. CUAT.» en esa columna. Ciberpensum las marca como <em>desde el 7.º cuatrimestre</em>.</p>
     <p>El <strong>proyecto integrador</strong> (INC-600) exige literalmente «TODAS» las anteriores: no termina la carrera sin aprobar el resto.</p>`,
   "objetivo-de-indice": `
-    <p>La herramienta <a href="../herramientas/nota-minima/index.html">Nota mínima</a> responde: «si hoy tengo índice X con C créditos, ¿qué promedio necesito en los siguientes P créditos para llegar a Y?»</p>
+    <p>La herramienta <a href="../herramientas/indice/index.html">Índice y nota mínima</a> responde: «si hoy tengo índice X con C créditos, ¿qué promedio necesito en los siguientes P créditos para llegar a Y?»</p>
     <p>La fórmula es la inversa de la del índice:</p>
     <p class="al-centro"><code>necesario = (Y×(C+P) − X×C) ÷ P</code></p>
     <p>Dos detalles que importan:</p>
