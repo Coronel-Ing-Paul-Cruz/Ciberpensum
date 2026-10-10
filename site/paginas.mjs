@@ -170,17 +170,41 @@ ${tarjetas}
 export function renderUniversidad(uniId, carreras) {
   const deUni = carreras.filter((c) => c.universidad.id === uniId)
   const nombre = deUni[0]?.universidad.nombre ?? uniId
-  const tarjetas = deUni.map((c) => `<a class="tarjeta" href="../../carreras/${esc(c.universidad.id)}/${esc(c.slug)}/index.html">
+  // Agrupar por nivel con el campo `grado` del JSON curado. Con 16 carreras en
+  // una sola rejilla se mezclaban grados, especialidades y maestrías y el nivel
+  // no se distinguía de un vistazo. Orden: grado, postgrado y, si algún día
+  // aparece otro valor, alfabético al final (nunca se descarta una carrera).
+  const ORDEN_GRADO = ["grado", "postgrado"]
+  const etiquetaGrado = (g) =>
+    g === "grado" ? "Grado" : g === "postgrado" ? "Postgrado" : g.charAt(0).toUpperCase() + g.slice(1)
+  const grupos = new Map()
+  for (const c of deUni) {
+    const g = c.grado ?? "otro"
+    if (!grupos.has(g)) grupos.set(g, [])
+    grupos.get(g).push(c)
+  }
+  const claves = [...grupos.keys()].sort((a, b) => {
+    const ia = ORDEN_GRADO.indexOf(a)
+    const ib = ORDEN_GRADO.indexOf(b)
+    return (ia < 0 ? ORDEN_GRADO.length : ia) - (ib < 0 ? ORDEN_GRADO.length : ib) || a.localeCompare(b)
+  })
+  const secciones = claves
+    .map((g) => {
+      const lista = grupos.get(g)
+      const tarjetas = lista.map((c) => `<a class="tarjeta" href="../../carreras/${esc(c.universidad.id)}/${esc(c.slug)}/index.html">
     <h3>${esc(c.carrera)}</h3>
     <p>${c.totales.asignaturas} asignaturas · ${c.totales.creditos} créditos · ${c.duracion.periodos} ${esc(c.duracion.tipoPeriodo)}s ${c.vigente ? badge("vigente") : badge("histórica", "aviso")}</p>
   </a>`).join("\n")
-  const contenido = `
-  <h1>${esc(nombre)}</h1>
-  <p>Carreras curadas a partir de los documentos oficiales de ${esc(nombre)}.</p>
-  <h2>Carreras curadas</h2>
+      return `  <h2>${etiquetaGrado(g)} · ${lista.length} carrera${lista.length === 1 ? "" : "s"}</h2>
   <div class="rejilla">
 ${tarjetas}
   </div>`
+    })
+    .join("\n\n")
+  const contenido = `
+  <h1>${esc(nombre)}</h1>
+  <p>Carreras curadas a partir de los documentos oficiales de ${esc(nombre)}.</p>
+${secciones}`
   return pagina({
     titulo: `${nombre} — Universidades`,
     descripcion: `Carreras curadas de ${nombre}.`,

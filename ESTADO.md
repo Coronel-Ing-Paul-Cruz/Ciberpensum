@@ -555,6 +555,21 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   audite la lógica de navegación. Recomendaciones accionadas a `## Próximos
   pasos` (#19). Registro en `APRENDIZAJES.md` no aplica: no hubo bug.
 
+- **2026-10-10 — Aplicación del plan de tooling y auditoría de navegación.**
+  Con el «procede con el plan», se aplicaron las acciones reversibles de #19 y
+  #17 y se descartó lo que la evidencia no justificaba. Detalle en
+  `EVALUACION-HERRAMIENTAS.md §7` y `AUDITORIA-NAVEGACION.md`. En corto: el lock
+  pasa de 20 a 25 skills (más `find-skills`, `brainstorming`, `writing-plans`,
+  `systematic-debugging`, `diagnosing-bugs`); `sdd-workspace` al día con
+  upstream; creada la skill propia `navegacion-sitio`. **Modelo de agente: NO se
+  fija**, por instrucción del usuario («que use el LLM predeterminado en el
+  momento») y porque el de la sesión ya es gratuito (fijarlo solo añadiría
+  fragilidad). **`html-validate` NO entra al gate**: con las 4 reglas de estilo
+  silenciadas da 0 problemas sobre el `dist` actual; sería una dependencia de
+  `devDependencies` sin atrapar un fallo hoy (criterio: "solo lo que atrape un
+  fallo real"). Corrección de navegación real: la página de universidad agrupa
+  las carreras por `grado` (Grado/Postgrado) en vez de una rejilla plana de 16.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -701,6 +716,15 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     "navigation-audit"); (b) aplicar el análisis a la navegación actual
     (nav principal, selector de herramientas por carrera, migas, barra global,
     enlace #p=); (c) mejorar UI/UX de navegación con lo que salga.
+    — **hecho el 2026-10-10**: (a) ninguna skill upstream audita navegación →
+    creada la propia `.agents/skills/navegacion-sitio/SKILL.md` (metodología:
+    mapa del sitio, checklist por capa, salida con evidencia y severidad);
+    (b/c) auditoría en `AUDITORIA-NAVEGACION.md` (155 HTML, 150 URLs, grafo de
+    enlaces): sin defectos materiales; único hallazgo de fondo **corregido** —
+    `renderUniversidad` volcaba las carreras en una rejilla plana y ahora las
+    agrupa por el campo `grado` (UNICARIBE: Grado 1 + Postgrado 15; UPID: 1+1;
+    UTESA: Grado 1). Se mantiene `aria-current="true"` en el nav (sección) vs
+    `"page"` en migas (página) por ser atributos de relación distinta.
 18. **Evaluar la posibilidad de implementar un framework web** (pedido del
     usuario, 2026-10-10): el sitemap ya emite 170+ URLs (19 carreras × 6
     herramientas) y la decisión 2026-10-05 dice "revisar Astro si el sitio
@@ -724,4 +748,16 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     `html-validate` y `@axe-core/playwright` al gate; (f) opcional, probar
     `chrome-devtools-mcp` para trazas de CWV de `auditor-seo`. No se aplicó
     ningún cambio de skills/MCP todavía: primero la evaluación.
-    — hecho el 2026-10-10: informe entregado; changes de tooling sin aplicar.
+    — **evaluación hecha el 2026-10-10** (informe en `EVALUACION-HERRAMIENTAS.md`).
+    — **aplicado el 2026-10-10** (el usuario dijo "procede con el plan"): (b)
+    `find-skills` instalada (desde `vercel-labs/skills`, no `agent-skills`); (c)
+    `sdd-workspace` sincronizado con upstream (9+/4-); (d) instaladas
+    `brainstorming`, `writing-plans`, `systematic-debugging` (obra) y
+    `diagnosing-bugs` (mattpocock) → el lock pasa de 20 a 25 skills; (e) skill
+    propia `navegacion-sitio` (ver #17). **NO aplicado** y por qué: (a) no se
+    fija `model` — instrucción explícita del usuario («que use el LLM
+    predeterminado en el momento») y el modelo de sesión ya es gratuito, así que
+    el supuesto de coste no se cumple; (e) `html-validate` **evaluado, no
+    añadido**: con 4 reglas de estilo silenciadas da 0 problemas sobre los 155
+    HTML (solo añadiría una dependencia sin atrapar un fallo actual); (f)
+    `chrome-devtools-mcp` no añadido (Playwright ya cubre el navegador real).

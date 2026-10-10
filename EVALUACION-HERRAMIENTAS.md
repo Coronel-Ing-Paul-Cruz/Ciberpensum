@@ -206,3 +206,54 @@ escape.
 
 Mediciones propias (2026-10-10): `npx skills list`, comparación `git blob` por
 archivo contra `raw.githubusercontent.com/<repo>/HEAD/...` para las 20 skills.
+
+---
+
+## 7. Aplicado (2026-10-10)
+
+Tras esta evaluación el usuario dijo «procede con el plan». Resultado, punto por
+punto, con lo aplicado y lo que se decidió **no** aplicar.
+
+### Aplicado
+
+- **+5 skills instaladas** (lock pasa de 20 a 25):
+  - `find-skills` — `vercel-labs/skills` (el repo del propio CLI). Descubrir e
+    instalar skills desde el ecosistema. Nota: **no** está en
+    `vercel-labs/agent-skills` (ahí no existe); se instaló desde `vercel-labs/skills`.
+  - `brainstorming`, `writing-plans`, `systematic-debugging` — `obra/superpowers`.
+  - `diagnosing-bugs` — `mattpocock/skills`.
+- **`sdd-workspace` sincronizado** con upstream (`obra/superpowers` HEAD):
+  recupera el arreglo de rutas para Windows/Git Bash y el `.gitignore`
+  create-only. 9 inserciones, 4 borrados. Es el único drift real que había.
+- **Skill propia `navegacion-sitio`** creada en
+  `.agents/skills/navegacion-sitio/SKILL.md` (no existía upstream). Audita
+  arquitectura de información y navegación: global/local/utility, migas, enlaces,
+  URLs, foco y comportamiento sin JS, con salida por severidad y evidencia.
+- **Hallazgo de navegación corregido**: `renderUniversidad` volcaba todas las
+  carreras bajo un solo `<h2>`; ahora agrupa por el campo `grado` del JSON
+  (Grado → Postgrado). Ver `AUDITORIA-NAVEGACION.md`. UNICARIBE pasó de una
+  rejilla de 16 sin jerarquía a `Grado · 1` + `Postgrado · 15`.
+
+### Evaluado y NO aplicado
+
+- **Fijar `model` por agente: descartado.** El modelo de la sesión
+  (`opencode/big-pickle`) ya es gratuito, así que el supuesto de coste de la
+  propuesta 1 no se cumple. Además, fijarlo añadiría fragilidad (el agente deja
+  de seguir el predeterminado) y no se puede verificar la calidad de ninguna
+  alternativa. Instrucción explícita del usuario (2026-10-10): «que use el LLM
+  predeterminado en el momento». Los 7 agentes siguen sin `model`.
+- **`html-validate` en el gate: evaluado, no añadido.** Con
+  `html-validate:recommended` da **418 avisos**, pero todos son preferencias de
+  estilo configurables (DOCTYPE en mayúsculas, `prefer-native-element`,
+  `long-title`, espacios finales), no HTML inválido. Con esas 4 reglas
+  silenciadas: **0 problemas, exit 0** sobre los 155 HTML. Añadirlo introduciría
+  una dependencia de `devDependencies` para no atrapar ningún fallo actual
+  (criterio de la propuesta: solo entra lo que atrape un fallo real que hoy se
+  escape). Queda como opción si se quiere blindar la regla 6 a futuro.
+- **`chrome-devtools-mcp`: evaluado, no añadido.** Playwright ya cubre la
+  verificación en navegador real; uno más solo si hiciera falta depurar red/CPU.
+
+### Verificación
+
+`npm run gate` → **4/4 PASS**, 202 tests. `npm run build` → 19 carreras,
+5 herramientas, 6 guías, 150 URLs, 0 enlaces rotos.
