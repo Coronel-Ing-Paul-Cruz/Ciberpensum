@@ -627,3 +627,22 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     origen Drive en `notas[]` sin la URL y se decide la `fuente.url` con el
     usuario (nunca el enlace de Drive). Luego `curador-pensum` secuencial.
     — Añadir como "UPID — Derecho" a la tabla de carreras al curar.
+17. **Investigación/creación de una skill o herramienta que analice la lógica
+    de navegación de la web + mejora de navegación y UI/UX** (pedido del
+    usuario, 2026-10-10, llegó con la simplificación del cuaderno ya en marcha
+    — regla 13): (a) revisar si existe una skill/herramienta que audite la
+    lógica de navegación (arquitectura de la información, flujos, migas,
+    teclado, foco, jerarquía de enlaces) — hoy hay skills de a11y, SEO y
+    web-design-guidelines, pero ninguna específica de navegación → si no
+    existe, crearla con `skill-creator` (ejs. nombre "navegacion-sitio" o
+    "navigation-audit"); (b) aplicar el análisis a la navegación actual
+    (nav principal, selector de herramientas por carrera, migas, barra global,
+    enlace #p=); (c) mejorar UI/UX de navegación con lo que salga.
+18. **Evaluar la posibilidad de implementar un framework web** (pedido del
+    usuario, 2026-10-10): el sitemap ya emite 170+ URLs (19 carreras × 6
+    herramientas) y la decisión 2026-10-05 dice "revisar Astro si el sitio
+    pasa de ~50 a cientos de páginas programáticas" → análisis honesto de
+    Astro (content collections + validación) vs SSG propio actual vs otros,
+    con evidencia (número real de páginas, tiempo de build, control del gate
+    en el HTML), antes de tocar nada. Es análisis + propuesta, no migración
+    a ciegas.
