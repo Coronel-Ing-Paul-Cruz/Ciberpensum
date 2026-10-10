@@ -294,3 +294,34 @@ El gate vigila que este fichero exista y tenga secciones.
   su informe debe incluir el diff de X contra HEAD, no un diff de muestra.
 - Fuentes: `git status --short` y `git diff --stat` propios (2026-10-08);
   comparación de reglas.fuente en disco contra el informe del agente.
+
+## 2026-10-10 - Un subagente terminó "sin respuesta de texto" (revisor-a11y)
+- Síntoma: al validar la fusión índice/nota-mínima, `revisor-a11y` terminó con
+  "Subagent completed without a text response." DOS veces (una sesión nueva y la
+  continuación de esa misma sesión). Una sesión NUEVA, invocada después con un
+  prompt más corto y el requisito explícito de responder en texto, entregó el
+  informe completo (0 ALTA, 3 MEDIA, inspección + axe real). El diagnóstico no
+  era del repo: el gate corría PASS en paralelo.
+- Causa raíz: `TaskTool` serializa `result.parts.findLast(text)?.text ?? ""`, así
+  que cuando el subagente no emite una parte de texto —mensaje final vacío,
+  sólo tool/reasoning parts, o un error de proveedor degradado— la sesión madre
+  recibe un `<task_result>` vacío sin distinguir "terminó sin texto" de "falló".
+  Continuar una sesión que ya quedó en ese estado no la recupera: hay que abrir
+  una nueva. (Las causas upstream probables: hijo con run asistente vacío y
+  errores de proveedor que no llegan a la madre.)
+- Fix aplicado: re-invocación con sesión NUEVA y prompt que exige salida en
+  texto ("Entrega SIEMPRE un texto…; responde en texto plano"). No se tocó
+  ningún archivo del repo por esto.
+- Prevención: cuando un subagente devuelva "sin respuesta de texto", NO
+  continuar esa sesión: abrir una nueva, acortar el prompt y pedir
+  explícitamente un informe en texto; si vuelve a pasar, tratarlo como
+  incidencia del arnés (no del repo) y anotarlo aquí. Para trabajo crítico,
+  preferir un verificador que pegue salida de comandos (no sólo prosa).
+- Fuentes:
+  - https://github.com/anomalyco/opencode/issues/24447 (TaskTool sin
+    diagnóstico cuando el resultado del subagente no tiene parte de texto;
+    cerrado sin plan por inactividad el 2026-07-26; cita #21250 y #5204)
+  - https://github.com/anomalyco/opencode/issues/21250 (run asistente vacío que
+    deja colgada a la madre)
+  - https://github.com/anomalyco/opencode/issues/5204 (errores del proveedor en
+    un subagente que no llegan al padre)

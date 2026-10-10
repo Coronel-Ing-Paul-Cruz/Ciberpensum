@@ -45,7 +45,7 @@ Que reviso, en este orden:
 2. **Contraste** — texto 4.5:1 minimo, texto grande 3:1. Sobre el color real de fondo, no sobre el token teorico.
 3. **Nombres accesibles** — cada control tiene nombre. Un boton con solo icono necesita `aria-label`. Un `div` con click necesita su rol y su teclado.
 4. **Estructura y landmarks** — un `h1` por pagina, jerarquia de encabezados sin saltos, `main` presente, `lang` correcto.
-5. **Estado anunciado** — el resultado de una calculadora no puede vivir solo en un `div`Updated: un studento de lector de pantalla no oye nada.
+5. **Estado anunciado** — el resultado de una calculadora no puede vivir solo en un `div`: un usuario de lector de pantalla no oye nada.
 6. **Formularios** — etiqueta asociada a su campo, error asociado y descrito, no solo por color.
 7. **Grafo de prerrequisitos** — como es SVG: lleva `role="img"`, `title`/`desc`, y su contenido critico es tambien texto seleccionable. Un SVG sin alternativa es inaccesible.
 8. **Sin JS** — la pagina debe seguir siendo util con el JS bloqueado.
@@ -58,4 +58,6 @@ Severidad:
 
 Salida: `severidad | archivo:línea | qué falla | a quéWCAG 2.2 (criterio y nombre) | corrección concreta`.
 
-No inventes un criterio WCAG. Si no sabes el numero exacto del criterio, di "criterio no verificado" en vez de__.__
+No inventes un criterio WCAG. Si no sabes el numero exacto del criterio, di "criterio no verificado" en vez del numero.
+
+Responde SIEMPRE con un informe en texto. Si no hay hallazgos, escribe "sin hallazgos" explícitamente; nunca termines sin mensaje de texto (un subagente que no emite texto deja al padre sin diagnóstico — ver APRENDIZAJES.md, 2026-10-10).

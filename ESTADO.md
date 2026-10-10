@@ -498,6 +498,43 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   carrera en los 3 puntos de entrada. 62 tests de portabilidad en verde.
   (flujo E2E con Playwright sobre serve local, salida real pegada)
 
+- **2026-10-10** — **Simplificación del cuaderno y la web (cola #15) implementada y
+  verificada.** (A) Cuaderno: la columna "Cuat." sale de `tablaMaterias`
+  (`site/layout.mjs`; la fila separadora de periodo ya lo indica; `colspan` 5→4)
+  y "Aprobada"/"En curso" se funden en una sola columna **Estatus** en letra,
+  con el ciclo reordenado a **sin estado → aprobada → en curso → sin estado**
+  (`siguienteEstadoAlClic` en `core/progresion`, tests reescritos); el resumen
+  del cuaderno pierde el texto de escala. Verificado en navegador real: el clic
+  produce `"" → "Aprobada" (nota 70) → "En curso" (sin nota) → ""`; columnas
+  `Código | Asignatura | Cr | PRE-REQ | Estatus | Nota`; resumen
+  "0 de 56 aprobadas · 0 créditos · índice 0.00 · 0 en curso". Commit `911e9f5`.
+  (B) Web: `dist/datos/index.json` era artefacto muerto
+  (nada lo leía; el widget carga por `data-pensum`) y se elimina de
+  `tools-cli/build.mjs`; **`nota-minima` se fusiona dentro de `indice`** (5
+  herramientas en vez de 6): una página con dos secciones ("Tu índice actual" y
+  "Nota mínima"), conservando `core/nota-minima` puro; las URLs viejas
+  `/herramientas/nota-minima/...` se conservan con una **redirección estática**
+  (`renderRedireccion`: meta refresh + `noindex` + canonical al destino) porque
+  el sitemap las publicaba. Verificado: la URL vieja redirige a `indice`;
+  herramientas = 5; sitemap 150 URLs sin `nota-minima`; build
+  "19 carreras, 5 herramientas, 6 guías, 150 URLs, 0 enlaces rotos". Commit
+  `9e7839d`. (C) Arreglos de accesibilidad que destapó `revisor-a11y` sobre la
+  página fusionada (0 ALTA, 3 MEDIA): **M1** — la calculadora trataba un campo
+  vacío como 0 (`Number("") === 0`), lo que hacía inalcanzable el aviso "falta
+  un dato" y anunciaba un resultado falso; ahora se mira el valor crudo,
+  `aria-invalid` y el mensaje sale por la región `aria-live` (3.3.1). **M2** —
+  con `reglas.honores: []` (p. ej. UPID Contabilidad) se pintaba una tabla de
+  distinciones vacía: ahora va un aviso **NO VERIFICADO** (regla 8). **B1** — la
+  tabla "Detalle del cálculo" con 0 aprobadas ya no queda con cabeceras sin
+  filas. **B2** — los `input nm-*` llevan `aria-describedby` a su ayuda y
+  `min`/`max` 0–100 en los campos de índice. Re-verificado por `revisor-a11y`:
+  los 4 puntos RESUELTOS, axe 0 violaciones / 0 incompletos. La M3 (los números
+  calculados no se ven sin JS) es inherente: viven en `localStorage`, que exige
+  JS; el contenido estático explica el concepto. `verificador` independiente:
+  **PASS** (gate 4/4, 202 tests). Nota regla 12: dos intentos de `revisor-a11y`
+  (sesión nueva + su continuación) terminaron sin texto; una sesión nueva
+  posterior entregó el informe completo — incidencia del arnés, no del repo.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`
@@ -616,6 +653,12 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     adicionales del análisis: eliminar `dist/datos/index.json` (muerto: el
     widget carga por `data-pensum`); revisar solapamiento índice/nota-minima;
     indicador de scroll horizontal y cabeceras sticky (ver #12/#13).
+    — **hecho el 2026-10-10** (commits `911e9f5` y `9e7839d`): A (cuaderno:
+    Estatus único, sin Cuat., sin texto de escala), B (index.json fuera y
+    nota-minima fusionada en indice con redirecciones), B3 (vocabulario Estatus)
+    y arreglos a11y M1/M2/B1/B2. Detalle y evidencia en Decisiones. Pendiente de
+    esta cola: la mejora opcional #12/#13 (indicador de scroll / sticky), que
+    sigue abierta porque no era un criterio incumplido.
 16. **Agregar el pensum de Derecho a la oferta de UPID** (pedido del usuario,
     2026-10-10; el PDF llegó por enlace de Google Drive).
     **Restricción del usuario: ese enlace de Drive NO se expone al público** —
@@ -646,3 +689,5 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
     con evidencia (número real de páginas, tiempo de build, control del gate
     en el HTML), antes de tocar nada. Es análisis + propuesta, no migración
     a ciegas.
+    — actualizado 2026-10-10: tras fusionar nota-minima el sitemap emite **150**
+    URLs (no 170+), con 5 herramientas.

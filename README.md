@@ -17,18 +17,19 @@ En República Dominicana cada universidad publica su pensum en PDF, con su propi
 escala de notas y su reglamento. Ciberpensum convierte esos PDFs oficiales en
 herramientas útiles por carrera:
 
-- **Cuaderno de progreso** — marca tus materias aprobadas y mira cuánto te falta.
-- **Índice académico** — calcula tu índice ponderado y compáralo con las
-  distinciones (escala de honores de cada universidad).
-- **Progresión** — qué puedes inscribir hoy según pre- y co-requisitos.
-- **Nota mínima** — qué promedio necesitas en los próximos créditos para llegar
-  a una meta.
+- **Cuaderno de progreso** — marca cada materia como aprobada (con nota) o en
+  curso; mira cuánto te falta.
+- **Índice y nota mínima** — calcula tu índice ponderado, compáralo con las
+  distinciones y averigua qué promedio necesitas para llegar a una meta.
+- **Progresión** — qué puedes inscribir hoy según los prerrequisitos.
+- **Plan de carga** — organiza las materias por cuatrimestre.
+- **Guardar y compartir** — exporta/importa tu progreso y genera un enlace
+  `#p=…` sin servidor.
 
 ## Carreras curadas
 
-| Universidad | Carrera | Estado |
-|---|---|---|
-| UTESA | Ingeniería en Sistemas Computacionales | ✅ curada (PDF oficial verificado) |
+19 pensums curados de UNICARIBE (16), UPID (2) y UTESA (1): grado y postgrado.
+La tabla viva está en [`ESTADO.md`](ESTADO.md#carreras-curadas).
 
 Cada pensum en `data/curated/` trae `fuente.url`, `sha256` y `verificadoEn`. Si
 un dato no está confirmado contra el PDF oficial, la página lo muestra marcado
