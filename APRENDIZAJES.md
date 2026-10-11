@@ -325,3 +325,30 @@ El gate vigila que este fichero exista y tenga secciones.
     deja colgada a la madre)
   - https://github.com/anomalyco/opencode/issues/5204 (errores del proveedor en
     un subagente que no llegan al padre)
+
+## 2026-10-10 - Dos comandos git en paralelo: index.lock y commit con mensaje ajeno
+- Síntoma: al guardar varios cambios disparé DOS llamadas shell en la misma
+  respuesta, cada una con `git add` + `git commit`. Salida real:
+  `fatal: Unable to create '.../{.git}/index.lock': File exists. Another git
+  process seems to be running in this repository`. Resultado cruzado: el commit
+  `59abece` quedó con el mensaje `feat(ui): sombras de scroll y columna fija en
+  tablas` pero su contenido era el PDF de evidencia
+  (`data/raw/upid/pensum-maestria-neuroeducacion.pdf`), y `ui/componentes.css`
+  seguía sin commitear (`git status`: ` M ui/componentes.css`).
+- Causa raíz: git prohíbe escrituras concurrentes al índice con un lockfile
+  (`.git/index.lock`). El primer proceso lo crea; el segundo falla al crearlo...
+  pero su `git add` ya había metido el PDF en el índice, así que el `git commit`
+  del primero commiteó ESE contenido con SU propio mensaje. No fue un bug de
+  git: fue lanzar git en paralelo.
+- Fix aplicado: mensaje corregido con `git commit --amend` (commit local, no
+  pusheado; amend NO está en la lista de denegados: solo `--force`,
+  `reset --hard`, `clean -fdx`, `rebase`) → `6d6ced6`, y commit separado para
+  `ui/componentes.css` → `a62aefa`.
+- Prevención: **NUNCA** ejecutar comandos git en paralelo (ni en la misma
+  respuesta, ni entre agentes ni llamadas concurrentes). Serializar todo `git`.
+  Antes de commitear, `git status --short` para confirmar exactamente qué quedó
+  staged; si el mensaje y el contenido no cuadran, parar.
+- Fuentes:
+  - mensaje de git copiado en el Síntoma (lockfile del índice);
+  - https://stackoverflow.com/questions/7860751 (el lock `index.lock` y su
+    manejo cuando "otro proceso git" corre en el repo).
