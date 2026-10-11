@@ -1,0 +1,241 @@
+{
+  "carrera": "Maestría en Neuroeducación y Neuroaprendizaje Aplicados",
+  "slug": "maestria-neuroeducacion",
+  "universidad": {
+    "id": "upid",
+    "nombre": "Universidad Psicología Industrial Dominicana"
+  },
+  "grado": "postgrado",
+  "version": "sin-fecha",
+  "vigente": true,
+  "duracion": {
+    "periodos": 6,
+    "tipoPeriodo": "periodo"
+  },
+  "totales": {
+    "asignaturas": 23,
+    "creditos": 60
+  },
+  "materias": [
+    {
+      "codigo": "MEA-112",
+      "nombre": "ETICA Y LIDERAZGO DEL NEUROEDUCADOR",
+      "creditos": 1,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MNP-111",
+      "nombre": "NEUROCIENCIAS APLICADAS A LA EDUCACION",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MNP-112",
+      "nombre": "INTERVENCION NEUROEDUCATIVA",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MPA-111",
+      "nombre": "SOCIEDAD, FAMILIA Y EDUCACION",
+      "creditos": 2,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MPA-112",
+      "nombre": "PSICOLOGIA DEL DESARROLLO",
+      "creditos": 3,
+      "cuatrimestre": 1,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MEA-123",
+      "nombre": "TEORIAS Y MODELOS DEL APRENDIZAJE",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MNP-121",
+      "nombre": "NEUROPSICOLOGIA DEL APRENDIZAJE",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MNP-122",
+      "nombre": "ENTREVISTA Y CONSEJERIA PSICOPEDAGOGICA",
+      "creditos": 2,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MNP-112"
+      ]
+    },
+    {
+      "codigo": "MPA-121",
+      "nombre": "PSICOPATOLOGIA INFANTO-JUVENIL",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MPA-112"
+      ]
+    },
+    {
+      "codigo": "MPA-122",
+      "nombre": "TRASTORNOS DEL APRENDIZAJE Y CONDUCTA",
+      "creditos": 3,
+      "cuatrimestre": 2,
+      "prerequisitos": [
+        "MPA-112"
+      ]
+    },
+    {
+      "codigo": "MNP-131",
+      "nombre": "INSTRUMENTOS DE EVALUACION PSICOPEDAGOGICA",
+      "creditos": 5,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MPA-122"
+      ]
+    },
+    {
+      "codigo": "MNP-132",
+      "nombre": "PRUEBAS NEUROPSICOLOGICAS DEL APRENDIZAJE",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MPA-122"
+      ]
+    },
+    {
+      "codigo": "MNP-133",
+      "nombre": "EVALUACION Y PSICODIAGNOSTICO INTEGRAL",
+      "creditos": 2,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MNP-122"
+      ]
+    },
+    {
+      "codigo": "MNP-241",
+      "nombre": "TERAPIA DEL APRENDIZAJE",
+      "creditos": 4,
+      "cuatrimestre": 3,
+      "prerequisitos": [
+        "MPA-122"
+      ]
+    },
+    {
+      "codigo": "MEA-211",
+      "nombre": "EDUCACION INCLUSIVA Y ATENCION A LA DIVERSIDAD",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MPA-122"
+      ]
+    },
+    {
+      "codigo": "MNP-242",
+      "nombre": "SEMINARIO DE LOGOPEDIA",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MPA-122"
+      ]
+    },
+    {
+      "codigo": "MPA-131",
+      "nombre": "T. VALORACION / MANEJO PSICOJUR. PROBL. INFANTO-JUVENIL",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MPA-243",
+      "nombre": "INTERVENCION EN CRISIS",
+      "creditos": 2,
+      "cuatrimestre": 4,
+      "prerequisitos": [
+        "MPA-121"
+      ]
+    },
+    {
+      "codigo": "MEA-251",
+      "nombre": "TALLER DE TECNICAS DE INVESTIGACION EDUCATIVA",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MPA-251",
+      "nombre": "TERAPIA DE CONDUCTA",
+      "creditos": 4,
+      "cuatrimestre": 5,
+      "prerequisitos": [
+        "MNP-133"
+      ]
+    },
+    {
+      "codigo": "MPA-252",
+      "nombre": "TALLER DE CONSEJERIA DE ADICCIONES",
+      "creditos": 2,
+      "cuatrimestre": 5,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MPP-252",
+      "nombre": "PASANTIA",
+      "creditos": 0,
+      "cuatrimestre": 6,
+      "prerequisitos": []
+    },
+    {
+      "codigo": "MTF-220",
+      "nombre": "TRABAJO FINAL",
+      "creditos": 5,
+      "cuatrimestre": 6,
+      "prerequisitos": []
+    }
+  ],
+  "reglas": {
+    "escala": {
+      "base": 4,
+      "minimo": 0,
+      "maximo": 100,
+      "aprobacion": 70,
+      "formaIndice": "ponderado-por-creditos"
+    },
+    "honores": [],
+    "fuente": {
+      "url": "https://upid.edu.do/wp-content/uploads/2023/01/6-REGLAMENTO-ACADEMICO.pdf",
+      "sha256": "58f12077f9b316295844bbcefd20a0f3d7af119e7673dadff75990fd7ba5eb30",
+      "verificadoEn": "2026-10-07",
+      "archivo": "reglamento-academico.pdf"
+    }
+  },
+  "notas": [
+    "Version y vigencia: el PDF no declara version, resolucion ni fecha (ni en el texto ni en los metadatos: Title 'Pensum Maestría en Neuroeducación', Creator 'Google Sheets', sin CreationDate/ModDate). version = 'sin-fecha'; la vigencia se asume, NO VERIFICADO / UNVERIFIABLE.",
+    "El documento NO esta publicado en linea: las dos URLs oficiales de UPID de 2023 dan 404 y Wayback no tiene copia. Se acepta como fuente valida por decision del usuario (2026-10-10), registrada con `fuente.origen` (sin URL). El enlace privado de Google Drive por el que llego NO se registra en ningun archivo (privacidad).",
+    "El PDF es una exportacion de Google Sheets (Creator: 'Google Sheets', 1 pagina): posible version editada/re-impresa; al no existir publicacion oficial en linea no se puede contrastar contra la version de la universidad.",
+    "El PDF imprime 'Duracion: 2 años' y los encabezados PERIODO 1..6 (tipoPeriodo = 'periodo', 6 periodos).",
+    "Totales impresos: 'TOTALES CR / HT / HP 60 465 930'. La suma de las 23 filas cuadra exactamente (60 creditos / 465 HT / 930 HP) y tambien por periodo: P1 11/120/90, P2 13/120/150, P3 15/75/300, P4 8/60/120, P5 8/45/150, P6 5/45/120. El PDF NO imprime 'TOTAL DE ASIGNATURAS': las 23 son la suma de las filas.",
+    "Horas: cada fila trae HT (teoricas) y HP (practicas) ademas de CR; el schema no admite horas por materia, por lo que no se copian a materias y quedan registradas aqui en sus totales por periodo (arriba). Ejemplo de fila: 'MEA-112 ETICA Y LIDERAZGO DEL NEUROEDUCADOR 1 15 0'.",
+    "Formato de fila con PRE-REQ a la DERECHA ('[CODIGO] NOMBRE CR HT HP [CODIGO] NOMBRE'): 11 de 23 asignaturas traen prerrequisito (codigo + nombre). El schema solo guarda codigos de prerrequisito, asi que el nombre impreso del prerreq no se replica; todos los codigos existen en la carrera y el grafo es aciclico (los prerreq siempre apuntan a periodos anteriores).",
+    "MPP-252 PASANTIA imprime 0 creditos (0/0/120): se cura con creditos 0 tal como declara la fuente (el schema admite creditos >= 0 y el total de 60 cuadra).",
+    "Los nombres se conservan tal como los imprime el PDF (sin acentos: 'ETICA', 'EDUCACION', 'PSICOLOGIA', 'EVALUACION', 'ATENCION', etc.) y las abreviaciones de MPA-131 ('T. VALORACION / MANEJO PSICOJUR. PROBL. INFANTO-JUVENIL').",
+    "Escala (Reglamento Academico de UPID, Arts. 14 y 15): Art. 14 establece la escala A (95-100)=4, B+ (90-94)=3.5, B (85-89)=3, C (70-84)=2, D (60-69)=1, F (0-59)=0; 'el 70% es el minimo para aprobar'. Art. 15: indice = sumatoria (creditos x calificacion) / sumatoria de creditos, base 4.0 (0-4.0). El PDF del pensum no declara escala (la fuente es el reglamento, igual que las demas curadurias UPID).",
+    "Honores: NO VERIFICADO. El Art. 21 del Reglamento Academico define el Cuadro de Honor (3.4-3.65 CUM LAUDE, 3.66-3.80 MAGNA CUM LAUDE, 3.81-4.0 SUMMA CUM LAUDE), pero el Art. 22.H dice 'Solo en los titulos de Grado se asentaran en los mismos el Honor Academico obtenido durante los estudios': aplicabilidad a esta maestria no confirmada -> honores = [].",
+    "Trazabilidad del reglamento: reglas.fuente.sha256 verificado con Get-FileHash contra data/raw/upid/reglamento-academico.pdf = 58f12077f9b3... (el mismo valor que cita data/curated/upid/maestria-gestion-recursos-humanos.json). Ojo: data/curated/upid/licenciatura-contabilidad.json cita para el mismo archivo el hash 58f120778e97..., que NO coincide con el archivo local; aqui se usa el valor medido.",
+    "Pipeline: extraccion con tools-cli/extract-pensum.mjs (23 filas, 1 pagina) + ensamblador determinista (tools-cli/ensamblar-curaduria.mjs) con lineas normalizadas en data/interim/upid-neuroeducacion-lines.json (el PDF imprime el PRE-REQ a la derecha y el parser del ensamblador espera los prerequisitos antes del codigo propio; el generador data/interim/gen-neuroeducacion-lines.mjs reordena el campo y trocea las claves). Resultado del ensamblador: 23 materias / 60 creditos, 0 DIVERGENCIAS; draft en data/interim/upid-neuroeducacion.draft.json."
+  ],
+  "fuente": {
+    "origen": "Documento institucional aportado por la universidad (UPID); no publicado en línea (URLs oficiales de 2023 dan 404 y sin copia en Wayback).",
+    "sha256": "a8160acf2250e64a7ac5bd4967b434ea258e7821eb74caee6141eb1ef1499337",
+    "verificadoEn": "2026-10-10",
+    "archivo": "pensum-maestria-neuroeducacion.pdf"
+  }
+}

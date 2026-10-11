@@ -59,6 +59,7 @@ segundos y convierte el cuaderno en ruido. El historial es el `git log`.
 | UTESA | Ingeniería en Sistemas Computacionales | 2023 | 2026-10-07 | PASS |
 | UPID | Licenciatura en Contabilidad (`licenciatura-contabilidad`) | 2018 | 2026-10-07 | PASS |
 | UPID | Maestría en Gestión de Recursos Humanos (`maestria-gestion-recursos-humanos`) | 2018 | 2026-10-07 | PASS |
+| UPID | Maestría en Neuroeducación y Neuroaprendizaje Aplicados (`maestria-neuroeducacion`, postgrado) | sin-fecha | 2026-10-10 | PASS |
 | UNICARIBE | Especialidad en Habilitación Docente: Biología para el Nivel Secundario (`especialidad-biologia-secundaria`, postgrado) | 2024-11 | 2026-10-08 | PASS |
 | UNICARIBE | Maestría en Ciberseguridad (`maestria-ciberseguridad`, postgrado) | 2024-10 | 2026-10-08 | PASS |
 | UNICARIBE | Maestría en Educación Inicial (`maestria-educacion-inicial`, postgrado) | 2024-10 | 2026-10-08 | PASS |
@@ -585,6 +586,8 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   enlace cuando no hay URL). Tests nuevos en `core/datos/datos.test.ts`. El
   enlace de Drive **no se registra** en ningún archivo. Regla 4 de `AGENTS.md`
   actualizada.
+
+- **2026-10-10 — Curaduría UPID — Maestría en Neuroeducación y Neuroaprendizaje Aplicados.** El PDF que se creía de Derecho resultó ser el pensum de esta maestría (UPID no ofrece Derecho) y su sha256 es `a8160acf2250e64a7ac5bd4967b434ea258e7821eb74caee6141eb1ef1499337` (`data/raw/upid/pensum-maestria-neuroeducacion.pdf`). El documento lo aportó la universidad al usuario (llegó por un enlace privado) pero **no está publicado en línea**: las dos URLs oficiales de 2023 dan 404 y Wayback no tiene copia. Por decisión del usuario se acepta como fuente válida con `fuente.origen` (sin `url`), y el enlace privado de Drive **no se registra en ningún archivo** (privacidad). Contenido: 23 asignaturas / 60 créditos / 6 periodos, `TOTALES CR / HT / HP 60 465 930` coincide con la suma de las filas; 11 de 23 traen PRE-REQ (todos existen, grafo acíclico); sin versión/fecha declarada → `version: "sin-fecha"` NO VERIFICADO; escala del Reglamento Académico (Arts. 14-15) y honores `[]` NO VERIFICADO (Art. 22.H restringe el honor a títulos de Grado). (curador-pensum)
 
 ## Próximos pasos
 
