@@ -15,8 +15,12 @@ Sin cuentas, sin backend, sin scraping. Lee esto antes de tocar nada.
    `fetch` están prohibidos ahí). La UI vive en `tools/<herramienta>/`.
 4. **Los datos llevan fuente o no son datos.** Todo número de
    `data/curated/` sale de un PDF oficial en `data/raw/` y trae
-   `fuente.url`, `sha256` y `verificadoEn`. mipensum y otros sitios son pistas,
-   nunca fuente: sin PDF oficial contraste, el dato queda `NO VERIFICADO`.
+   `fuente.sha256`, `fuente.verificadoEn` y `fuente.url` pública; si el
+   documento oficial no está publicado en línea (p. ej. aportado directamente
+   por la institución), se registra `fuente.origen` describiendo su procedencia
+   en vez de `url`, y la página lo muestra sin enlace. mipensum y otros sitios
+   son pistas, nunca fuente: sin PDF oficial contraste, el dato queda
+   `NO VERIFICADO`.
 5. **El gate corre antes de cada commit**: `npm run gate` encadena los cuatro
    chequeos: `verify` (estructura y reglas de código), `verify:data` (integridad
    de pensums), `verify:config` (orden y efecto de los permisos) y `test`. Los

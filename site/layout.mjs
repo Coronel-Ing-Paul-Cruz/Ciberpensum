@@ -174,7 +174,9 @@ export function metaFuente(fuente, etiqueta = "Fuente oficial") {
   <h2>${esc(etiqueta)}</h2>
   <p class="meta-fuente">Documento oficial (<code>${esc(fuente.archivo ?? "")}</code>) descargado el <time datetime="${esc(fuente.verificadoEn)}">${esc(fuente.verificadoEn)}</time>.<br>
   sha256: <code>${esc(fuente.sha256)}</code></p>
-  <p><a href="${esc(fuente.url)}" rel="noreferrer">${esc(fuente.url)}</a></p>
+${fuente.url
+    ? `<p><a href="${esc(fuente.url)}" rel="noreferrer">${esc(fuente.url)}</a></p>`
+    : `<p class="meta-fuente">Sin URL pública: ${esc(fuente.origen ?? "documento no publicado en línea")}</p>`}
 </div>`
 }
 

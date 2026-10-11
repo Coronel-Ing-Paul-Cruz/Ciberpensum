@@ -43,9 +43,9 @@ for (const uni of readdirSync(dir)) {
     try { j = JSON.parse(readFileSync(p, "utf8")) } catch (e) { mal(`${tag}: JSON inválido`); continue }
     j.carrera ? ok(`${tag}: carrera`) : mal(`${tag}: falta carrera`)
     j.version ? ok(`${tag}: version "${j.version}"`) : mal(`${tag}: falta version`)
-    j.fuente?.url && j.fuente?.sha256 && j.fuente?.verificadoEn
-      ? ok(`${tag}: fuente+sha256+fecha`)
-      : mal(`${tag}: trazabilidad incompleta (url/sha256/verificadoEn)`)
+    j.fuente?.sha256 && j.fuente?.verificadoEn && (j.fuente?.url || j.fuente?.origen)
+      ? ok(`${tag}: trazabilidad (sha256+fecha${j.fuente?.url ? "+url" : "+origen"})`)
+      : mal(`${tag}: trazabilidad incompleta (sha256/verificadoEn + url u origen)`)
 
     // Schema completo (estructura, tipos, campos obligatorios).
     if (validar(j)) {

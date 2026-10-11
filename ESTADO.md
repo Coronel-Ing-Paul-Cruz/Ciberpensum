@@ -570,6 +570,22 @@ Se anotan aquí, con fecha. No se borran; se reemplazan por una entrada nueva.
   fallo real"). Corrección de navegación real: la página de universidad agrupa
   las carreras por `grado` (Grado/Postgrado) en vez de una rejilla plana de 16.
 
+- **2026-10-10 — Fuente sin URL pública (`fuente.origen`).** El usuario compartió
+  por enlace privado un PDF que resultó ser el pensum de la **Maestría en
+  Neuroeducación y Neuroaprendizaje Aplicados** de UPID, no Derecho (UPID no
+  ofrece Derecho: 5 licenciaturas, 5 técnicos y 2 maestrías en su oferta). El
+  documento lo obtuvo de la universidad pero no está publicado en su web (las dos
+  URLs oficiales de 2023 dan 404 y Wayback no tiene copia). Decisión del usuario:
+  aceptarlo como fuente válida y **permitir fuente sin URL**. Cambios en los
+  cuatro puntos del contrato: `data/schema/pensum.schema.json` (`fuente.url`
+  opcional, nuevo campo `origen`; exige url **u** origen),
+  `core/datos/datos.ts` (`Fuente.url?`/`Fuente.origen?`; la validación pide url u
+  origen), `tools-cli/verify-data.mjs` (trazabilidad = sha256 + fecha + url u
+  origen) y `site/layout.mjs` (`metaFuente` muestra `origen` como texto sin
+  enlace cuando no hay URL). Tests nuevos en `core/datos/datos.test.ts`. El
+  enlace de Drive **no se registra** en ningún archivo. Regla 4 de `AGENTS.md`
+  actualizada.
+
 ## Próximos pasos
 
 1. Recoger el veredicto de la verificación final (`revisor-a11y` + `auditor-seo`

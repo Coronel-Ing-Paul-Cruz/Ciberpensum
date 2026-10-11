@@ -190,6 +190,24 @@ describe("validarPensum: fuente", () => {
     const base = { ...pensumBase(), fuente: { url: "https://unicaribe.edu.do/pensum-isi.pdf", sha256: "A".repeat(64), verificadoEn: "2024-05-10" } }
     expect(erroresDe(validarPensum(base))).toContain("pensum.fuente.sha256 debe ser un hash de 64 caracteres hexadecimales en minúsculas")
   })
+
+  it("acepta una fuente sin URL si trae origen", () => {
+    const base = {
+      ...pensumBase(),
+      fuente: { origen: "aportado por la universidad; no publicado en línea", sha256: SHA, verificadoEn: "2026-10-10" },
+    }
+    expect(validarPensum(base).ok).toBe(true)
+  })
+
+  it("rechaza una fuente sin url ni origen", () => {
+    const base = { ...pensumBase(), fuente: { sha256: SHA, verificadoEn: "2026-10-10" } }
+    expect(erroresDe(validarPensum(base))).toContain("pensum.fuente necesita url u origen (procedencia del documento)")
+  })
+
+  it("rechaza origen vacío o en blanco", () => {
+    const base = { ...pensumBase(), fuente: { origen: "  ", sha256: SHA, verificadoEn: "2026-10-10" } }
+    expect(erroresDe(validarPensum(base))).toContain("pensum.fuente.origen debe ser un string no vacío")
+  })
 })
 
 describe("validarPensum: duración y totales de raíz", () => {

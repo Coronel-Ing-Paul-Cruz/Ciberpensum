@@ -37,7 +37,10 @@ export interface Asignatura {
 
 /** Procedencia de un dato curado: todo numero sale de un PDF oficial. */
 export interface Fuente {
-  url: string
+  /** URL publica del documento. Ausente solo si el documento no se publica en linea. */
+  url?: string
+  /** Procedencia cuando no hay URL publica (ej. "aportado por la universidad"). */
+  origen?: string
   sha256: string
   verificadoEn: string
   archivo?: string
@@ -121,13 +124,25 @@ function validarFuente(d: unknown, ruta: string, errores: string[]): Fuente | nu
     errores.push(`${ruta} debe ser un objeto`)
     return null
   }
-  rechazarCamposDesconocidos(d, ["url", "sha256", "verificadoEn", "archivo"], ruta, errores)
+  rechazarCamposDesconocidos(d, ["url", "origen", "sha256", "verificadoEn", "archivo"], ruta, errores)
 
-  let url = ""
+  let url: string | undefined
   const urlV = d["url"]
-  if (urlV === undefined) errores.push(`${ruta}.url es obligatoria`)
-  else if (!esString(urlV) || !RX_URI.test(urlV)) errores.push(`${ruta}.url no parece una URI válida`)
-  else url = urlV
+  if (urlV !== undefined) {
+    if (!esString(urlV) || !RX_URI.test(urlV)) errores.push(`${ruta}.url no parece una URI válida`)
+    else url = urlV
+  }
+
+  let origen: string | undefined
+  const origenV = d["origen"]
+  if (origenV !== undefined) {
+    if (!esString(origenV) || origenV.trim() === "") errores.push(`${ruta}.origen debe ser un string no vacío`)
+    else origen = origenV
+  }
+
+  if (urlV === undefined && origenV === undefined) {
+    errores.push(`${ruta} necesita url u origen (procedencia del documento)`)
+  }
 
   let sha256 = ""
   const shaV = d["sha256"]
@@ -150,7 +165,13 @@ function validarFuente(d: unknown, ruta: string, errores: string[]): Fuente | nu
   }
 
   if (errores.length > antes) return null
-  return { url, sha256, verificadoEn, ...(archivo !== undefined ? { archivo } : {}) }
+  return {
+    ...(url !== undefined ? { url } : {}),
+    ...(origen !== undefined ? { origen } : {}),
+    sha256,
+    verificadoEn,
+    ...(archivo !== undefined ? { archivo } : {}),
+  }
 }
 
 function validarMateria(d: unknown, i: number, errores: string[]): Asignatura | null {
