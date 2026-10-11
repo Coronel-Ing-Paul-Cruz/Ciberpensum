@@ -229,7 +229,28 @@ h3 {
   overflow-x: auto;
   border: 1px solid var(--borde);
   border-radius: var(--radio);
-  background: var(--papel-alto);
+  /* Sombras de scroll en CSS puro (mejora 12, sin cambiar el marcado):
+     si la tabla desborda, una sombra degradada en el borde derecho avisa de
+     que hay mas columnas y se apaga al llegar al final del scroll. Dos
+     "cubiertas" (background-attachment: local, se desplazan con el contenido)
+     tapan la sombra cuando el borde correspondiente ya esta a la vista; dos
+     "sombras" (background-attachment: scroll, fijas al borde visible del
+     contenedor) la pintan. El color de fondo va aparte porque las cubiertas
+     usan el color de la superficie para ocultar la sombra. Se ve a traves de
+     las celdas transparentes; las filas con color propio (estatus, hover,
+     fila-cuat) la tapan localmente, que es el comportamiento querido. */
+  background-color: var(--papel-alto);
+  background-image:
+    /* cubiertas (local): tapan su sombra al llegar al borde */
+    linear-gradient(to right, var(--papel-alto) 30%, rgb(255 255 255 / 0)),
+    linear-gradient(to right, rgb(255 255 255 / 0), var(--papel-alto) 70%),
+    /* sombras (scroll): fijas al borde visible del contenedor */
+    radial-gradient(farthest-side at 0% 50%, rgb(29 39 51 / 0.18), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgb(29 39 51 / 0.18), transparent);
+  background-repeat: no-repeat;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.9rem 100%, 0.9rem 100%;
+  background-position: 0 0, 100% 0, 0 0, 100% 0;
+  background-attachment: local, local, scroll, scroll;
 }
 
 table {
@@ -267,6 +288,46 @@ tbody tr:last-child td {
 
 tbody tr:hover {
   background: color-mix(in srgb, var(--accent-claro) 40%, transparent);
+}
+
+/* Columna de referencia fija bajo scroll horizontal (mejora 13): al
+   desplazarse la tabla, la primera columna (Código en malla y cuaderno) queda
+   clavada al borde izquierdo para no perder la referencia de columna. El
+   thead th va por encima (z-index) y la columna fija lleva un fondo opaco de
+   la superficie: asi no traspasa el contenido que pasa por debajo y las
+   celdas del resto de la fila siguen transparentes (la sombra de scroll de
+   arriba se sigue viendo). El hover de fila repinta la celda fija para que no
+   quede "despegada" del color de la fila.
+   La parte vertical (thead fijo al hacer scroll de pagina) NO es posible solo
+   con CSS aqui: .tabla-contenedor es contenedor de scroll (overflow-x: auto
+   fuerza overflow-y: auto, medido), asi que position: sticky dentro queda
+   referido al propio contenedor, que no desplaza en vertical; el thead se va
+   con la pagina. Requiere un wrapper fuera del contenedor de scroll (cambio
+   de marcado en site/) o JS; ver informe. */
+.tabla-contenedor thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.tabla-contenedor thead th:first-child:not(:last-child) {
+  left: 0;
+  z-index: 4;
+  box-shadow: 4px 0 6px -4px rgb(29 39 51 / 0.25);
+}
+
+.tabla-contenedor tbody td:first-child:not(:last-child),
+.tabla-contenedor tbody th:first-child:not(:last-child) {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--papel-alto);
+  box-shadow: 4px 0 6px -4px rgb(29 39 51 / 0.25);
+}
+
+.tabla-contenedor tbody tr:hover td:first-child:not(:last-child),
+.tabla-contenedor tbody tr:hover th:first-child:not(:last-child) {
+  background: color-mix(in srgb, var(--accent-claro) 40%, var(--papel-alto));
 }
 
 .numerico {
